@@ -27,3 +27,7 @@ Built-in imagegen outputs under `docs/visual-targets/`; see exact prompts and in
 ## Local runtime font and libraries
 
 Heebo Hebrew font subsets are bundled from `@fontsource/heebo@5.2.8` (400/600/800), with the original SIL Open Font License and copyright in `public/licenses/Heebo-OFL.txt`. Three.js `0.180.0` supplies rendering and GLTFLoader; its MIT notice is in `public/licenses/Three-MIT.txt`. No remote runtime font or asset service is used.
+
+## Living-town rebuild reuse
+
+The redesign under `src/rebuild/` reuses the exact original Tripo bus above, unchanged (516,128 bytes, same hash). No new Tripo generation, processing or credits were used. Houses, recognizable school/courtyard/gate, clinic construction and open states, station, street intersections, grouped broadleaf trees and backpack passenger figures are original procedural Three.js geometry. Passenger figures move rigidly; no deforming character or facial rig is claimed. New original Web Audio composition/cues are implemented locally in `src/rebuild/sound.ts`, with no external music service or asset.
