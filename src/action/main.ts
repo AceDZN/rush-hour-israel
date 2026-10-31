@@ -58,15 +58,16 @@ app.innerHTML = [
   '<canvas id="game" aria-label="לוח דרכים תלת ממדי"></canvas>',
   '<div id="world-targets" aria-label="חלקים ומקומות בלוח"></div>',
   '<header class="hud"><div class="identity"><span class="wordmark">שעת שיא<span class="brand-dot">.</span></span><span id="chapter"></span><button id="challenge-sample">אתגר לדוגמה ↗</button></div><div class="task"><span id="mission-name"></span><h1 id="instruction"></h1></div><div class="people-count"><span class="count-icon" aria-hidden="true"><svg width="26" height="28" viewBox="0 0 26 28" fill="currentColor"><circle cx="13" cy="7" r="4"/><path d="M6 25v-7a7 7 0 0 1 14 0v7z"/><circle cx="3" cy="10" r="2.5"/><circle cx="23" cy="10" r="2.5"/><path d="M0 23v-6a4 4 0 0 1 4-4h1v10zm21 0V13h1a4 4 0 0 1 4 4v6z"/></svg></span><b id="arrived">0</b><span class="count-slash">/</span><b id="total">6</b><small>הגיעו ליעד</small></div></header>',
+  '<div id="rescue-progress"><span id="rescue-stars" role="img"></span><span id="placement-progress"></span></div>',
   '<div id="north" class="north" hidden><span id="north-arrow">↑</span><small>צפון · מפה סכמטית</small></div>',
   '<div id="feedback" role="status" aria-live="polite"></div>',
-  '<div id="selected-actions" hidden><span id="selected-name"></span><button id="rotate" aria-label="סובבו את החלק רבע סיבוב לימין"><span>↻</span>סיבוב</button><button id="rotate-back" aria-label="סובבו את החלק רבע סיבוב לשמאל">↺</button><button id="to-tray" aria-label="החזירו את החלק למגש">↓ למגש</button></div>',
+  '<div id="selected-actions" hidden><span id="selected-name"></span><button id="rotate" aria-label="סובבו את החלק רבע סיבוב לימין"><span>↻</span>סיבוב</button><button id="rotate-back" aria-label="סובבו את החלק רבע סיבוב לשמאל">↺</button><button id="to-tray" aria-label="החזירו את החלק למגש">↓ למגש</button><button id="deselect" aria-label="סיימו בחירה">×</button></div>',
   '<div id="tray-caption">גררו חלק אל הלוח</div>',
   '<nav class="controls" aria-label="פקדי משחק"><button id="undo" title="צעד אחורה — Z" aria-label="צעד אחורה">↶</button><button id="pause" title="השהיה — רווח" aria-label="השהיה">Ⅱ</button><button id="menu" title="תפריט" aria-label="תפריט">☰</button></nav>',
   '<button id="hint" class="hint-button" aria-label="רמז קטן" title="רמז קטן">?</button>',
-  '<section id="win" hidden aria-live="polite"><div><span id="stars"></span><h2>הדרך עובדת!</h2><p id="win-text"></p></div><button id="next">לבוקר הבא <span>←</span></button></section>',
+  '<section id="win" hidden aria-live="polite"><div><span id="stars" role="img"></span><h2>כולם הגיעו!</h2><p id="rating-text"></p><button id="replay" hidden>לנסות בפחות הזזות ↶</button><p id="win-text"></p></div><button id="next">לבוקר הבא <span>←</span></button></section>',
   '<section id="paused" hidden><div><span class="pause-mark">Ⅱ</span><h2>עוצרים לנשום</h2><button id="resume">ממשיכים <span>▶</span></button></div></section>',
-  '<dialog id="settings"><form method="dialog"><button class="close-dialog" aria-label="סגירה">×</button><h2>הדרך בידיים שלכם</h2><p>גררו חלק כדי להזיז אותו. הקישו על כביש חופשי כדי לסובב. אפשר גם לבחור חלק מהמגש ולהקיש במקום פנוי.</p><p class="keyboard">Q / E סיבוב · Z ביטול · רווח השהיה · R התחלה מחדש · F מסך מלא</p><label><input id="sound" type="checkbox"> צלילים</label><label><input id="motion" type="checkbox"> תנועה מצומצמת</label><div class="menu-actions"><button id="restart" type="button">התחלה מחדש</button><button id="fullscreen" type="button">מסך מלא</button></div><h3>24 בקרים, דרכים חדשות</h3><div id="mission-list"></div></form></dialog>',
+  '<dialog id="settings"><form method="dialog"><button class="close-dialog" aria-label="סגירה">×</button><h2>הדרך בידיים שלכם</h2><p>גררו חלק כדי להזיז אותו. הקישו על כביש חופשי כדי לסובב. אפשר גם לבחור חלק מהמגש ולהקיש במקום פנוי.</p><p id="star-rules"></p><p class="keyboard">Q / E סיבוב · Z ביטול · רווח השהיה · R התחלה מחדש · F מסך מלא</p><label><input id="sound" type="checkbox"> צלילים</label><label><input id="motion" type="checkbox"> תנועה מצומצמת</label><div class="menu-actions"><button id="restart" type="button">התחלה מחדש</button><button id="fullscreen" type="button">מסך מלא</button></div><h3>24 בקרים, דרכים חדשות</h3><div id="mission-list"></div></form></dialog>',
 ].join("");
 // Preload the small local symbol faces used by later HUD states as well as
 // the opening text, so a victory does not request an uncached font offline.
@@ -75,12 +76,13 @@ void Promise.all(
     document.fonts.load(weight + " 16px Heebo", "↶Ⅱ▶☰↻↓?←×★☆"),
   ),
 ).catch(() => {});
-const STORAGE = "rush-hour-road-puzzle-v4";
+const STORAGE = "rush-hour-road-puzzle-v5";
 let saved: {
   unlocked: number;
   stars: Record<number, number>;
   muted: boolean;
   reduced: boolean;
+  scoring?: "placements";
 } = {
   unlocked: 1,
   stars: {},
@@ -97,7 +99,8 @@ try {
     };
   else {
     const previous = JSON.parse(
-      localStorage.getItem("rush-hour-road-puzzle-v3") ?? "null",
+      localStorage.getItem("rush-hour-road-puzzle-v4") ??
+        localStorage.getItem("rush-hour-road-puzzle-v3") ?? "null",
     );
     if (previous)
       saved = {
@@ -105,17 +108,12 @@ try {
         unlocked: Math.max(1, Math.min(24, Number(previous.unlocked) || 1)),
         muted: Boolean(previous.muted),
         reduced: Boolean(previous.reduced),
-        stars: Object.fromEntries(
-          Object.entries(previous.stars ?? {})
-            .filter(([id]) => Number(id) <= 2)
-            .map(([id, score]) => [
-              id,
-              Math.max(0, Math.min(3, Number(score) || 0)),
-            ]),
-        ),
+        stars: {},
       };
   }
 } catch {}
+// Access/settings migrate; older score records remain intact under their old rules.
+saved.scoring = "placements";
 const save = () => {
   try {
     localStorage.setItem(STORAGE, JSON.stringify(saved));
@@ -170,6 +168,8 @@ function clearGesture() {
   ui.dragging = null;
   ui.hover = null;
   ui.pointer = null;
+  ui.selected = null;
+  ui.hint = null;
 }
 function start(id: number) {
   clearGesture();
@@ -285,6 +285,12 @@ function update() {
   $("instruction").textContent = m.instruction;
   $("arrived").textContent = String(st.arrived);
   $("total").textContent = String(st.total);
+  $("rescue-stars").textContent = "★".repeat(st.stars) + "☆".repeat(3 - st.stars);
+  $("rescue-stars").setAttribute("aria-label", "דירוג צפוי בסיום: " + st.stars + " מתוך 3");
+  $("placement-progress").textContent = st.placements + " הזזות · יעד " + st.placementTarget;
+  $("rescue-progress").hidden = state.mode === "won";
+  $("rescue-progress").title = "דירוג צפוי, נשמר רק כשכולם מגיעים. 3 כוכבים עד " + st.placementTarget + " הזזות. סיבובים חופשיים.";
+  $("star-rules").textContent = "מסיימים כשכולם מגיעים. באתגר הזה: 3 כוכבים עד " + st.placementTarget + " הזזות, 2 כוכבים עד " + (st.placementTarget + 2) + ". מעבר לכך: כוכב אחד. כל הנחה במקום אחר בלוח היא הזזה אחת, גם בהחלפה. סיבובים, החזרה למגש, רמזים וזמן חופשיים. ביטול מחזיר גם את הספירה. זהו יעד שאפשר להשיג, לא בהכרח המספר המינימלי.";
   $("undo").toggleAttribute("disabled", state.undo.length === 0 && !state.held);
   $("pause").textContent =
     state.mode === "paused" ? icon("play") : icon("pause");
@@ -310,7 +316,7 @@ function update() {
         : "גררו להזזה · הקישו לסיבוב";
   $("win").hidden = state.mode !== "won";
   $("hint").hidden = state.mode === "won";
-  $("north").hidden = m.id < 9;
+  $("north").hidden = m.id < 8;
   $("north-arrow").style.transform =
     "rotate(" + (scene.northAngle ?? 0) + "rad)";
   if (state.event && state.event.serial !== lastEvent) {
@@ -332,6 +338,9 @@ function update() {
     audio.play("win");
     ui.selected = null;
     $("stars").textContent = "★".repeat(st.stars) + "☆".repeat(3 - st.stars);
+    $("stars").setAttribute("aria-label", st.stars + " מתוך 3 כוכבים");
+    $("rating-text").textContent = st.placements + " הזזות · 3 כוכבים עד " + st.placementTarget + " · סיבובים חופשיים";
+    $("replay").hidden = st.stars === 3;
     $("win-text").textContent =
       m.id === 24
         ? "כל 24 הבקרים פתוחים. אפשר לחזור ולנסות דרך אחרת."
@@ -357,7 +366,7 @@ function buildMissionList() {
     b.title = m.title;
     b.disabled =
       m.id > saved.unlocked && !saved.stars[m.id] && m.id !== state.mission.id;
-    if (saved.stars[m.id]) b.classList.add("complete");
+    if (saved.stars[m.id] || m.id < saved.unlocked) b.classList.add("complete");
     if (m.id === state.mission.id) b.classList.add("current");
     b.addEventListener("click", () => start(m.id));
     $("mission-list").append(b);
@@ -380,7 +389,7 @@ settings.addEventListener("close", () => {
 $("menu").onclick = openSettings;
 $("challenge-sample").onclick = () => start(4);
 $("undo").onclick = () => {
-  undo(state);
+  if (undo(state)) savedWin = false;
   ui.selected = null;
   ui.hint = null;
   update();
@@ -389,6 +398,10 @@ $("pause").onclick = () => setPause(state.mode !== "paused");
 $("resume").onclick = () => setPause(false);
 $("rotate").onclick = () => turn();
 $("rotate-back").onclick = () => turn(-1);
+$("deselect").onclick = () => {
+  clearGesture();
+  update();
+};
 $("to-tray").onclick = () => {
   if (ui.selected && returnToTray(state, ui.selected)) {
     ui.selected = null;
@@ -398,6 +411,7 @@ $("to-tray").onclick = () => {
 };
 $("next").onclick = () =>
   state.mission.id === 24 ? openSettings() : start(state.mission.id + 1);
+$("replay").onclick = () => start(state.mission.id);
 $("restart").onclick = () => {
   const id = state.mission.id;
   settings.close();
@@ -541,6 +555,10 @@ app.addEventListener("pointerup", (e) => {
     }
   } else if (p.id) clickTile(p.id);
   else if (p.cell) moveTo(p.cell);
+  else {
+    ui.selected = null;
+    ui.hint = null;
+  }
   pressed = null;
   ui.dragging = null;
   ui.pointer = null;
@@ -572,7 +590,7 @@ window.addEventListener("keydown", (e) => {
     setPause(state.mode !== "paused");
   } else if (e.code === "KeyZ") {
     e.preventDefault();
-    undo(state);
+    if (undo(state)) savedWin = false;
     ui.selected = null;
     update();
   } else if (e.code === "KeyR") {
@@ -590,7 +608,7 @@ window.addEventListener("keydown", (e) => {
     e.preventDefault();
     turn(-1);
   } else if (e.code === "Escape") {
-    if (pressed || state.held) {
+    if (pressed || state.held || ui.selected) {
       clearGesture();
       update();
     } else setPause(state.mode !== "paused");
@@ -622,6 +640,7 @@ function textState() {
     goal: st,
     selected: ui.selected,
     held: ui.dragging,
+    hover: ui.hover,
     hints,
     message: state.message,
     modelLoaded:

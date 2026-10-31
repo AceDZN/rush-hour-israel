@@ -1,0 +1,32 @@
+{
+  "loggedBeforeInput": "2026-10-31T16:51:41.968Z",
+  "id": 8,
+  "intent": "Choose the southern bypass. Put both corners below the garden, reclaiming the loose far corner, and connect their east-west ends with all three straights. Do not split corners between the two flanks.",
+  "moves": [
+    {
+      "tile": "road-1,1",
+      "cell": "1,3",
+      "rotation": 0
+    },
+    {
+      "tile": "road-5,1",
+      "cell": "5,3",
+      "rotation": 3
+    },
+    {
+      "tile": "road-2,1",
+      "cell": "2,3",
+      "rotation": 0
+    },
+    {
+      "tile": "road-3,1",
+      "cell": "3,3",
+      "rotation": 0
+    },
+    {
+      "tile": "road-4,1",
+      "cell": "4,3",
+      "rotation": 0
+    }
+  ]
+}

@@ -70,6 +70,24 @@ export class RoadScene {
       texturesLoaded: this.m.texturesLoaded,
     };
   }
+  private cutawayMaterials: {
+    material: THREE.Material;
+    baseOpacity: number;
+    transparent: boolean;
+    depthWrite: boolean;
+    owner?: string;
+  }[] = [];
+  private occludedMovables = new Set<string>();
+  private movableGhosts = new Map<string, THREE.Line>();
+  private occupiedFootprints = new THREE.Group();
+  private cutawayAmount = 0;
+  private lastOcclusionCheck = -1;
+  private lastOcclusionRevision = -1;
+  private cutawayObjects: {
+    mesh: THREE.Mesh;
+    castShadow: boolean;
+    owner?: string;
+  }[] = [];
   private renderer: THREE.WebGLRenderer;
   private camera = new THREE.OrthographicCamera(-10, 10, 7, -7, 0.1, 180);
   private scene = new THREE.Scene();
@@ -95,6 +113,7 @@ export class RoadScene {
     { grass: THREE.Object3D; socket: THREE.Object3D; decor: THREE.Group }
   >();
   private landmarkLots = new Map<string, Cell>();
+  private curbSides = new Map<string, Dir>();
   private landmarkCourts = new Map<
     string,
     { x: number; y: number; z: number; angle: number }
@@ -177,6 +196,7 @@ export class RoadScene {
       this.rack,
       this.feedback,
       this.barriers,
+      this.occupiedFootprints,
     );
     const table = new THREE.Mesh(
       surfaceUV(new THREE.PlaneGeometry(180, 180)),
@@ -367,6 +387,23 @@ export class RoadScene {
   }
   setMission(m: Mission) {
     this.mission = m;
+    for (const entry of this.cutawayMaterials) entry.material.dispose();
+    this.cutawayMaterials = [];
+    this.cutawayObjects = [];
+    this.lastOcclusionRevision = -1;
+    this.cutawayAmount = 0;
+    this.occludedMovables.clear();
+    this.lastOcclusionCheck = -1;
+    for (const line of this.movableGhosts.values()) {
+      this.feedback.remove(line);
+      line.geometry.dispose();
+      for (const material of Array.isArray(line.material)
+        ? line.material
+        : [line.material])
+        material.dispose();
+    }
+    this.movableGhosts.clear();
+    this.dispose(this.occupiedFootprints);
     this.state = null;
     this.ui = null;
     this.previousPeople.clear();
@@ -386,6 +423,7 @@ export class RoadScene {
     this.grounds.clear();
     this.inserts.clear();
     this.landmarkLots.clear();
+    this.curbSides.clear();
     this.landmarkCourts.clear();
     this.railPlatforms = [];
     this.landmarkRoots = [];
@@ -440,6 +478,62 @@ export class RoadScene {
     }
     for (const c of m.cells) this.buildCell(c);
     for (const c of m.cells) if (c.landmark) this.landmark(c);
+    this.prepareCutaway(this.landmarkWorld);
+    for (const [id, entry] of this.inserts) {
+      if (m.cells.find((c) => c.id === id)?.terrain === "land")
+        this.prepareCutaway(entry.decor);
+    }
+    const occupied: number[] = [];
+    for (const c of m.cells.filter((c) => c.terrain === "built")) {
+      const x = c.x * T,
+        z = c.z * T,
+        y = c.height * H + 0.025,
+        r = R - 0.05;
+      const points = [
+        [-r, -r],
+        [r, -r],
+        [r, r],
+        [-r, r],
+        [-r, -r],
+      ];
+      for (let i = 1; i < points.length; i++)
+        occupied.push(
+          x + points[i - 1][0],
+          y,
+          z + points[i - 1][1],
+          x + points[i][0],
+          y,
+          z + points[i][1],
+        );
+      occupied.push(
+        x - r,
+        y,
+        z - r,
+        x + r,
+        y,
+        z + r,
+        x - r,
+        y,
+        z + r,
+        x + r,
+        y,
+        z - r,
+      );
+    }
+    if (occupied.length)
+      this.occupiedFootprints.add(
+        new THREE.LineSegments(
+          new THREE.BufferGeometry().setAttribute(
+            "position",
+            new THREE.Float32BufferAttribute(occupied, 3),
+          ),
+          new THREE.LineBasicMaterial({
+            color: 0x8e8170,
+            transparent: true,
+            opacity: 0.38,
+          }),
+        ),
+      );
     this.buildRack(m.tiles.filter((t) => t.cell === null));
     this.batch(this.staticWorld);
     this.fitCamera();
@@ -1111,6 +1205,7 @@ export class RoadScene {
     if (tile.locked)
       for (const x of [-1.07, 1.07])
         this.cylinder(group, x, 0.012, -1.08, 0.037, 0.018, this.m.steel);
+    if (tile.kind === "clinic") this.prepareCutaway(group, tile.id);
     this.tileWorld.add(group);
     return {
       group,
@@ -1466,6 +1561,28 @@ export class RoadScene {
     this.box(g, 0, 0.74, 0.3, 0.11, 0.38, 0.045, this.m.roof, 0.018);
     this.box(g, 0, 0.88, 0.31, 0.38, 0.11, 0.045, this.m.roof, 0.018);
   }
+  private fallbackSide(c: Cell, ports: Dir[]): Dir {
+    const mission = this.mission!,
+      directions = ([0, 1, 2, 3] as Dir[]).filter((d) => !ports.includes(d));
+    const score = (d: Dir) => {
+      const dx = d === 1 ? 1 : d === 3 ? -1 : 0,
+        dz = d === 2 ? 1 : d === 0 ? -1 : 0,
+        n = mission.cells.find((n) => n.x === c.x + dx && n.z === c.z + dz),
+        tie = [3, 1, 0, 2][d];
+      if (!n) return -100 + tie;
+      if (n.servicePlot) return 1000 + tie;
+      if (mission.roadCells?.includes(n.id)) return 300 + tie;
+      if (
+        mission.tiles.some((t) => t.cell === n.id) ||
+        mission.solution.some((a) => a.type === "place" && a.cell === n.id)
+      )
+        return 150 + tie;
+      if (n.terrain === "built") return -50 + tie;
+      if (n.landmark) return 200 + tie;
+      return (n.terrain === "land" ? 0 : 20) + tie;
+    };
+    return directions.sort((a, b) => score(a) - score(b))[0] ?? 0;
+  }
   private landmark(c: Cell) {
     const root = new THREE.Group();
     root.position.set(c.x * T, c.height * H + 0.01, c.z * T);
@@ -1473,11 +1590,19 @@ export class RoadScene {
     this.landmarkWorld.add(root);
     this.landmarkRoots.push(root);
     const tile = this.mission!.tiles.find((t) => t.cell === c.id),
-      ports = tile ? roadPorts(tile) : [1, 3],
-      free = ([0, 1, 2, 3] as Dir[]).find((d) => !ports.includes(d)) ?? 0,
+      ports = tile ? roadPorts(tile) : ([1, 3] as Dir[]),
       lot = this.landmarkLots.get(c.id),
       full = !!lot,
+      free = full
+        ? (([0, 1, 2, 3] as Dir[]).find((d) => !ports.includes(d)) ?? 0)
+        : this.fallbackSide(c, ports),
       kind = c.landmark!.kind;
+    const unused = ([0, 1, 2, 3] as Dir[]).filter((d) => !ports.includes(d)),
+      opposite = ((free + 2) % 4) as Dir,
+      curb = unused.includes(opposite)
+        ? opposite
+        : (unused.find((d) => d !== free) ?? free);
+    this.curbSides.set(c.id, curb);
     const group = new THREE.Group();
     root.add(group);
     let lotWidth = 2.26,
@@ -1533,10 +1658,13 @@ export class RoadScene {
     } else {
       group.rotation.y = (-free * Math.PI) / 2;
       group.position.set(
-        -Math.sin((-free * Math.PI) / 2) * 0.96,
+        -Math.sin((-free * Math.PI) / 2) * 1.04,
         0,
-        -Math.cos((-free * Math.PI) / 2) * 0.96,
+        -Math.cos((-free * Math.PI) / 2) * 1.04,
       );
+      // A no-lot landmark is a low, shallow architectural relief. Its balcony,
+      // roof heater and steps also stay inside the unused roadside strip.
+      group.scale.set(1, 0.42, 0.42);
     }
     if (kind === "home") {
       if (full) {
@@ -1673,7 +1801,7 @@ export class RoadScene {
       );
     }
     const pickup = new THREE.Group();
-    pickup.rotation.y = (-free * Math.PI) / 2;
+    pickup.rotation.y = ((2 - curb) * Math.PI) / 2;
     root.add(pickup);
     this.box(pickup, 0, 0.025, 0.98, 2.0, 0.035, 0.47, this.m.paving, 0.008);
     if (kind === "home" || kind === "station") {
@@ -2347,7 +2475,9 @@ export class RoadScene {
     const tile = s.tiles.find((t) => t.cell === c.id),
       ports = tile ? roadPorts(tile) : [1, 3],
       free = ([0, 1, 2, 3] as Dir[]).filter((d) => !ports.includes(d)),
-      side = free.length > 1 ? free[1] : (free[0] ?? 2),
+      side =
+        this.curbSides.get(c.id) ??
+        (free.length > 1 ? free[1] : (free[0] ?? 2)),
       angle = (-(side - 2) * Math.PI) / 2,
       lx = ((n % 6) - 2.5) * 0.19,
       lz = 0.99 + Math.floor(n / 6) * 0.22;
@@ -2695,6 +2825,7 @@ export class RoadScene {
       this.m.water.bumpMap.offset.x += step * 0.009;
       this.m.water.bumpMap.offset.y += step * 0.005;
     }
+    this.updateCutaway(s, ui, step);
     this.renderer.render(this.scene, this.camera);
     this.frameCount++;
     const now = performance.now();
@@ -2703,6 +2834,209 @@ export class RoadScene {
       this.frameCount = 0;
       this.lastFps = now;
     }
+  }
+  private prepareCutaway(root: THREE.Object3D, owner?: string) {
+    const cache = new Map<THREE.Material, THREE.Material>();
+    root.traverse((o) => {
+      if (!(o instanceof THREE.Mesh)) return;
+      this.cutawayObjects.push({ mesh: o, castShadow: o.castShadow, owner });
+      const clone = (source: THREE.Material) => {
+        let material = cache.get(source);
+        if (!material) {
+          material = source.clone();
+          cache.set(source, material);
+          this.cutawayMaterials.push({
+            material,
+            baseOpacity: material.opacity,
+            transparent: material.transparent,
+            depthWrite: material.depthWrite,
+            owner,
+          });
+        }
+        return material;
+      };
+      o.material = Array.isArray(o.material)
+        ? o.material.map(clone)
+        : clone(o.material);
+    });
+  }
+  private isEditing() {
+    return !!(this.ui?.selected || this.ui?.dragging);
+  }
+  private updateCutaway(s: GameState, ui: SceneUI, step: number) {
+    const target = this.isEditing() ? 1 : 0;
+    this.cutawayAmount = ui.reducedMotion
+      ? target
+      : THREE.MathUtils.lerp(
+          this.cutawayAmount,
+          target,
+          Math.min(1, step * 24),
+        );
+    if (Math.abs(this.cutawayAmount - target) < 0.002)
+      this.cutawayAmount = target;
+    for (const entry of this.cutawayMaterials) {
+      const tile = entry.owner
+          ? s.tiles.find((t) => t.id === entry.owner)
+          : null,
+        amount =
+          entry.owner &&
+          (!tile?.cell ||
+            ui.selected === entry.owner ||
+            ui.dragging === entry.owner)
+            ? 0
+            : this.cutawayAmount;
+      entry.material.opacity = entry.baseOpacity * (1 - amount * 0.85);
+      const transparent = amount > 0.002 || entry.transparent;
+      if (entry.material.transparent !== transparent) {
+        entry.material.transparent = transparent;
+        entry.material.needsUpdate = true;
+      }
+      entry.material.depthWrite = amount > 0.002 ? false : entry.depthWrite;
+    }
+    for (const entry of this.cutawayObjects) {
+      const tile = entry.owner
+          ? s.tiles.find((t) => t.id === entry.owner)
+          : null,
+        amount =
+          entry.owner &&
+          (!tile?.cell ||
+            ui.selected === entry.owner ||
+            ui.dragging === entry.owner)
+            ? 0
+            : this.cutawayAmount;
+      entry.mesh.castShadow = amount > 0.25 ? false : entry.castShadow;
+    }
+    this.occupiedFootprints.visible = this.cutawayAmount > 0.25;
+    if (
+      this.elapsed - this.lastOcclusionCheck > 0.25 ||
+      this.lastOcclusionCheck < 0 ||
+      s.revision !== this.lastOcclusionRevision
+    ) {
+      this.lastOcclusionCheck = this.elapsed;
+      this.lastOcclusionRevision = s.revision;
+      this.scene.updateMatrixWorld(true);
+      this.occludedMovables.clear();
+      for (const t of s.tiles.filter((t) => !t.locked && t.cell)) {
+        const view = this.tiles.get(t.id);
+        if (!view) continue;
+        const point = view.group.position
+            .clone()
+            .add(new THREE.Vector3(0, 0.12, 0)),
+          screen = this.project(point);
+        this.raycaster.setFromCamera(
+          new THREE.Vector2(
+            (screen.x / this.width) * 2 - 1,
+            1 - (screen.y / this.height) * 2,
+          ),
+          this.camera,
+        );
+        const distance = this.raycaster.ray.origin.distanceTo(point),
+          roots: THREE.Object3D[] = [
+            ...this.landmarkRoots,
+            ...s.tiles
+              .filter((o) => o.kind === "clinic" && o.cell && o.id !== t.id)
+              .map((o) => this.tiles.get(o.id)!.group),
+          ];
+        if (
+          this.raycaster
+            .intersectObjects(roots, true)
+            .some(
+              (hit) =>
+                hit.object instanceof THREE.Mesh &&
+                hit.distance < distance - 0.04,
+            )
+        )
+          this.occludedMovables.add(t.id);
+      }
+    }
+    for (const t of s.tiles.filter((t) => !t.locked)) {
+      const view = this.tiles.get(t.id);
+      if (!view) continue;
+      let ghost = this.movableGhosts.get(t.id);
+      if (!ghost) {
+        const points = this.outlineGeometry(2.49, 0.08).getAttribute(
+            "position",
+          ),
+          vertices: number[] = [];
+        for (let i = 0; i < points.count; i++)
+          vertices.push(points.getX(i), points.getY(i), points.getZ(i));
+        const geometry = new THREE.BufferGeometry().setAttribute(
+          "position",
+          new THREE.Float32BufferAttribute(vertices, 3),
+        );
+        ghost = new THREE.Line(
+          geometry,
+          new THREE.LineBasicMaterial({
+            color: 0x665d4f,
+            transparent: true,
+            opacity: 0.72,
+            depthTest: false,
+            depthWrite: false,
+          }),
+        );
+        ghost.renderOrder = 25;
+        this.feedback.add(ghost);
+        this.movableGhosts.set(t.id, ghost);
+      }
+      ghost.visible = !this.isEditing() && this.occludedMovables.has(t.id);
+      ghost.position.copy(view.group.position);
+      ghost.position.y += 0.035;
+      ghost.rotation.y = view.angle;
+    }
+  }
+  private groundPick(): Pick {
+    const ray = this.raycaster.ray,
+      hits: { id: string; distance: number }[] = [];
+    for (const c of this.mission?.cells ?? []) {
+      const point = new THREE.Vector3();
+      if (
+        ray.intersectPlane(
+          new THREE.Plane(new THREE.Vector3(0, 1, 0), -(c.height * H + 0.025)),
+          point,
+        ) &&
+        Math.abs(point.x - c.x * T) <= R + 0.001 &&
+        Math.abs(point.z - c.z * T) <= R + 0.001
+      )
+        hits.push({ id: c.id, distance: ray.origin.distanceTo(point) });
+    }
+    hits.sort((a, b) => a.distance - b.distance);
+    return hits[0] ? { cell: hits[0].id } : {};
+  }
+  private visibleMovableAt(clientX: number, clientY: number): Pick | null {
+    const rect = this.canvas.getBoundingClientRect(),
+      p = { x: clientX - rect.left, y: clientY - rect.top };
+    for (const id of this.occludedMovables) {
+      const tile = this.state?.tiles.find((t) => t.id === id),
+        view = this.tiles.get(id);
+      if (!tile || tile.locked || !view) continue;
+      const corners = [
+        [-R, -R],
+        [R, -R],
+        [R, R],
+        [-R, R],
+      ].map(([x, z]) =>
+        this.project(
+          new THREE.Vector3(x, 0.12, z).applyMatrix4(view.group.matrixWorld),
+        ),
+      );
+      let sign = 0,
+        inside = true;
+      for (let i = 0; i < 4; i++) {
+        const a = corners[i],
+          b = corners[(i + 1) % 4],
+          cross = (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
+        if (Math.abs(cross) < 0.5) continue;
+        const next = Math.sign(cross);
+        if (sign && next !== sign) {
+          inside = false;
+          break;
+        }
+        sign = next;
+      }
+      if (inside)
+        return { tile: id, ...(tile.cell ? { cell: tile.cell } : {}) };
+    }
+    return null;
   }
   private cellPosition(id: string) {
     const c = this.mission!.cells.find((c) => c.id === id);
@@ -2742,6 +3076,27 @@ export class RoadScene {
       ),
       this.camera,
     );
+    if (this.isEditing()) {
+      if (!this.ui?.dragging) {
+        const tileRoots = [...this.tiles.entries()].map(([, v]) => v.group);
+        const hits = this.raycaster
+          .intersectObjects(tileRoots, true)
+          .filter((h) => h.object instanceof THREE.Mesh);
+        for (const hit of hits) {
+          let object: THREE.Object3D | null = hit.object;
+          while (object && !object.userData.tile) object = object.parent;
+          if (object?.userData.tile) {
+            const t = this.state?.tiles.find(
+              (t) => t.id === object!.userData.tile,
+            );
+            if (t) return { tile: t.id, ...(t.cell ? { cell: t.cell } : {}) };
+          }
+        }
+      }
+      return this.groundPick();
+    }
+    const obscured = this.visibleMovableAt(clientX, clientY);
+    if (obscured) return obscured;
     const roots: THREE.Object3D[] = [...this.tiles.entries()]
       .filter(([id]) => id !== this.ui?.dragging)
       .map(([, t]) => t.group);
@@ -2874,5 +3229,6 @@ export class RoadScene {
     this.camera.top = half + shift;
     this.camera.bottom = -half + shift;
     this.camera.updateProjectionMatrix();
+    this.lastOcclusionCheck = -1;
   }
 }

@@ -134,6 +134,26 @@ button:disabled {
   font-weight: 400;
   white-space: nowrap;
 }
+#rescue-progress {
+  position: absolute;
+  top: 98px;
+  left: 32px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  color: #59655d;
+  font-size: 10px;
+  pointer-events: none;
+}
+#rescue-stars {
+  direction: ltr;
+  color: #987442;
+  letter-spacing: 3px;
+  font-size: 16px;
+  line-height: 1;
+}
 .controls {
   position: absolute;
   left: 28px;
@@ -475,6 +495,18 @@ dialog h3 {
     grid-row: 1;
     font-size: 27px;
   }
+  #rescue-progress {
+    top: 82px;
+    left: 18px;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+  }
+  #rescue-stars {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
   .task {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -655,6 +687,15 @@ dialog h3 {
 #stars {
   color: #a17b43;
 }
+#win #replay {
+  padding: 3px 0;
+  min-height: 32px;
+  background: transparent;
+  color: #53684e;
+  border-radius: 0;
+  text-decoration: underline;
+  font-size: 11px;
+}
 #paused {
   background: #e8e3d88a;
   color: #2d4237;
@@ -701,7 +742,8 @@ dialog::backdrop {
   #challenge-sample {
     position: fixed;
     top: 80px;
-    left: 18px;
+    right: 18px;
+    left: auto;
     margin: 0;
   }
 }
@@ -710,4 +752,25 @@ dialog::backdrop {
   line-height: 1;
   min-width: 36px;
   padding: 3px 8px;
+}
+#selected-actions #deselect {
+  font-size: 20px;
+  line-height: 1;
+  min-width: 32px;
+  padding: 3px 7px;
+  background: transparent;
+  color: #40564a;
+}
+@media (max-width: 700px) {
+  #selected-actions button,
+  #selected-actions #rotate-back,
+  #selected-actions #deselect {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .controls button,
+  .hint-button {
+    width: 44px;
+    height: 44px;
+  }
 }

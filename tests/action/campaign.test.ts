@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import {
   MISSIONS,
   getMission,
+  ALTERNATE_4,
+  ALTERNATE_8,
   ALTERNATE_21,
   ALTERNATE_23,
 } from "../../src/action/campaign";
@@ -150,7 +152,7 @@ test("18: the near group has a longer real path and arrives later than the far g
 test("8: quiet land rejects a direct road, while the real bypass serves the children", () => {
   const s = createState(getMission(8)),
     before = structuredClone(s.tiles);
-  assert.equal(place(s, "left", "2,2"), false);
+  assert.equal(place(s, "road-1,1", "3,2"), false);
   assert.deepEqual(s.tiles, before);
   assert.equal(s.moves, 0);
   actions(s);
@@ -159,13 +161,17 @@ test("8: quiet land rejects a direct road, while the real bypass serves the chil
 
 test("19: a clinic at the other valid plot does not erase the local group", () => {
   const s = createState(getMission(19));
+  actions(
+    s,
+    s.mission.solution.filter((a) => a.tile !== "clinic"),
+  );
   assert.equal(place(s, "clinic", "1,1"), true);
   tick(s, 30);
   accounting(s);
   assert.equal(stats(s).groups.find((g) => g.id === "local")!.arrived, 0);
   assert.equal(s.mode, "playing");
   const ids = s.people.map((p) => p.id);
-  assert.equal(place(s, "clinic", "3,2"), true);
+  assert.equal(place(s, "clinic", "4,3"), true);
   tick(s, 0.1);
   assert.equal(stats(s).walking, 4);
   assert.ok(advance(s));
@@ -181,14 +187,14 @@ test("21: normal road and announced wider-road demand are two genuinely differen
   actions(slim, ALTERNATE_21);
   actions(wide);
   assert.ok(advance(slim));
-  assert.equal(stats(slim).total, 6);
+  assert.equal(stats(slim).total, 12);
   assert.equal(slim.inducedDone, false);
   assert.ok(advance(wide));
-  assert.equal(stats(wide).total, 18);
+  assert.equal(stats(wide).total, 24);
   assert.equal(wide.inducedDone, true);
   assert.ok(wide.time > slim.time);
   tick(wide, 30);
-  assert.equal(stats(wide).total, 18);
+  assert.equal(stats(wide).total, 24);
 });
 
 test("22: waiting until after closure is recoverable by building the alternate crossing", () => {
@@ -207,7 +213,7 @@ test("23: independently authored lower corridor also wins with the same piece in
   actions(s, ALTERNATE_23);
   assert.ok(advance(s));
   assert.equal(stats(s).arrived, 12);
-  assert.equal(s.tiles.filter((t) => !t.locked).length, 2);
+  assert.equal(s.tiles.filter((t) => !t.locked).length, 5);
 });
 
 test("24: the connected majority cannot win without opening the actual local clinic", () => {
@@ -244,28 +250,95 @@ test("all24: explicit building lots preserve every authored road, puzzle socket 
       ...m.cells.filter((c) => c.landmark || c.servicePlot).map((c) => c.id),
     ]);
     const assigned = new Set<string>();
+    const alternate =
+      m.id === 4
+        ? ALTERNATE_4
+        : m.id === 8
+          ? ALTERNATE_8
+          : m.id === 21
+            ? ALTERNATE_21
+            : m.id === 23
+              ? ALTERNATE_23
+              : [];
+    for (const a of alternate) if (a.type === "place") reserved.add(a.cell);
     for (const pickup of m.cells.filter((c) => c.landmark?.lot)) {
-      const lot = m.cells.find((c) => c.id === pickup.landmark!.lot)!;
-      assert.ok(lot, `mission ${m.id} lot exists`);
-      assert.equal(
-        reserved.has(lot.id),
-        false,
-        `mission ${m.id}: building at ${lot.id} overlaps required infrastructure`,
-      );
-      assert.equal(assigned.has(lot.id), false);
-      assigned.add(lot.id);
-      assert.equal(lot.terrain, "built");
-      assert.equal(lot.height, pickup.height);
-      assert.equal(Math.abs(lot.x - pickup.x) + Math.abs(lot.z - pickup.z), 1);
+      const lotIDs = pickup.landmark!.lots ?? [pickup.landmark!.lot!];
+      assert.equal(lotIDs[0], pickup.landmark!.lot);
+      assert.ok(lotIDs.length >= 1 && lotIDs.length <= 2);
+      if (lotIDs.length === 2) assert.equal(pickup.landmark!.kind, "school");
+      const primary = m.cells.find((c) => c.id === lotIDs[0])!;
+      for (const [i, id] of lotIDs.entries()) {
+        const lot = m.cells.find((c) => c.id === id)!;
+        assert.ok(lot, `mission ${m.id} lot exists`);
+        assert.equal(
+          reserved.has(lot.id),
+          false,
+          `mission ${m.id}: building at ${lot.id} overlaps required infrastructure`,
+        );
+        assert.equal(assigned.has(lot.id), false);
+        assigned.add(lot.id);
+        assert.equal(lot.terrain, "built");
+        assert.equal(lot.height, pickup.height);
+        const anchor = i === 0 ? pickup : primary;
+        assert.equal(
+          Math.abs(lot.x - anchor.x) + Math.abs(lot.z - anchor.z),
+          1,
+        );
+      }
     }
     for (const built of m.cells.filter((c) => c.terrain === "built"))
       assert.ok(assigned.has(built.id));
   }
   const eight = getMission(8);
-  assert.ok(eight.roadCells!.includes("0,1"));
-  assert.equal(
-    eight.cells.find((c) => c.id === "0,1")!.terrain,
-    "land",
-    "the physical mission8 corner socket stays clear",
-  );
+  for (const row of [1, 3])
+    for (let x = 1; x <= 5; x++) {
+      const id = `${x},${row}`;
+      assert.ok(eight.roadCells!.includes(id));
+      assert.equal(
+        eight.cells.find((c) => c.id === id)!.terrain,
+        "land",
+        "both mission8 bypass corridors stay clear",
+      );
+    }
+});
+
+test("all24: primary and extra building lots reject road placement without charging or losing inventory", () => {
+  let extras = 0;
+  for (const m of MISSIONS) {
+    for (const pickup of m.cells.filter((c) => c.landmark?.lot)) {
+      for (const [i, id] of (
+        pickup.landmark!.lots ?? [pickup.landmark!.lot!]
+      ).entries()) {
+        if (i > 0) extras++;
+        const s = createState(m),
+          piece = s.tiles.find(
+            (t) => !t.locked && t.cell === null && t.kind !== "clinic",
+          )!;
+        assert.ok(piece);
+        const before = structuredClone({
+            tiles: s.tiles,
+            people: s.people,
+            vehicles: s.vehicles,
+            time: s.time,
+            moves: s.moves,
+          }),
+          history = s.undo.length;
+        assert.equal(place(s, piece.id, id), false);
+        assert.match(s.message, /מבנה/);
+        assert.deepEqual(
+          {
+            tiles: s.tiles,
+            people: s.people,
+            vehicles: s.vehicles,
+            time: s.time,
+            moves: s.moves,
+          },
+          before,
+        );
+        assert.equal(s.undo.length, history);
+        accounting(s);
+      }
+    }
+  }
+  assert.ok(extras > 0, "the secondary school-lot case is actually exercised");
 });

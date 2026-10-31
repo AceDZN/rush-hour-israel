@@ -1,11 +1,16 @@
 # Hands-on road-puzzle checks
 
-`npm test` runs the independent V3 fixtures and authored witnesses. Prior atlas/route suites are historical and run separately with `test:legacy`/`test:routes`.
+`npm test` runs the current rule fixtures, revised witnesses and independent challenge checks. The earlier easier V3, atlas and route results are historical; atlas/route suites run separately with `test:legacy`/`test:routes`.
 
 - `npm run test:first-minute`: actual elapsed-time replay of expert-inspected first/second mouse and touch interactions, including a wrong corner, local repair, undo and retry. Imports no campaign solution, uses no hint or elapsed-time hook. This is a reproducible control regression, not an unprompted learner study.
 - `npm run test:browser`: normal drag, focus/keyboard and genuine touch controls across24 authored boards plus negative/utility cases. It imports witness actions for campaign navigation and advances only elapsed simulation after controls. Never injects road, progress or victory state.
+- `COLLECT_BLOCKERS=1 npm run test:browser` collects blocked levels via explicit practice navigation and fails overall if any exist. A clear run remains the normal earned sequence. The isolated old-profile migration fixture is separate from earned campaign evidence.
+- `node --import tsx tests/action/target-coverage.ts`: actual pickup/hover checks for every initial free piece and projected cell on desktop and genuine phone touch, plus built-lot rejection. No direct scene/model calls or injected selection.
+- `node --import tsx tests/action/stars-browser.ts`: real controls reproduce identical first-level rescue networks earning three, two and one stars at different placement counts; free rotations/hints/time/tray returns, Undo/retry, visible result/replay, phone target/banner and isolated v4→v5 profile preservation. No game-state injection.
 - `node tests/action/static.mjs`: against production preview4303, loads local model/fonts, disables network, drags the first road and verifies6/6 with no console error. Uses elapsed-time hook after the input.
 
 `GAME_URL` changes the browser URL; the default is the development `action.html` alias. `STATIC_URL` overrides the static preview. Playwright uses its installed browser unless `PLAYWRIGHT_EXECUTABLE_PATH` is set. Metal launch flags reflect the macOS verification host; adapt launch flags for another platform. No browser profile, account or student data is stored.
 
-Run against frozen source; hot reload invalidates stateful play evidence. Final captures/JSON are under `evidence/`, and the current interpretation and limits live in `docs/action-puzzle/PLAYTEST.md`. Model witnesses establish solvability, not comprehension or fun.
+Run against frozen source; hot reload invalidates stateful play evidence. Current captures/JSON are under `polish-evidence/`; opening replay writes `polish-evidence/opening/`, and static production evidence is `docs/polish/actual/production/`. Current interpretation and limits live in `docs/polish/PLAYTEST.md` and `CHALLENGE_REVIEW.md`. The older `evidence/` folder remains historical. Model witnesses establish solvability, not comprehension or fun.
+
+The runtime hook is version 4; placement-score persistence is `rush-hour-road-puzzle-v5`. Previous score keys stay intact. Only access/settings migrate; new-rule scores are earned on full rescues. Forecast stars during play are not a saved completion.

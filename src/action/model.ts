@@ -108,6 +108,7 @@ const snapshot = (s: GameState): Snapshot =>
     vehicles: s.vehicles,
     time: s.time,
     moves: s.moves,
+    placements: s.placements,
     closed: s.closed,
     inducedAt: s.inducedAt,
     inducedDone: s.inducedDone,
@@ -174,6 +175,7 @@ export function createState(m: Mission): GameState {
     vehicles,
     time: 0,
     moves: 0,
+    placements: 0,
     closed: [],
     inducedAt: null,
     inducedDone: false,
@@ -237,6 +239,7 @@ export function cancelHold(s: GameState): void {
   t.cell = s.held.origin;
   t.rotation = before.rotation;
   s.moves = s.held.snapshot.moves;
+  s.placements = s.held.snapshot.placements;
   s.held = undefined;
   s.revision++;
 }
@@ -264,6 +267,7 @@ export function place(s: GameState, id: string, cellId: string): boolean {
   if (other) other.cell = origin;
   t.cell = cellId;
   s.moves++;
+  if (origin !== cellId) s.placements++;
   s.revision++;
   s.held = undefined;
   if (
@@ -276,7 +280,7 @@ export function place(s: GameState, id: string, cellId: string): boolean {
   if (s.mode === "won") s.mode = "playing";
   s.message =
     t.kind === "clinic"
-      ? "המרפאה פתוחה. התושבים בדרך אליה!"
+      ? "המרפאה נפתחה. בדקו למי יש גישה אליה."
       : "קליק! החיבור השתנה.";
   emit(s, "snap", cellId);
   return true;
@@ -673,16 +677,22 @@ export function tick(s: GameState, seconds: number) {
   }
 }
 export function stats(s: GameState) {
+  const arrived = s.people.filter((p) => p.arrived).length;
+  // A verified replay target, not a claimed optimum. Rotations and rejected,
+  // cancelled, same-origin or tray-return gestures never consume this budget.
+  const placementTarget = s.mission.solution.filter((a) => a.type === "place").length;
   return {
     total: s.people.length,
-    arrived: s.people.filter((p) => p.arrived).length,
+    arrived,
     waiting: s.people.filter((p) => !p.arrived && !p.vehicle && !p.walking)
       .length,
     riding: s.people.filter((p) => p.vehicle).length,
     walking: s.people.filter((p) => p.walking && !p.arrived).length,
     moves: s.moves,
     time: s.time,
-    stars: s.moves <= s.mission.par ? 3 : s.moves <= s.mission.par + 4 ? 2 : 1,
+    placements: s.placements,
+    placementTarget,
+    stars: s.placements <= placementTarget ? 3 : s.placements <= placementTarget + 2 ? 2 : 1,
     groups: s.mission.groups.map((g) => ({
       id: g.id,
       label: g.label,

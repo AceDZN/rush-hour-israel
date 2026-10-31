@@ -1,0 +1,480 @@
+{
+  "method": "Real keyboard/pointer/touch controls, read-only state; time hook only for waiting. Isolated profiles, no live user-tab changes.",
+  "cases": [
+    {
+      "case": "Nine trial rotations, wrong orientation, long wait and hint still earn 3 on rescue",
+      "state": {
+        "version": 4,
+        "interaction": "grab-rotate-snap",
+        "mode": "won",
+        "level": 1,
+        "title": "חסר רק חלק אחד",
+        "coordinates": "grid x east/right, z south/down; world view may rotate; north arrow is authoritative",
+        "goal": {
+          "total": 6,
+          "arrived": 6,
+          "waiting": 0,
+          "riding": 0,
+          "walking": 0,
+          "moves": 11,
+          "time": 66.89066666666419,
+          "placements": 1,
+          "placementTarget": 1,
+          "stars": 3,
+          "groups": [
+            {
+              "id": "kids",
+              "label": "הבתים",
+              "total": 6,
+              "arrived": 6
+            }
+          ]
+        },
+        "selected": null,
+        "held": null,
+        "hover": null,
+        "hints": 1,
+        "message": "הדרך עובדת. כולם הגיעו!",
+        "modelLoaded": true,
+        "assets": {
+          "busLoaded": true,
+          "schoolLoaded": true,
+          "texturesLoaded": true
+        },
+        "fps": 85.89692368747914,
+        "tiles": [
+          {
+            "id": "road-0,1",
+            "kind": "straight",
+            "rotation": 0,
+            "cell": "0,1",
+            "locked": true,
+            "ports": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": "road-1,1",
+            "kind": "straight",
+            "rotation": 0,
+            "cell": "1,1",
+            "locked": true,
+            "ports": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": "first-road",
+            "kind": "straight",
+            "rotation": 0,
+            "cell": "2,1",
+            "locked": false,
+            "ports": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": "road-3,1",
+            "kind": "straight",
+            "rotation": 0,
+            "cell": "3,1",
+            "locked": true,
+            "ports": [
+              1,
+              3
+            ]
+          },
+          {
+            "id": "road-4,1",
+            "kind": "straight",
+            "rotation": 0,
+            "cell": "4,1",
+            "locked": true,
+            "ports": [
+              1,
+              3
+            ]
+          }
+        ],
+        "cells": [
+          {
+            "id": "0,0",
+            "x": 0,
+            "z": 0,
+            "height": 0,
+            "terrain": "built"
+          },
+          {
+            "id": "1,0",
+            "x": 1,
+            "z": 0,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "2,0",
+            "x": 2,
+            "z": 0,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "3,0",
+            "x": 3,
+            "z": 0,
+            "height": 0,
+            "terrain": "built"
+          },
+          {
+            "id": "4,0",
+            "x": 4,
+            "z": 0,
+            "height": 0,
+            "terrain": "built"
+          },
+          {
+            "id": "0,1",
+            "x": 0,
+            "z": 1,
+            "height": 0,
+            "terrain": "land",
+            "landmark": {
+              "kind": "home",
+              "label": "הבתים",
+              "lot": "0,0",
+              "lots": [
+                "0,0"
+              ]
+            }
+          },
+          {
+            "id": "1,1",
+            "x": 1,
+            "z": 1,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "2,1",
+            "x": 2,
+            "z": 1,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "3,1",
+            "x": 3,
+            "z": 1,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "4,1",
+            "x": 4,
+            "z": 1,
+            "height": 0,
+            "terrain": "land",
+            "landmark": {
+              "kind": "school",
+              "label": "בית ספר",
+              "lot": "4,0",
+              "lots": [
+                "4,0",
+                "3,0"
+              ]
+            }
+          },
+          {
+            "id": "0,2",
+            "x": 0,
+            "z": 2,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "1,2",
+            "x": 1,
+            "z": 2,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "2,2",
+            "x": 2,
+            "z": 2,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "3,2",
+            "x": 3,
+            "z": 2,
+            "height": 0,
+            "terrain": "land"
+          },
+          {
+            "id": "4,2",
+            "x": 4,
+            "z": 2,
+            "height": 0,
+            "terrain": "land"
+          }
+        ],
+        "closed": [],
+        "people": [
+          {
+            "id": 1,
+            "group": "kids",
+            "cell": "4,1",
+            "vehicle": null,
+            "leg": 0,
+            "arrived": true,
+            "walking": 0,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "group": "kids",
+            "cell": "4,1",
+            "vehicle": null,
+            "leg": 0,
+            "arrived": true,
+            "walking": 0,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "group": "kids",
+            "cell": "4,1",
+            "vehicle": null,
+            "leg": 0,
+            "arrived": true,
+            "walking": 0,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "group": "kids",
+            "cell": "4,1",
+            "vehicle": null,
+            "leg": 0,
+            "arrived": true,
+            "walking": 0,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "group": "kids",
+            "cell": "4,1",
+            "vehicle": null,
+            "leg": 0,
+            "arrived": true,
+            "walking": 0,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "group": "kids",
+            "cell": "4,1",
+            "vehicle": null,
+            "leg": 0,
+            "arrived": true,
+            "walking": 0,
+            "boardings": 1
+          }
+        ],
+        "vehicles": [
+          {
+            "id": "bus-kids",
+            "group": "kids",
+            "leg": 0,
+            "mode": "bus",
+            "capacity": 6,
+            "cell": "4,1",
+            "previous": null,
+            "next": null,
+            "progress": 0,
+            "returning": true,
+            "onboard": [],
+            "dwell": 0.45,
+            "heading": 1,
+            "status": "moving",
+            "reason": "",
+            "trips": 1
+          }
+        ],
+        "targets": {
+          "cells": {
+            "0,0": {
+              "x": 280.8480927601407,
+              "y": 338.88647089215914
+            },
+            "1,0": {
+              "x": 472.40147111281755,
+              "y": 316.8273528910072
+            },
+            "2,0": {
+              "x": 663.9548494654944,
+              "y": 294.7682348898552
+            },
+            "3,0": {
+              "x": 855.5082278181712,
+              "y": 272.7091168887032
+            },
+            "4,0": {
+              "x": 1047.061606170848,
+              "y": 250.64999888755113
+            },
+            "0,1": {
+              "x": 315.0540531802615,
+              "y": 462.41753169861033
+            },
+            "1,1": {
+              "x": 506.60743153293834,
+              "y": 440.3584136974584
+            },
+            "2,1": {
+              "x": 698.1608098856152,
+              "y": 418.2992956963064
+            },
+            "3,1": {
+              "x": 889.7141882382922,
+              "y": 396.2401776951544
+            },
+            "4,1": {
+              "x": 1081.2675665909687,
+              "y": 374.1810596940024
+            },
+            "0,2": {
+              "x": 349.2600136003824,
+              "y": 585.9485925050616
+            },
+            "1,2": {
+              "x": 540.8133919530593,
+              "y": 563.8894745039096
+            },
+            "2,2": {
+              "x": 732.3667703057362,
+              "y": 541.8303565027576
+            },
+            "3,2": {
+              "x": 923.9201486584129,
+              "y": 519.7712385016056
+            },
+            "4,2": {
+              "x": 1115.4735270110896,
+              "y": 497.71212050045364
+            }
+          },
+          "tiles": {
+            "road-0,1": {
+              "x": 315.0540531802615,
+              "y": 459.557623611602
+            },
+            "road-1,1": {
+              "x": 506.60743153293834,
+              "y": 437.49850561045
+            },
+            "first-road": {
+              "x": 698.160809889696,
+              "y": 415.43887773607236
+            },
+            "road-3,1": {
+              "x": 889.7141882382921,
+              "y": 393.380269608146
+            },
+            "road-4,1": {
+              "x": 1081.2675665909687,
+              "y": 371.3211516069941
+            }
+          },
+          "vehicles": {
+            "bus-kids": {
+              "x": 1081.2675665909687,
+              "y": 351.24459683619557
+            }
+          }
+        }
+      }
+    },
+    {
+      "case": "Undo/retry restore placement counter; direct and rotation-explored rescues score identically",
+      "moves": 1,
+      "stars": 3
+    },
+    {
+      "case": "Identical final rescued network earns 2 at two placements and 1 at four; free tray returns; visible reason and replay reset",
+      "silver": {
+        "total": 6,
+        "arrived": 6,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 5,
+        "time": 4.56839999999999,
+        "placements": 2,
+        "placementTarget": 1,
+        "stars": 2,
+        "groups": [
+          {
+            "id": "kids",
+            "label": "הבתים",
+            "total": 6,
+            "arrived": 6
+          }
+        ]
+      },
+      "bronze": {
+        "total": 6,
+        "arrived": 6,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 9,
+        "time": 4.658466666666659,
+        "placements": 4,
+        "placementTarget": 1,
+        "stars": 1,
+        "groups": [
+          {
+            "id": "kids",
+            "label": "הבתים",
+            "total": 6,
+            "arrived": 6
+          }
+        ]
+      }
+    },
+    {
+      "case": "Genuine touch selection, six visible rotations, tap-to-place, 3-star win with in-bounds banner",
+      "moves": 7,
+      "stars": 3,
+      "banner": {
+        "x": 14,
+        "y": 599,
+        "width": 362,
+        "height": 123
+      }
+    },
+    {
+      "case": "Earn bronze, rewind using both Undo button and Z, improve to gold without retry; displayed and saved best update",
+      "before": 1,
+      "after": 3,
+      "undoCount": 8
+    },
+    {
+      "case": "Placement scores use a fresh profile; v4 scores untouched, unlocks/settings preserved, no unearned new score",
+      "migrated": {
+        "unlocked": 9,
+        "stars": {},
+        "muted": true,
+        "reduced": true,
+        "scoring": "placements"
+      }
+    }
+  ],
+  "errors": []
+}

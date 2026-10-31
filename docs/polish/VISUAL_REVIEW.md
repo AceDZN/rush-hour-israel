@@ -40,5 +40,27 @@ The fresh first-minute recording after the lead's asset-ready tick gate, indepen
 
 Frozen art source checkpoints:
 
-- `src/action/scene.ts`: `2b3a271936c58a4be1205ab41104e0b2042da92173e375943a1c99492114d55b`.
+- `src/action/scene.ts`: `b0731f4e926305cf8435f74f3f7d14d553545d69ea2b5f8493f8bc7b4bbfa5aa`.
 - `src/action/materials.ts`: `106c1e350c7ee291bfdbbfb69e757d492f9eb44cb3baa54c80a84d800e81000d`.
+
+## No-lot facade obstruction correction
+
+Independent frozen-pilot QA found another real obstruction in mission24: a no-lot home on5,4 obscured the planned clinic cell5,3 from the fixed camera, causing a normal drop to hit the home. The coastal no-lot home also threatened the parked movable road on0,2. This was physical projection/geometry, not a reason to bypass picking.
+
+Audited every no-lot landmark: eight cases across13/18/22/24. Fallbacks now rank unused roadside strips away from service plots, reserved roads and parked pieces, preferring outside/built neighbors. Their entire facade, including balcony, heater and steps, is a shallow low architectural relief within the pickup cell's unused strip. The full architecture on explicit building lots is unchanged. Pickup shelter and waiting figures use an unused curb side rather than occupying the fallback facade or a road port.
+
+Verified through actual portrait CDP touch: clinic snapped to5,3, the coastal road was grabbed from0,2 (held screenshot) and placed on1,2. The ordinary desktop first drag still reached6/6 with all assets ready and no page errors. Opened and inspected13/18/22 fallback review captures and24 ready/placed/held captures under `actual/fallback-fix/`; `record.json` retains the input results. TypeScript passed, browser closed and scene frozen again. The low no-lot relief is a deliberate space/visibility compromise, not an invented adjacent building parcel. Independent QA retries the full pilot/campaign on this corrected checkpoint.
+
+## General editing cutaway and ground-surface placement
+
+The next independent campaign run won1–11, then exposed a full-lot projection obstruction in mission12: a legitimate tall home on1,3 obscured the ramp target on1,2. Shrinking only no-lot facades was insufficient. The final correction is a consistent user-facing editing view, rather than another per-mission carve-out or an invisible test-target bypass.
+
+At rest, architecture retains its normal materials and depth. Roof-obscured movable pieces receive a neutral x-ray footprint outline so their presence and selection area remain discoverable. Pressing their visible projected footprint selects the real piece. While any piece is selected or held, landmark/planting materials visibly fade to approximately15% and their heavy shadows are removed. Placed clinic architecture follows this treatment, while the selected/carried clinic stays solid. Occupied built lots keep clear ground hatching. Material clones isolate the cutaway from road/terrain materials; clearing selection restores the original appearance. Reduced motion switches the same meanings immediately.
+
+During manipulation, targeting intersects each authored cell's actual placement-height plane and footprint. Roofs and scenery no longer determine the drop cell. Built/occupied/terrain-invalid destinations still reach the authoritative model and reject normally. Piece geometry, ports, heights and route rules are unchanged. The lead supplied close-selection ×, Escape and backdrop exits so a rotated installed piece does not leave the observation view faded.
+
+A comprehensive real-input diagnostic covered all24 boards: **128/128 initial movable center presses selected the correct ID**, and **123/123 required action-cell centers produced the correct actual hover cell while holding a real piece**. It used pointer presses/holds/moves, Escape/KeyR resets and the read-only text hook; authored action cells only enumerated coverage. There was no action/state/progress injection, no hint, and no time hook. All passed with zero errors/HMR. `actual/cutaway-diagnostic/record.json` and `12-cutaway-ramp-target.png` record this coverage. Hover/selection coverage does not by itself establish the full campaign's completed control plans.
+
+Targeted actual-control proof then completed the repaired mission12 ramp plan at12/12 and the ordinary first drag at6/6. Portrait24 real CDP touch placed the clinic on5,3, grabbed the parked coastal piece, and exercised both turn directions0→1→0. The close control cleared selection without pausing and restored opaque architecture; a dragged road on a built lot correctly rejected with “כאן יש מבנה. השאירו מקום לבתים ולשירותים.” No page errors or HMR were observed. Screenshots of observation, held ramp/cutaway, won observation, phone controls, closed observation and rejected built target were opened and inspected under `actual/cutaway-proof/`, with its matching record.
+
+The measured phone toolbar occupiedx96.9–293.1 in390px width, including both turn directions and close. All owned contexts were closed after proof. The scene is frozen at the updated checkpoint above; the later full campaign and placement-score verification are recorded in PLAYTEST.md and CHALLENGE_REVIEW.md. This general editing view supersedes the earlier per-facade correction as the mechanism that guarantees target access while retaining full architectural observation.

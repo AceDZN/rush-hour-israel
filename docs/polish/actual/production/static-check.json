@@ -1,0 +1,126 @@
+{
+  "method": "Production static build, model/fonts loaded, network then disabled; actual pointer drag; elapsed-time hook only after action.",
+  "version": 4,
+  "mode": "won",
+  "goal": {
+    "total": 6,
+    "arrived": 6,
+    "waiting": 0,
+    "riding": 0,
+    "walking": 0,
+    "moves": 1,
+    "time": 4.566766666666658,
+    "placements": 1,
+    "placementTarget": 1,
+    "stars": 3,
+    "groups": [
+      {
+        "id": "kids",
+        "label": "הבתים",
+        "total": 6,
+        "arrived": 6
+      }
+    ]
+  },
+  "modelLoaded": true,
+  "hostMeasuredFpsBeforeOffline": 119.9400299850075,
+  "resources": [
+    {
+      "name": "index-CrDeeGTZ.js",
+      "decoded": 725997,
+      "transferred": 196972
+    },
+    {
+      "name": "index-CDtjNaUu.css",
+      "decoded": 21090,
+      "transferred": 4993
+    },
+    {
+      "name": "heebo-math-400-normal-B7IFZoQI.woff2",
+      "decoded": 9500,
+      "transferred": 9800
+    },
+    {
+      "name": "heebo-symbols-400-normal-DYSXrd5A.woff2",
+      "decoded": 5544,
+      "transferred": 5844
+    },
+    {
+      "name": "heebo-latin-400-normal-BGyEuwIV.woff2",
+      "decoded": 11956,
+      "transferred": 12256
+    },
+    {
+      "name": "heebo-math-600-normal-DCATifNU.woff2",
+      "decoded": 9636,
+      "transferred": 9936
+    },
+    {
+      "name": "heebo-symbols-600-normal-RPS5qIGi.woff2",
+      "decoded": 5744,
+      "transferred": 6044
+    },
+    {
+      "name": "heebo-latin-600-normal-C0GLQ-RT.woff2",
+      "decoded": 12256,
+      "transferred": 12556
+    },
+    {
+      "name": "heebo-math-800-normal-BsL7yxmb.woff2",
+      "decoded": 9632,
+      "transferred": 9932
+    },
+    {
+      "name": "heebo-symbols-800-normal-FYIx6Vl3.woff2",
+      "decoded": 5680,
+      "transferred": 5980
+    },
+    {
+      "name": "heebo-latin-800-normal-CXX3wFtI.woff2",
+      "decoded": 12132,
+      "transferred": 12432
+    },
+    {
+      "name": "bus-architectural.glb",
+      "decoded": 651460,
+      "transferred": 651760
+    },
+    {
+      "name": "school-architectural.glb",
+      "decoded": 592164,
+      "transferred": 592464
+    },
+    {
+      "name": "heebo-hebrew-800-normal-CDdwy3LD.woff2",
+      "decoded": 5168,
+      "transferred": 5468
+    },
+    {
+      "name": "heebo-hebrew-600-normal-CGRgQ0cj.woff2",
+      "decoded": 5108,
+      "transferred": 5408
+    },
+    {
+      "name": "heebo-hebrew-400-normal-CVTJgQVK.woff2",
+      "decoded": 5084,
+      "transferred": 5384
+    },
+    {
+      "name": "asphalt.webp",
+      "decoded": 854598,
+      "transferred": 854898
+    },
+    {
+      "name": "concrete.webp",
+      "decoded": 618118,
+      "transferred": 618418
+    },
+    {
+      "name": "earth.webp",
+      "decoded": 780022,
+      "transferred": 780322
+    }
+  ],
+  "decodedResources": 4340889,
+  "errors": []
+}

@@ -1,0 +1,1454 @@
+{
+  "method": "Real pointer presses, holds, hover moves and Escape/KeyR resets; authored action cells enumerate diagnostic coverage only. Read-only state hook; no state/action/progress injection.",
+  "levels": [
+    {
+      "id": 1,
+      "pieces": [
+        {
+          "id": "first-road",
+          "actual": "first-road",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        }
+      ],
+      "held": "first-road"
+    },
+    {
+      "id": 2,
+      "pieces": [
+        {
+          "id": "turn",
+          "actual": "turn",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        }
+      ],
+      "held": "turn"
+    },
+    {
+      "id": 3,
+      "pieces": [
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "borrowed",
+          "actual": "borrowed",
+          "pass": true
+        },
+        {
+          "id": "straight",
+          "actual": "straight",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        }
+      ],
+      "held": "road-1,2"
+    },
+    {
+      "id": 4,
+      "pieces": [
+        {
+          "id": "road-2,3",
+          "actual": "road-2,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        }
+      ],
+      "held": "road-2,3"
+    },
+    {
+      "id": 5,
+      "pieces": [
+        {
+          "id": "road-1,3",
+          "actual": "road-1,3",
+          "pass": true
+        },
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        },
+        {
+          "id": "wrong-turn",
+          "actual": "wrong-turn",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        }
+      ],
+      "held": "road-1,3"
+    },
+    {
+      "id": 6,
+      "pieces": [
+        {
+          "id": "road-1,3",
+          "actual": "road-1,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,3",
+          "actual": "road-2,3",
+          "pass": true
+        },
+        {
+          "id": "school-link",
+          "actual": "school-link",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "work-link",
+          "actual": "work-link",
+          "pass": true
+        },
+        {
+          "id": "road-3,3",
+          "actual": "road-3,3",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        },
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "3,3",
+          "actual": "3,3",
+          "pass": true
+        }
+      ],
+      "held": "road-1,3"
+    },
+    {
+      "id": 7,
+      "pieces": [
+        {
+          "id": "road-1,3",
+          "actual": "road-1,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,3",
+          "actual": "road-2,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        }
+      ],
+      "held": "road-1,3"
+    },
+    {
+      "id": 8,
+      "pieces": [
+        {
+          "id": "road-1,1",
+          "actual": "road-1,1",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "road-4,1",
+          "actual": "road-4,1",
+          "pass": true
+        },
+        {
+          "id": "road-5,1",
+          "actual": "road-5,1",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "4,1",
+          "actual": "4,1",
+          "pass": true
+        },
+        {
+          "cell": "5,1",
+          "actual": "5,1",
+          "pass": true
+        }
+      ],
+      "held": "road-1,1"
+    },
+    {
+      "id": 9,
+      "pieces": [
+        {
+          "id": "road-1,3",
+          "actual": "road-1,3",
+          "pass": true
+        },
+        {
+          "id": "coast-bend",
+          "actual": "coast-bend",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        },
+        {
+          "id": "coast-link",
+          "actual": "coast-link",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        }
+      ],
+      "held": "road-1,3"
+    },
+    {
+      "id": 10,
+      "pieces": [
+        {
+          "id": "road-1,4",
+          "actual": "road-1,4",
+          "pass": true
+        },
+        {
+          "id": "road-2,4",
+          "actual": "road-2,4",
+          "pass": true
+        },
+        {
+          "id": "up-ramp",
+          "actual": "up-ramp",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "1,4",
+          "actual": "1,4",
+          "pass": true
+        },
+        {
+          "cell": "2,4",
+          "actual": "2,4",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        }
+      ],
+      "held": "road-1,4"
+    },
+    {
+      "id": 11,
+      "pieces": [
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "road-1,1",
+          "actual": "road-1,1",
+          "pass": true
+        },
+        {
+          "id": "bridge",
+          "actual": "bridge",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        },
+        {
+          "id": "ordinary-road",
+          "actual": "ordinary-road",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        }
+      ],
+      "held": "road-1,2"
+    },
+    {
+      "id": 12,
+      "pieces": [
+        {
+          "id": "road-0,2",
+          "actual": "road-0,2",
+          "pass": true
+        },
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "road-4,2",
+          "actual": "road-4,2",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "0,2",
+          "actual": "0,2",
+          "pass": true
+        },
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        },
+        {
+          "cell": "4,2",
+          "actual": "4,2",
+          "pass": true
+        }
+      ],
+      "held": "road-0,2"
+    },
+    {
+      "id": 13,
+      "pieces": [
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "return-corner",
+          "actual": "return-corner",
+          "pass": true
+        },
+        {
+          "id": "road-2,0",
+          "actual": "road-2,0",
+          "pass": true
+        },
+        {
+          "id": "road-1,0",
+          "actual": "road-1,0",
+          "pass": true
+        },
+        {
+          "id": "road-0,0",
+          "actual": "road-0,0",
+          "pass": true
+        },
+        {
+          "id": "road-0,1",
+          "actual": "road-0,1",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "3,0",
+          "actual": "3,0",
+          "pass": true
+        },
+        {
+          "cell": "2,0",
+          "actual": "2,0",
+          "pass": true
+        },
+        {
+          "cell": "1,0",
+          "actual": "1,0",
+          "pass": true
+        },
+        {
+          "cell": "0,0",
+          "actual": "0,0",
+          "pass": true
+        },
+        {
+          "cell": "0,1",
+          "actual": "0,1",
+          "pass": true
+        }
+      ],
+      "held": "road-3,1"
+    },
+    {
+      "id": 14,
+      "pieces": [
+        {
+          "id": "feeder-turn",
+          "actual": "feeder-turn",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        },
+        {
+          "id": "road-4,2",
+          "actual": "road-4,2",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        },
+        {
+          "cell": "4,2",
+          "actual": "4,2",
+          "pass": true
+        }
+      ],
+      "held": "feeder-turn"
+    },
+    {
+      "id": 15,
+      "pieces": [
+        {
+          "id": "local-entry",
+          "actual": "local-entry",
+          "pass": true
+        },
+        {
+          "id": "local-turn",
+          "actual": "local-turn",
+          "pass": true
+        },
+        {
+          "id": "road-3,3",
+          "actual": "road-3,3",
+          "pass": true
+        },
+        {
+          "id": "road-4,3",
+          "actual": "road-4,3",
+          "pass": true
+        },
+        {
+          "id": "road-4,2",
+          "actual": "road-4,2",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "1,4",
+          "actual": "1,4",
+          "pass": true
+        },
+        {
+          "cell": "3,3",
+          "actual": "3,3",
+          "pass": true
+        },
+        {
+          "cell": "4,3",
+          "actual": "4,3",
+          "pass": true
+        },
+        {
+          "cell": "4,2",
+          "actual": "4,2",
+          "pass": true
+        }
+      ],
+      "held": "local-entry"
+    },
+    {
+      "id": 16,
+      "pieces": [
+        {
+          "id": "road-1,1",
+          "actual": "road-1,1",
+          "pass": true
+        },
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "shared-bridge",
+          "actual": "shared-bridge",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "south-turn",
+          "actual": "south-turn",
+          "pass": true
+        },
+        {
+          "id": "road-3,3",
+          "actual": "road-3,3",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "3,3",
+          "actual": "3,3",
+          "pass": true
+        }
+      ],
+      "held": "road-1,1"
+    },
+    {
+      "id": 17,
+      "pieces": [
+        {
+          "id": "road-1,3",
+          "actual": "road-1,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,3",
+          "actual": "road-2,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "edge-turn",
+          "actual": "edge-turn",
+          "pass": true
+        },
+        {
+          "id": "road-3,3",
+          "actual": "road-3,3",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "3,4",
+          "actual": "3,4",
+          "pass": true
+        },
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "3,3",
+          "actual": "3,3",
+          "pass": true
+        }
+      ],
+      "held": "road-1,3"
+    },
+    {
+      "id": 18,
+      "pieces": [
+        {
+          "id": "road-1,0",
+          "actual": "road-1,0",
+          "pass": true
+        },
+        {
+          "id": "road-2,0",
+          "actual": "road-2,0",
+          "pass": true
+        },
+        {
+          "id": "road-3,2",
+          "actual": "road-3,2",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "near-ramp",
+          "actual": "near-ramp",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "3,2",
+          "actual": "3,2",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        },
+        {
+          "cell": "1,0",
+          "actual": "1,0",
+          "pass": true
+        },
+        {
+          "cell": "2,0",
+          "actual": "2,0",
+          "pass": true
+        }
+      ],
+      "held": "road-1,0"
+    },
+    {
+      "id": 19,
+      "pieces": [
+        {
+          "id": "road-1,4",
+          "actual": "road-1,4",
+          "pass": true
+        },
+        {
+          "id": "road-2,4",
+          "actual": "road-2,4",
+          "pass": true
+        },
+        {
+          "id": "road-2,3",
+          "actual": "road-2,3",
+          "pass": true
+        },
+        {
+          "id": "road-2,2",
+          "actual": "road-2,2",
+          "pass": true
+        },
+        {
+          "id": "road-1,2",
+          "actual": "road-1,2",
+          "pass": true
+        },
+        {
+          "id": "clinic",
+          "actual": "clinic",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "4,3",
+          "actual": "4,3",
+          "pass": true
+        },
+        {
+          "cell": "1,4",
+          "actual": "1,4",
+          "pass": true
+        },
+        {
+          "cell": "2,4",
+          "actual": "2,4",
+          "pass": true
+        },
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "1,2",
+          "actual": "1,2",
+          "pass": true
+        }
+      ],
+      "held": "road-1,4"
+    },
+    {
+      "id": 20,
+      "pieces": [
+        {
+          "id": "road-1,4",
+          "actual": "road-1,4",
+          "pass": true
+        },
+        {
+          "id": "shared-junction",
+          "actual": "shared-junction",
+          "pass": true
+        },
+        {
+          "id": "road-2,3",
+          "actual": "road-2,3",
+          "pass": true
+        },
+        {
+          "id": "shared-link",
+          "actual": "shared-link",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,4",
+          "actual": "road-3,4",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,4",
+          "actual": "2,4",
+          "pass": true
+        },
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "1,4",
+          "actual": "1,4",
+          "pass": true
+        },
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "3,4",
+          "actual": "3,4",
+          "pass": true
+        }
+      ],
+      "held": "road-1,4"
+    },
+    {
+      "id": 21,
+      "pieces": [
+        {
+          "id": "slim",
+          "actual": "slim",
+          "pass": true
+        },
+        {
+          "id": "return",
+          "actual": "return",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-1,1",
+          "actual": "road-1,1",
+          "pass": true
+        },
+        {
+          "id": "road-0,1",
+          "actual": "road-0,1",
+          "pass": true
+        },
+        {
+          "id": "wide",
+          "actual": "wide",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,2",
+          "actual": "2,2",
+          "pass": true
+        },
+        {
+          "cell": "4,1",
+          "actual": "4,1",
+          "pass": true
+        },
+        {
+          "cell": "0,1",
+          "actual": "0,1",
+          "pass": true
+        },
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        }
+      ],
+      "held": "slim"
+    },
+    {
+      "id": 22,
+      "pieces": [
+        {
+          "id": "road-0,2",
+          "actual": "road-0,2",
+          "pass": true
+        },
+        {
+          "id": "backup-left",
+          "actual": "backup-left",
+          "pass": true
+        },
+        {
+          "id": "road-1,1",
+          "actual": "road-1,1",
+          "pass": true
+        },
+        {
+          "id": "backup-bridge",
+          "actual": "backup-bridge",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "backup-right",
+          "actual": "backup-right",
+          "pass": true
+        },
+        {
+          "id": "road-4,2",
+          "actual": "road-4,2",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "0,1",
+          "actual": "0,1",
+          "pass": true
+        },
+        {
+          "cell": "4,1",
+          "actual": "4,1",
+          "pass": true
+        },
+        {
+          "cell": "0,2",
+          "actual": "0,2",
+          "pass": true
+        },
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        },
+        {
+          "cell": "4,2",
+          "actual": "4,2",
+          "pass": true
+        }
+      ],
+      "held": "road-0,2"
+    },
+    {
+      "id": 23,
+      "pieces": [
+        {
+          "id": "road-1,1",
+          "actual": "road-1,1",
+          "pass": true
+        },
+        {
+          "id": "road-2,1",
+          "actual": "road-2,1",
+          "pass": true
+        },
+        {
+          "id": "road-3,1",
+          "actual": "road-3,1",
+          "pass": true
+        },
+        {
+          "id": "corner-a",
+          "actual": "corner-a",
+          "pass": true
+        },
+        {
+          "id": "corner-b",
+          "actual": "corner-b",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "0,1",
+          "actual": "0,1",
+          "pass": true
+        },
+        {
+          "cell": "4,1",
+          "actual": "4,1",
+          "pass": true
+        },
+        {
+          "cell": "1,1",
+          "actual": "1,1",
+          "pass": true
+        },
+        {
+          "cell": "2,1",
+          "actual": "2,1",
+          "pass": true
+        },
+        {
+          "cell": "3,1",
+          "actual": "3,1",
+          "pass": true
+        }
+      ],
+      "held": "road-1,1"
+    },
+    {
+      "id": 24,
+      "pieces": [
+        {
+          "id": "road-1,3",
+          "actual": "road-1,3",
+          "pass": true
+        },
+        {
+          "id": "last-bridge",
+          "actual": "last-bridge",
+          "pass": true
+        },
+        {
+          "id": "road-3,3",
+          "actual": "road-3,3",
+          "pass": true
+        },
+        {
+          "id": "road-3,4",
+          "actual": "road-3,4",
+          "pass": true
+        },
+        {
+          "id": "last-ramp",
+          "actual": "last-ramp",
+          "pass": true
+        },
+        {
+          "id": "road-4,2",
+          "actual": "road-4,2",
+          "pass": true
+        },
+        {
+          "id": "last-turn",
+          "actual": "last-turn",
+          "pass": true
+        },
+        {
+          "id": "last-clinic",
+          "actual": "last-clinic",
+          "pass": true
+        },
+        {
+          "id": "spare-24-0",
+          "actual": "spare-24-0",
+          "pass": true
+        },
+        {
+          "id": "spare-24-1",
+          "actual": "spare-24-1",
+          "pass": true
+        }
+      ],
+      "targets": [
+        {
+          "cell": "2,3",
+          "actual": "2,3",
+          "pass": true
+        },
+        {
+          "cell": "4,3",
+          "actual": "4,3",
+          "pass": true
+        },
+        {
+          "cell": "4,1",
+          "actual": "4,1",
+          "pass": true
+        },
+        {
+          "cell": "5,3",
+          "actual": "5,3",
+          "pass": true
+        },
+        {
+          "cell": "1,3",
+          "actual": "1,3",
+          "pass": true
+        },
+        {
+          "cell": "3,3",
+          "actual": "3,3",
+          "pass": true
+        },
+        {
+          "cell": "3,4",
+          "actual": "3,4",
+          "pass": true
+        },
+        {
+          "cell": "4,2",
+          "actual": "4,2",
+          "pass": true
+        }
+      ],
+      "held": "last-bridge"
+    }
+  ],
+  "errors": [],
+  "hmr": false
+}

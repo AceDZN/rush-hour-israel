@@ -1,0 +1,156 @@
+{
+  "method": "Informed expert review after observing initial rendered boards. QA proposed these layout families earlier; this is not naive or fully blind. No authored solution lists, campaign imports or hints. Planning is logged before input; later travel may be accelerated.",
+  "phase": "play",
+  "records": [
+    {
+      "id": 24,
+      "intent": "Open the local clinic, assemble the common north-high ascent for the eastern home, then connect the coast through the lower crossing and two bends into the shared junction. Use the spare upper-left corner as a useful lower bend and leave a different corner unused. One ramp must remain reachable from both road communities. This is informed by the earlier blueprint, not a naive discovery claim.",
+      "mode": "won",
+      "goal": {
+        "total": 22,
+        "arrived": 22,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 16,
+        "time": 30.365199999999547,
+        "stars": 3,
+        "groups": [
+          {
+            "id": "coast",
+            "label": "קהילת החוף",
+            "total": 12,
+            "arrived": 12
+          },
+          {
+            "id": "hill",
+            "label": "השכונה במזרח",
+            "total": 6,
+            "arrived": 6
+          },
+          {
+            "id": "local",
+            "label": "הקבוצה למרפאה",
+            "total": 4,
+            "arrived": 4
+          }
+        ]
+      },
+      "hints": 0,
+      "people": [
+        {
+          "id": 1,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 2,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 3,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 4,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 5,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 6,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 7,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 8,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 9,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 10,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 11,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 12,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 13,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 14,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 15,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 16,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 17,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 18,
+          "arrived": true,
+          "boardings": 1
+        },
+        {
+          "id": 19,
+          "arrived": true,
+          "boardings": 0
+        },
+        {
+          "id": 20,
+          "arrived": true,
+          "boardings": 0
+        },
+        {
+          "id": 21,
+          "arrived": true,
+          "boardings": 0
+        },
+        {
+          "id": 22,
+          "arrived": true,
+          "boardings": 0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "hmr": []
+}

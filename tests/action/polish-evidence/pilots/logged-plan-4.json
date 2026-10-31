@@ -1,0 +1,27 @@
+{
+  "loggedBeforeInput": "2026-10-31T16:51:34.303Z",
+  "id": 4,
+  "intent": "Use the right bend column: reclaim the installed straight for the lower approach, turn north at x3 and east into the school. The two tray corners and two straights suffice. Prior audit knowledge informs this plan; I have inspected the actual initial image and have not opened the authored pose list.",
+  "moves": [
+    {
+      "tile": "road-3,1",
+      "cell": "2,3",
+      "rotation": 0
+    },
+    {
+      "tile": "road-2,3",
+      "cell": "3,3",
+      "rotation": 3
+    },
+    {
+      "tile": "road-2,2",
+      "cell": "3,2",
+      "rotation": 1
+    },
+    {
+      "tile": "road-2,1",
+      "cell": "3,1",
+      "rotation": 1
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { chromium } from "playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
-const out = "docs/action-puzzle/actual";
+const out = "docs/polish/actual/production";
 mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({
   headless: true,
@@ -29,7 +29,7 @@ await page.waitForTimeout(1300);
 const loaded = JSON.parse(
   await page.evaluate(() => window.render_game_to_text()),
 );
-assert.equal(loaded.version, 3);
+assert.equal(loaded.version, 4);
 const resources = await page.evaluate(() =>
   performance
     .getEntriesByType("resource")
@@ -53,6 +53,7 @@ const final = JSON.parse(
 );
 assert.equal(final.mode, "won");
 assert.equal(final.goal.arrived, 6);
+assert.equal(final.goal.stars, 3);
 assert.deepEqual(errors, []);
 await page.screenshot({ path: out + "/static-offline-win.png" });
 writeFileSync(

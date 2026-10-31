@@ -4,7 +4,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { chromium, type Page, type CDPSession } from "playwright";
 const output = resolve(
-  process.env.EVIDENCE_DIR ?? "tests/action/evidence/first-minute",
+  process.env.EVIDENCE_DIR ?? "tests/action/polish-evidence/opening",
 );
 mkdirSync(output, { recursive: true });
 const url = process.env.GAME_URL ?? "http://localhost:5303/action.html";
@@ -133,7 +133,7 @@ record.desktop.twoMorningsIncludingUndoMs = Date.now() - start;
 await p.screenshot({ path: output + "/desktop-second-win.png" });
 assert.equal(
   JSON.parse(
-    await p.evaluate(() => localStorage.getItem("rush-hour-road-puzzle-v3")),
+    await p.evaluate(() => localStorage.getItem("rush-hour-road-puzzle-v5")),
   ).unlocked,
   3,
 );

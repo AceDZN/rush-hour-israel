@@ -17,7 +17,7 @@ Six visible children, a home pickup, a school, one missing straight and one loos
 - Vehicles move along connected pieces and stop safely before missing, incompatible, closed or occupied constrained crossings. Repair resumes the same bus and same people; no despawn/reboard at every tile.
 - Six-seat buses return for remaining people. Later rail transfer has real separate vehicles/boarding, and a clinic tile opens actual local access. Every authored group must be served; a majority never hides an isolated group.
 - Low ground, height-matched ramps, water/bridge supports, quiet land and changed demand make legal/useful moves differ. Geography changes the puzzle rather than decorating identical connector matching.
-- Twenty-four authored boards gradually add turns, piece relocation, branches, relief, bridges, return queues, rail, peripheral access, local service, conditional demand and closure. Completion is untimed; move/time stars are optional replay incentives.
+- Twenty-four authored boards gradually add turns, piece relocation, branches, relief, bridges, return queues, rail, peripheral access, local service, conditional demand and closure. Completion is untimed. Stars are an optional placement challenge: three at the shown verified target, two within two extra placements, one for any other full win. Rotations, rejected/cancelled/same-origin drops, tray returns, hints and time are free; Undo restores placements. A swap counts once. Targets are not claimed optimal. V5 placement scores preserve access/settings while leaving older score records intact.
 
 ## Feel and screen
 

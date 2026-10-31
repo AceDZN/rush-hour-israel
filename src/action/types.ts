@@ -102,6 +102,7 @@ export interface Snapshot {
   vehicles: Vehicle[];
   time: number;
   moves: number;
+  placements: number;
   closed: string[];
   inducedAt: number | null;
   inducedDone: boolean;

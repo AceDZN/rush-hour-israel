@@ -1,0 +1,113 @@
+{
+  "url": "http://localhost:5303/action.html",
+  "started": "2026-10-31T17:04:36.872Z",
+  "campaign": [
+    {
+      "id": 1,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.567766666666653,
+      "moves": 1,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 2,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.558266666666652,
+      "moves": 2,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 3,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.300533333333316,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 4,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.3750666666666485,
+      "moves": 8,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 5,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.280999999999978,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 6,
+      "arrived": 12,
+      "total": 12,
+      "time": 8.039733333333318,
+      "moves": 15,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 7,
+      "arrived": 8,
+      "total": 8,
+      "time": 18.124800000000217,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 8,
+      "arrived": 6,
+      "total": 6,
+      "time": 7.626199999999971,
+      "moves": 11,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 9,
+      "arrived": 6,
+      "total": 6,
+      "time": 7.650066666666638,
+      "moves": 11,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 10,
+      "arrived": 6,
+      "total": 6,
+      "time": 8.211199999999984,
+      "moves": 10,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 11,
+      "arrived": 12,
+      "total": 12,
+      "time": 19.43266666666682,
+      "moves": 12,
+      "hints": 0,
+      "modelLoaded": true
+    }
+  ],
+  "cases": [],
+  "errors": [],
+  "hmr": {
+    "pageReloads": 0,
+    "messages": [],
+    "interrupted": false
+  },
+  "failure": "AssertionError [ERR_ASSERTION]: drag road-1,2→1,2: כאן יש מבנה. השאירו מקום לבתים ולשירותים.\n\nnull !== '1,2'\n"
+}

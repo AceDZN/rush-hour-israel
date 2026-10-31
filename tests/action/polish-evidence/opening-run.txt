@@ -1,0 +1,5 @@
+
+> rush-hour-israel@4.0.0 test:first-minute
+> node --import tsx tests/action/first-minute.ts
+
+{"ok":true,"desktopFirstMs":4264,"desktopTwoWithUndoMs":15274,"portraitTwoMs":9440,"errors":[]}

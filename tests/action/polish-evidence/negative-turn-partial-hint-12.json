@@ -1,0 +1,591 @@
+{
+  "version": 4,
+  "interaction": "grab-rotate-snap",
+  "mode": "playing",
+  "level": 12,
+  "title": "שני צדדים, עלייה אחת",
+  "coordinates": "grid x east/right, z south/down; world view may rotate; north arrow is authoritative",
+  "goal": {
+    "total": 12,
+    "arrived": 0,
+    "waiting": 0,
+    "riding": 12,
+    "walking": 0,
+    "moves": 7,
+    "time": 2.0743000000000023,
+    "placements": 3,
+    "placementTarget": 4,
+    "stars": 3,
+    "groups": [
+      {
+        "id": "west",
+        "label": "החוף",
+        "total": 6,
+        "arrived": 0
+      },
+      {
+        "id": "east",
+        "label": "הבקע",
+        "total": 6,
+        "arrived": 0
+      }
+    ]
+  },
+  "selected": "road-4,2",
+  "held": null,
+  "hover": null,
+  "hints": 1,
+  "message": "קליק! החיבור השתנה.",
+  "modelLoaded": true,
+  "assets": {
+    "busLoaded": true,
+    "schoolLoaded": true,
+    "texturesLoaded": true
+  },
+  "fps": 111.97760447376574,
+  "tiles": [
+    {
+      "id": "road-0,3",
+      "kind": "straight",
+      "rotation": 1,
+      "cell": "0,3",
+      "locked": true,
+      "ports": [
+        2,
+        0
+      ]
+    },
+    {
+      "id": "road-0,2",
+      "kind": "corner",
+      "rotation": 1,
+      "cell": "0,2",
+      "locked": false,
+      "ports": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "road-1,2",
+      "kind": "ramp",
+      "rotation": 1,
+      "cell": "1,2",
+      "locked": false,
+      "ports": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "road-2,2",
+      "kind": "straight",
+      "rotation": 0,
+      "cell": "2,2",
+      "locked": true,
+      "ports": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "road-4,3",
+      "kind": "straight",
+      "rotation": 1,
+      "cell": "4,3",
+      "locked": true,
+      "ports": [
+        2,
+        0
+      ]
+    },
+    {
+      "id": "road-4,2",
+      "kind": "corner",
+      "rotation": 1,
+      "cell": null,
+      "locked": false,
+      "ports": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "road-3,2",
+      "kind": "ramp",
+      "rotation": 3,
+      "cell": "3,2",
+      "locked": false,
+      "ports": [
+        3,
+        1
+      ]
+    }
+  ],
+  "cells": [
+    {
+      "id": "0,0",
+      "x": 0,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "1,0",
+      "x": 1,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,0",
+      "x": 2,
+      "z": 0,
+      "height": 1,
+      "terrain": "built"
+    },
+    {
+      "id": "3,0",
+      "x": 3,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,0",
+      "x": 4,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "0,1",
+      "x": 0,
+      "z": 1,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "1,1",
+      "x": 1,
+      "z": 1,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,1",
+      "x": 2,
+      "z": 1,
+      "height": 1,
+      "terrain": "built"
+    },
+    {
+      "id": "3,1",
+      "x": 3,
+      "z": 1,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,1",
+      "x": 4,
+      "z": 1,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "0,2",
+      "x": 0,
+      "z": 2,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "1,2",
+      "x": 1,
+      "z": 2,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,2",
+      "x": 2,
+      "z": 2,
+      "height": 1,
+      "terrain": "land",
+      "landmark": {
+        "kind": "school",
+        "label": "בית ספר",
+        "lot": "2,1",
+        "lots": [
+          "2,1",
+          "2,0"
+        ]
+      }
+    },
+    {
+      "id": "3,2",
+      "x": 3,
+      "z": 2,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,2",
+      "x": 4,
+      "z": 2,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "0,3",
+      "x": 0,
+      "z": 3,
+      "height": 0,
+      "terrain": "land",
+      "landmark": {
+        "kind": "home",
+        "label": "החוף",
+        "lot": "1,3",
+        "lots": [
+          "1,3"
+        ]
+      }
+    },
+    {
+      "id": "1,3",
+      "x": 1,
+      "z": 3,
+      "height": 0,
+      "terrain": "built"
+    },
+    {
+      "id": "2,3",
+      "x": 2,
+      "z": 3,
+      "height": 1,
+      "terrain": "land"
+    },
+    {
+      "id": "3,3",
+      "x": 3,
+      "z": 3,
+      "height": 0,
+      "terrain": "built"
+    },
+    {
+      "id": "4,3",
+      "x": 4,
+      "z": 3,
+      "height": 0,
+      "terrain": "land",
+      "landmark": {
+        "kind": "home",
+        "label": "הבקע",
+        "lot": "3,3",
+        "lots": [
+          "3,3"
+        ]
+      }
+    }
+  ],
+  "closed": [],
+  "people": [
+    {
+      "id": 1,
+      "group": "west",
+      "cell": null,
+      "vehicle": "bus-west",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 2,
+      "group": "west",
+      "cell": null,
+      "vehicle": "bus-west",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 3,
+      "group": "west",
+      "cell": null,
+      "vehicle": "bus-west",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 4,
+      "group": "west",
+      "cell": null,
+      "vehicle": "bus-west",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 5,
+      "group": "west",
+      "cell": null,
+      "vehicle": "bus-west",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 6,
+      "group": "west",
+      "cell": null,
+      "vehicle": "bus-west",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 7,
+      "group": "east",
+      "cell": null,
+      "vehicle": "bus-east",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 8,
+      "group": "east",
+      "cell": null,
+      "vehicle": "bus-east",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 9,
+      "group": "east",
+      "cell": null,
+      "vehicle": "bus-east",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 10,
+      "group": "east",
+      "cell": null,
+      "vehicle": "bus-east",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 11,
+      "group": "east",
+      "cell": null,
+      "vehicle": "bus-east",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 12,
+      "group": "east",
+      "cell": null,
+      "vehicle": "bus-east",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "bus-west",
+      "group": "west",
+      "leg": 0,
+      "mode": "bus",
+      "capacity": 6,
+      "cell": "0,2",
+      "previous": "0,3",
+      "next": "1,2",
+      "progress": 0.07632905660377376,
+      "returning": false,
+      "onboard": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "dwell": 0,
+      "heading": 1,
+      "status": "moving",
+      "reason": "",
+      "trips": 1
+    },
+    {
+      "id": "bus-east",
+      "group": "east",
+      "leg": 0,
+      "mode": "bus",
+      "capacity": 6,
+      "cell": "4,3",
+      "previous": null,
+      "next": null,
+      "progress": 0,
+      "returning": false,
+      "onboard": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "dwell": 0,
+      "heading": 1,
+      "status": "waiting",
+      "reason": "יש פער בכביש. השלימו את החיבור.",
+      "trips": 1
+    }
+  ],
+  "targets": {
+    "cells": {
+      "0,0": {
+        "x": 341.0424696841229,
+        "y": 331.1764598386524
+      },
+      "1,0": {
+        "x": 500.1434397360022,
+        "y": 312.8545325374777
+      },
+      "2,0": {
+        "x": 659.2444097878814,
+        "y": 251.7755691209656
+      },
+      "3,0": {
+        "x": 818.3453798397607,
+        "y": 276.2106779351284
+      },
+      "4,0": {
+        "x": 977.4463498916399,
+        "y": 257.88875063395375
+      },
+      "0,1": {
+        "x": 369.4533571933871,
+        "y": 433.77925272523066
+      },
+      "1,1": {
+        "x": 528.5543272452663,
+        "y": 415.457325424056
+      },
+      "2,1": {
+        "x": 687.6552972971456,
+        "y": 354.37836200754384
+      },
+      "3,1": {
+        "x": 846.7562673490248,
+        "y": 378.8134708217067
+      },
+      "4,1": {
+        "x": 1005.857237400904,
+        "y": 360.491543520532
+      },
+      "0,2": {
+        "x": 397.8642447026512,
+        "y": 536.382045611809
+      },
+      "1,2": {
+        "x": 556.9652147545304,
+        "y": 518.0601183106343
+      },
+      "2,2": {
+        "x": 716.0661848064096,
+        "y": 456.9811548941221
+      },
+      "3,2": {
+        "x": 875.1671548582889,
+        "y": 481.4162637082849
+      },
+      "4,2": {
+        "x": 1034.2681249101681,
+        "y": 463.09433640711023
+      },
+      "0,3": {
+        "x": 426.2751322119153,
+        "y": 638.9848384983871
+      },
+      "1,3": {
+        "x": 585.3761022637946,
+        "y": 620.6629111972126
+      },
+      "2,3": {
+        "x": 744.4770723156738,
+        "y": 559.5839477807004
+      },
+      "3,3": {
+        "x": 903.578042367553,
+        "y": 584.0190565948632
+      },
+      "4,3": {
+        "x": 1062.6790124194324,
+        "y": 565.6971292936885
+      }
+    },
+    "tiles": {
+      "road-0,3": {
+        "x": 426.2751322119153,
+        "y": 636.6094476030906
+      },
+      "road-0,2": {
+        "x": 397.8642447026514,
+        "y": 534.0066595020614
+      },
+      "road-1,2": {
+        "x": 556.9652147582592,
+        "y": 515.684795448074
+      },
+      "road-2,2": {
+        "x": 716.0661848064096,
+        "y": 454.6057639988256
+      },
+      "road-4,3": {
+        "x": 1062.6790124194324,
+        "y": 563.321738398392
+      },
+      "road-4,2": {
+        "x": 781.4658624091202,
+        "y": 723.8599585075658
+      },
+      "road-3,2": {
+        "x": 875.1671101968228,
+        "y": 478.95675631303965
+      }
+    },
+    "vehicles": {
+      "bus-west": {
+        "x": 431.32736760203545,
+        "y": 524.7742361570614
+      },
+      "bus-east": {
+        "x": 1090.1394881828187,
+        "y": 558.9891413162568
+      }
+    }
+  }
+}

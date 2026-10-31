@@ -1,0 +1,28 @@
+{
+  "loggedBeforeInput": "2026-10-31T16:51:49.295Z",
+  "id": 13,
+  "intent": "After the first six arrive, try a shorter return in row1 rather than use the entire upper edge: move the parked corner from1,1 to0,1, put the second corner at3,1, aim the arrow west at2,1, and join with one straight at1,1. Two straight pieces can remain unused. This is a candidate alternate inferred from the actual empty strip and endpoint ports, not an opened witness.",
+  "waitArrived": 6,
+  "moves": [
+    {
+      "tile": "road-0,0",
+      "cell": "0,1",
+      "rotation": 1
+    },
+    {
+      "tile": "return-corner",
+      "cell": "3,1",
+      "rotation": 2
+    },
+    {
+      "tile": "road-2,0",
+      "cell": "2,1",
+      "rotation": 2
+    },
+    {
+      "tile": "road-1,0",
+      "cell": "1,1",
+      "rotation": 0
+    }
+  ]
+}

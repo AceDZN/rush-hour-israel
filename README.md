@@ -6,16 +6,17 @@ A real 3D **hands-on road rescue puzzle** for Hebrew-speaking students. Grab a r
 
 The human accepted the grab/rotate/snap loop, then found the layouts too easy and the graphics poor. They selected **“Realistic architectural model — restrained materials.”** Two fresh architectural imagegen targets preceded this art pass. New original Tripo bus/school assets, fine material maps, articulated facades and thin road modules replace the earlier toy-board treatment. Actual ports, heights, reserved building lots and vehicle curves remain authoritative.
 
-After the introduction, current authored plans manipulate four to eight necessary pieces, with up to ten movable pieces including alternatives. Several are misplaced on the board rather than crowding the four-slot tray. Boards 4, 8 and 23 accept different complete networks using the same inventory. Return arrows, bridge/ramp allocation, protected land and all-group access create legal but incomplete plans. These are authoring and rule observations, not measured student difficulty or optimal-move claims. Morning 23 is an open-solution replay before the final combined challenge.
+After the introduction, current reference plans manipulate four to eight pieces, with up to ten movable pieces including alternatives. Several are misplaced on the board rather than crowding the four-slot tray. Boards 4, 8 and 23 accept different complete networks using the same inventory; independent play also found a four-piece return in 13 that leaves two reference pieces unused. Return arrows, bridge/ramp allocation, protected land and all-group access create legal but incomplete plans. These counts are authoring observations, not minimum requirements or measured student difficulty. Morning 23 is an open-solution replay before the final combined challenge.
 
 ## Play
 
 - **Drag** a loose road from the physical tray or board into a cell. **Tap an installed free piece** to turn it a quarter turn. Tiles snap to position, retaining your chosen orientation.
 - Touch alternative: select a tray piece, use the large **סיבוב** control if needed, then tap the board. Grabbing a road leaves a real gap; buses brake instead of driving through its ghost. An occupied/reserved piece stays safely locked.
-- **Q / E** or the two visible turn controls rotate in either direction. **Z / ↶** undo the complete board-and-simulation change. **R** starts the same morning again. **Space / P** pause. **F** fullscreen. **Escape** cancels a held piece or pauses.
+- **Q / E** or the two visible turn controls rotate in either direction. **Z / ↶** undo the complete board-and-simulation change. **R** starts the same morning again. **Space / P** pause. **F** fullscreen. **Escape** cancels a held piece or clears selection; with no selection it pauses.
+- Tall architecture cuts away while editing so ground and pieces stay visible. **×**, Escape or a backdrop tap leaves selection and restores the full model. Building lots remain occupied and reject roads; the cutaway does not change any rule.
 - **↓ למגש** or dragging back to the tray returns a piece. Board-to-board drags can exchange two free pieces when both supports are legal. Keyboard focus + Enter selects/places the same objects.
 - The bus starts and stops automatically. It keeps its passengers through bends and returns when its six seats cannot hold everyone. Later one-way roads need a repaired return loop, bridges have finite occupancy, ramps must match height, and rail requires an actual transfer.
-- Completion is untimed. Move-efficiency stars support replay. The menu contains sound, reduced motion, retry and the 24-morning selector. A small optional hint highlights one useful piece.
+- Completion is untimed. An optional, visible placement target awards three stars within the target, two within two extra placements, and one for any other full rescue. Rotations, rejected/cancelled/same-origin drops, tray returns, hints and time are free; Undo restores the counter. The target is verified achievable, not claimed optimal. Current/target, projected rating, result reason and replay are visible. Placement scores use v5 storage; older records remain intact and unlocks/settings migrate. The menu contains sound, reduced motion, retry and the 24-morning selector. A small optional hint highlights one useful piece.
 
 Progress/settings stay in local browser storage under `rush-hour-road-puzzle-v4`. Previously unlocked mornings and preferences migrate from v3; old scores for easier layouts remain in the old record rather than becoming new-layout scores. Sequential wins unlock the next morning. `?level=1..24` and the introductory sample-challenge link open practice without fabricating earlier progress. No student data or analytics leave the browser.
 
@@ -35,7 +36,7 @@ npm run preview
 
 Strict dev **5303**, static preview **4303**. Relative asset URLs, locally bundled fonts/models/maps, no backend, key, runtime AI or external asset call. This polish uses two new original private Tripo generations through the user's Chrome, 60 new credits and 90 cumulative; provenance is in `ASSETS.md`. No production deployment is included.
 
-The current model/maps total about 3.50 MB before the application/font resources. Initial simulation waits for the actual bus, school and all three material maps; it does not consume boarding time while those assets load. Production load and offline checks are recorded with the current evidence.
+The current model/maps total about 3.50 MB; the measured final production load is 4,340,889 decoded resource bytes (about 4.34 MB), including application/fonts. Initial simulation waits for the actual bus, school and all three material maps; it does not consume boarding time while those assets load. Production load and offline checks are recorded with the current evidence.
 
 ## Evidence and source
 

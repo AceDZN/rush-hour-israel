@@ -1,0 +1,321 @@
+{
+  "url": "http://localhost:5303/action.html",
+  "started": "2026-10-31T18:04:53.925Z",
+  "campaign": [
+    {
+      "id": 1,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.5838999999999865,
+      "moves": 1,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 2,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.584766666666652,
+      "moves": 2,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 3,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.448799999999977,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 4,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.37379999999998,
+      "moves": 8,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 5,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.3413999999999815,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 6,
+      "arrived": 12,
+      "total": 12,
+      "time": 8.108433333333318,
+      "moves": 15,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 7,
+      "arrived": 8,
+      "total": 8,
+      "time": 18.17426666666688,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 8,
+      "arrived": 6,
+      "total": 6,
+      "time": 7.758899999999977,
+      "moves": 11,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 9,
+      "arrived": 6,
+      "total": 6,
+      "time": 7.599699999999971,
+      "moves": 11,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 10,
+      "arrived": 6,
+      "total": 6,
+      "time": 8.283733333333322,
+      "moves": 10,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 11,
+      "arrived": 12,
+      "total": 12,
+      "time": 19.44240000000016,
+      "moves": 12,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 12,
+      "arrived": 12,
+      "total": 12,
+      "time": 5.1493999999999875,
+      "moves": 9,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 13,
+      "arrived": 14,
+      "total": 14,
+      "time": 23.66579999999992,
+      "moves": 14,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 14,
+      "arrived": 12,
+      "total": 12,
+      "time": 11.416400000000133,
+      "moves": 8,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 15,
+      "arrived": 10,
+      "total": 10,
+      "time": 15.066733333333623,
+      "moves": 11,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 16,
+      "arrived": 16,
+      "total": 16,
+      "time": 21.64030000000005,
+      "moves": 16,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 17,
+      "arrived": 16,
+      "total": 16,
+      "time": 19.91510000000012,
+      "moves": 15,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 18,
+      "arrived": 12,
+      "total": 12,
+      "time": 10.499566666666743,
+      "moves": 13,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 19,
+      "arrived": 10,
+      "total": 10,
+      "time": 7.990399999999963,
+      "moves": 12,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 20,
+      "arrived": 16,
+      "total": 16,
+      "time": 22.69156666666665,
+      "moves": 15,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 21,
+      "arrived": 24,
+      "total": 24,
+      "time": 34.60659999999936,
+      "moves": 12,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 22,
+      "arrived": 12,
+      "total": 12,
+      "time": 19.982266666666806,
+      "moves": 14,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 23,
+      "arrived": 12,
+      "total": 12,
+      "time": 19.51573333333348,
+      "moves": 11,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 24,
+      "arrived": 22,
+      "total": 22,
+      "time": 29.933066666666253,
+      "moves": 17,
+      "hints": 0,
+      "modelLoaded": true
+    }
+  ],
+  "blockers": [],
+  "cases": [
+    {
+      "case": "2 wrong orientation / small nonmodal hint / rotate recovery",
+      "arrived": 6
+    },
+    {
+      "case": "11 ordinary road rejected on river / bridge repair",
+      "movesUnchanged": true
+    },
+    {
+      "case": "13 first6 / return-loop repair / all14",
+      "trips": 3
+    },
+    {
+      "case": "14 real bus / station wait / rail",
+      "stationWait": true,
+      "twoBoardings": true
+    },
+    {
+      "case": "12 partial hint selects the missing corner, preserving the correct counterclockwise ramp and people"
+    },
+    {
+      "case": "22 repair after closure",
+      "arrived": 12
+    },
+    {
+      "case": "3 physical hold / missing road / cancel restores",
+      "time": 4.2611999999999925
+    },
+    {
+      "case": "editing cutaway clears with selection close, Escape and backdrop without charging or pausing"
+    },
+    {
+      "case": "undo / pause / menu / mute / motion / fullscreen / resize / retry / blur / recovered win",
+      "prefsPersist": true
+    },
+    {
+      "case": "v4 preferred over v3 → v5 preserves access/settings and old records, starts placement scores empty, sample preview creates no award"
+    },
+    {
+      "case": "v3 fallback → v5 preserves access/settings and old records, starts placement scores empty, sample preview creates no award"
+    },
+    {
+      "case": "existing v5 silver/bronze placement scores remain unchanged rather than promoted to completion gold"
+    },
+    {
+      "case": "portrait visible counterclockwise and clockwise buttons rotate exactly one quarter-turn each; selection close fits viewport"
+    },
+    {
+      "case": "24 portrait390×844 genuine touch bridge/ramp/corner/clinic",
+      "arrived": 22,
+      "banner": {
+        "x": 14,
+        "y": 582.5,
+        "width": 362,
+        "height": 139.5
+      }
+    }
+  ],
+  "errors": [],
+  "hmr": {
+    "pageReloads": 0,
+    "messages": [],
+    "interrupted": false
+  },
+  "persistence": {
+    "unlocked": 24,
+    "stars": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3,
+      "10": 3,
+      "11": 3,
+      "12": 3,
+      "13": 3,
+      "14": 3,
+      "15": 3,
+      "16": 3,
+      "17": 3,
+      "18": 3,
+      "19": 3,
+      "20": 3,
+      "21": 3,
+      "22": 3,
+      "23": 3,
+      "24": 3
+    },
+    "muted": false,
+    "reduced": false,
+    "scoring": "placements"
+  },
+  "completed": "2026-10-31T18:07:07.802Z"
+}

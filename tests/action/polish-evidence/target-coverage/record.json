@@ -1,0 +1,20 @@
+{
+  "method": "Every initial free-piece center grabbed normally. Every projected cell center scanned during an actual held piece, using read-only hover. Desktop uses pointer input; phone uses genuine CDP touch. Normal keyboard retry isolates probes.",
+  "profiles": [
+    {
+      "name": "desktop",
+      "sources": 128,
+      "cells": 552,
+      "builtRejections": 23
+    },
+    {
+      "name": "phone",
+      "sources": 128,
+      "cells": 552,
+      "builtRejections": 23
+    }
+  ],
+  "failures": [],
+  "errors": [],
+  "hmr": []
+}

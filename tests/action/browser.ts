@@ -7,7 +7,9 @@ import type { Action } from "../../src/action/types";
 
 // Inputs use the shipped pointer/keyboard/touch handlers. Only the read-only
 // text hook and elapsed-time hook are evaluated; no state/action/win injection.
-const out = path.resolve("tests/action/evidence");
+const out = path.resolve(
+  process.env.EVIDENCE_DIR || "tests/action/polish-evidence",
+);
 await mkdir(out, { recursive: true });
 const url = process.env.GAME_URL || "http://localhost:5303/action.html";
 const browser = await chromium.launch({
@@ -24,6 +26,7 @@ const results: any = {
   url,
   started: new Date().toISOString(),
   campaign: [],
+  blockers: [],
   cases: [],
   errors,
   hmr,
@@ -51,9 +54,12 @@ async function ready(page: Page, id: number) {
   );
   await page.waitForTimeout(250);
   const s = await read(page);
-  assert.equal(s.version, 3);
+  assert.equal(s.version, 4);
   assert.equal(s.level, id);
   assert.equal(s.hints, 0);
+  assert.equal(s.assets.busLoaded, true);
+  assert.equal(s.assets.schoolLoaded, true);
+  assert.equal(s.assets.texturesLoaded, true);
 }
 async function step(page: Page, ms: number) {
   await page.evaluate((ms) => window.advanceTime(ms), ms);
@@ -64,6 +70,16 @@ async function win(page: Page) {
     const s = await read(page);
     if (s.mode === "won") {
       assert.equal(s.goal.arrived, s.goal.total);
+      assert.equal(
+        s.goal.stars,
+        3,
+        "reference/free-exploration winner keeps the visible gold target",
+      );
+      assert.ok(s.goal.placements <= s.goal.placementTarget);
+      assert.equal(
+        (await page.locator("#stars").innerText()).replace(/[^★☆]/g, ""),
+        "★★★",
+      );
       assert.ok(s.goal.groups.every((g: any) => g.arrived === g.total));
       return s;
     }
@@ -80,8 +96,8 @@ async function capture(page: Page, name: string) {
 }
 async function focusRotate(page: Page, id: string, turns: number) {
   await page.locator(`[data-tile="${id}"]`).focus();
-  for (let n = 0; n < ((turns % 4) + 4) % 4; n++)
-    await page.keyboard.press("KeyE");
+  for (let n = 0; n < Math.abs(turns); n++)
+    await page.keyboard.press(turns < 0 ? "KeyQ" : "KeyE");
   await page.waitForTimeout(120);
 }
 async function drag(page: Page, id: string, cell: string) {
@@ -118,6 +134,7 @@ async function touchDrag(
   context: BrowserContext,
   id: string,
   cell: string,
+  inspectHeld = false,
 ) {
   const s = await read(page),
     a = s.targets.tiles[id],
@@ -127,13 +144,19 @@ async function touchDrag(
     type: "touchStart",
     touchPoints: [{ x: a.x, y: a.y }],
   });
-  for (let n = 1; n <= 12; n++)
+  for (let n = 1; n <= 12; n++) {
     await cdp.send("Input.dispatchTouchEvent", {
       type: "touchMove",
       touchPoints: [
         { x: a.x + ((b.x - a.x) * n) / 12, y: a.y + ((b.y - a.y) * n) / 12 },
       ],
     });
+    if (inspectHeld && n === 6) {
+      await page.waitForTimeout(100);
+      assert.equal((await read(page)).held, id);
+      await capture(page, "portrait-24-touch-held-bridge");
+    }
+  }
   await cdp.send("Input.dispatchTouchEvent", {
     type: "touchEnd",
     touchPoints: [],
@@ -149,7 +172,8 @@ async function touchDrag(
 }
 async function touchRotate(page: Page, id: string, turns: number) {
   await page.locator(`[data-tile="${id}"]`).focus();
-  for (let n = 0; n < turns; n++) await page.locator("#rotate").tap();
+  for (let n = 0; n < Math.abs(turns); n++)
+    await page.locator(turns < 0 ? "#rotate-back" : "#rotate").tap();
   await page.waitForTimeout(100);
 }
 
@@ -190,42 +214,73 @@ try {
   }
   if (!process.env.REVIEW_ONLY) {
     await ready(page, 1);
+    assert.deepEqual(
+      (
+        await page.evaluate(() =>
+          JSON.parse(localStorage.getItem("rush-hour-road-puzzle-v5")!),
+        )
+      ).stars,
+      {},
+      "preview stars do not create a score before rescue",
+    );
     guardingCampaign = true;
     for (const m of MISSIONS) {
-      assert.equal((await read(page)).level, m.id);
-      await apply(page, m.solution);
-      if ([1, 11, 14, 18, 24].includes(m.id)) {
-        await step(page, 900);
-        await capture(page, `campaign-${String(m.id).padStart(2, "0")}-moving`);
-      }
-      const s = await win(page);
-      results.campaign.push({
-        id: m.id,
-        arrived: s.goal.arrived,
-        total: s.goal.total,
-        time: s.goal.time,
-        moves: s.goal.moves,
-        hints: s.hints,
-        modelLoaded: s.modelLoaded,
-      });
-      assert.equal(s.hints, 0);
-      console.log(`campaign ${m.id}: ${s.goal.arrived}/${s.goal.total}`);
-      if (m.id < 24) {
-        await page.locator("#next").click();
-        await page.waitForTimeout(150);
+      try {
+        assert.equal((await read(page)).level, m.id);
+        await apply(page, m.solution);
+        if ([1, 11, 14, 18, 24].includes(m.id)) {
+          await step(page, 900);
+          await capture(
+            page,
+            `campaign-${String(m.id).padStart(2, "0")}-moving`,
+          );
+        }
+        const s = await win(page);
+        results.campaign.push({
+          id: m.id,
+          arrived: s.goal.arrived,
+          total: s.goal.total,
+          time: s.goal.time,
+          moves: s.goal.moves,
+          hints: s.hints,
+          modelLoaded: s.modelLoaded,
+        });
+        assert.equal(s.hints, 0);
+        console.log(`campaign ${m.id}: ${s.goal.arrived}/${s.goal.total}`);
+        if (m.id < 24) {
+          await page.locator("#next").click();
+          await page.waitForTimeout(150);
+        }
+      } catch (e) {
+        if (!process.env.COLLECT_BLOCKERS || hmr.messages.length) throw e;
+        await capture(page, `blocked-${m.id}`);
+        results.blockers.push({ id: m.id, error: String(e) });
+        console.log(`BLOCKED ${m.id}: ${String(e)}`);
+        if (m.id < 24) {
+          guardingCampaign = false;
+          await ready(page, m.id + 1);
+          guardingCampaign = true;
+        }
       }
     }
     guardingCampaign = false;
+    assert.deepEqual(
+      results.blockers,
+      [],
+      "all collected campaign blockers must be repaired before a pass",
+    );
     assert.equal(
       hmr.pageReloads,
       0,
       "no page reload interrupts the earned campaign",
     );
     const progress = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem("rush-hour-road-puzzle-v3")!),
+      JSON.parse(localStorage.getItem("rush-hour-road-puzzle-v5")!),
     );
     assert.equal(progress.unlocked, 24);
     assert.equal(Object.keys(progress.stars).length, 24);
+    assert.ok(Object.values(progress.stars).every((score) => score === 3));
+    assert.equal(progress.scoring, "placements");
     results.persistence = progress;
     await ready(page, 2);
     await drag(page, "turn", "2,2");
@@ -310,6 +365,29 @@ try {
       stationWait,
       twoBoardings: true,
     });
+    await ready(page, 12);
+    await apply(
+      page,
+      MISSIONS[11].solution.filter((a) => a.tile !== "road-4,2"),
+    );
+    const hintPeople = (await read(page)).people.map((p: any) => p.id);
+    await page.locator("#hint").click();
+    let partial = await read(page);
+    assert.equal(partial.selected, "road-4,2");
+    assert.deepEqual(
+      partial.people.map((p: any) => p.id),
+      hintPeople,
+    );
+    assert.equal(partial.mode, "playing");
+    await capture(page, "negative-turn-partial-hint-12");
+    await apply(
+      page,
+      MISSIONS[11].solution.filter((a) => a.tile === "road-4,2"),
+    );
+    await win(page);
+    results.cases.push({
+      case: "12 partial hint selects the missing corner, preserving the correct counterclockwise ramp and people",
+    });
     await ready(page, 22);
     await page.mouse.move(10, 450);
     await page.mouse.click(10, 450);
@@ -342,6 +420,7 @@ try {
     await page.mouse.up();
     s = await read(page);
     assert.equal(s.held, null);
+    assert.equal(s.selected, null);
     assert.equal(s.tiles.find((t: any) => t.id === "straight").cell, "2,1");
     results.cases.push({
       case: "3 physical hold / missing road / cancel restores",
@@ -350,6 +429,22 @@ try {
     await win(page);
     // Utility controls use their rendered controls and keyboard events.
     await ready(page, 1);
+    await page.locator('[data-tile="first-road"]').focus();
+    await page.locator("#deselect").click();
+    assert.equal((await read(page)).selected, null);
+    await page.locator('[data-tile="first-road"]').focus();
+    await page.keyboard.press("Escape");
+    assert.equal((await read(page)).selected, null);
+    assert.equal((await read(page)).mode, "playing");
+    await page.locator('[data-tile="first-road"]').focus();
+    await page.mouse.click(10, 450);
+    assert.equal((await read(page)).selected, null);
+    assert.equal((await read(page)).goal.moves, 0);
+    await page.waitForTimeout(200);
+    await capture(page, "architecture-restored-1");
+    results.cases.push({
+      case: "editing cutaway clears with selection close, Escape and backdrop without charging or pausing",
+    });
     await drag(page, "first-road", "2,1");
     await step(page, 1000);
     await page.locator("#undo").click();
@@ -385,7 +480,7 @@ try {
       () => typeof window.render_game_to_text === "function",
     );
     const prefs = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem("rush-hour-road-puzzle-v3")!),
+      JSON.parse(localStorage.getItem("rush-hour-road-puzzle-v5")!),
     );
     assert.equal(prefs.muted, true);
     assert.equal(prefs.reduced, true);
@@ -405,6 +500,131 @@ try {
   }
   await context.close();
   diagnosticPage = undefined;
+  if (!process.env.REVIEW_ONLY) {
+    const old3 = {
+      unlocked: 18,
+      stars: { 1: 2, 2: 3, 17: 3, 24: 3 },
+      muted: true,
+      reduced: true,
+    };
+    const old4 = {
+      unlocked: 18,
+      stars: { 1: 2, 5: 1, 17: 2 },
+      muted: true,
+      reduced: false,
+    };
+    for (const fixture of [
+      {
+        name: "v4 preferred over v3",
+        v4: old4,
+        v3: { ...old3, unlocked: 7, muted: false, reduced: true },
+        expected: old4,
+      },
+      { name: "v3 fallback", v4: null, v3: old3, expected: old3 },
+    ]) {
+      const migration = await browser.newContext({
+          viewport: { width: 1440, height: 900 },
+        }),
+        mp = await migration.newPage();
+      instrument(mp);
+      diagnosticPage = mp;
+      await mp.addInitScript((f) => {
+        if (f.v4 && !localStorage.getItem("rush-hour-road-puzzle-v4"))
+          localStorage.setItem(
+            "rush-hour-road-puzzle-v4",
+            JSON.stringify(f.v4),
+          );
+        if (f.v3 && !localStorage.getItem("rush-hour-road-puzzle-v3"))
+          localStorage.setItem(
+            "rush-hour-road-puzzle-v3",
+            JSON.stringify(f.v3),
+          );
+      }, fixture);
+      await ready(mp, 1);
+      const stored = () =>
+        mp.evaluate(() => ({
+          current: JSON.parse(
+            localStorage.getItem("rush-hour-road-puzzle-v5")!,
+          ),
+          old4: JSON.parse(
+            localStorage.getItem("rush-hour-road-puzzle-v4") ?? "null",
+          ),
+          old3: JSON.parse(
+            localStorage.getItem("rush-hour-road-puzzle-v3") ?? "null",
+          ),
+        }));
+      let migrated = await stored();
+      assert.ok(migrated.current);
+      assert.equal(migrated.current.scoring, "placements");
+      assert.equal(migrated.current.unlocked, fixture.expected.unlocked);
+      assert.deepEqual(migrated.current.stars, {});
+      assert.deepEqual(migrated.old4, fixture.v4);
+      assert.deepEqual(migrated.old3, fixture.v3);
+      await mp.locator("#menu").click();
+      assert.equal(
+        await mp.locator("#sound").isChecked(),
+        !fixture.expected.muted,
+      );
+      assert.equal(
+        await mp.locator("#motion").isChecked(),
+        fixture.expected.reduced,
+      );
+      await mp.locator("#motion").setChecked(!fixture.expected.reduced);
+      await mp.locator("#motion").setChecked(fixture.expected.reduced);
+      await mp.locator(".close-dialog").click();
+      await mp.locator("#challenge-sample").click();
+      assert.equal((await read(mp)).level, 4);
+      migrated = await stored();
+      assert.deepEqual(migrated.current.stars, {});
+      assert.equal(migrated.current.unlocked, fixture.expected.unlocked);
+      assert.deepEqual(migrated.old4, fixture.v4);
+      assert.deepEqual(migrated.old3, fixture.v3);
+      assert.equal(migrated.current.muted, fixture.expected.muted);
+      assert.equal(migrated.current.reduced, fixture.expected.reduced);
+      await mp.reload();
+      await mp.waitForFunction(
+        () => typeof window.render_game_to_text === "function",
+      );
+      assert.deepEqual((await stored()).current.stars, {});
+      results.cases.push({
+        case:
+          fixture.name +
+          " → v5 preserves access/settings and old records, starts placement scores empty, sample preview creates no award",
+      });
+      await migration.close();
+      diagnosticPage = undefined;
+    }
+    const existing = await browser.newContext({
+        viewport: { width: 1440, height: 900 },
+      }),
+      ep = await existing.newPage();
+    instrument(ep);
+    diagnosticPage = ep;
+    const scoreProfile = {
+      unlocked: 18,
+      stars: { 5: 2, 17: 1 },
+      muted: false,
+      reduced: true,
+      scoring: "placements",
+    };
+    await ep.addInitScript((p) => {
+      if (!localStorage.getItem("rush-hour-road-puzzle-v5"))
+        localStorage.setItem("rush-hour-road-puzzle-v5", JSON.stringify(p));
+    }, scoreProfile);
+    await ready(ep, 1);
+    const preserved = await ep.evaluate(() =>
+      JSON.parse(localStorage.getItem("rush-hour-road-puzzle-v5")!),
+    );
+    assert.deepEqual(preserved.stars, scoreProfile.stars);
+    assert.equal(preserved.unlocked, 18);
+    assert.equal(preserved.muted, false);
+    assert.equal(preserved.reduced, true);
+    results.cases.push({
+      case: "existing v5 silver/bronze placement scores remain unchanged rather than promoted to completion gold",
+    });
+    await existing.close();
+    diagnosticPage = undefined;
+  }
   if (process.env.REVIEW_ONLY !== "14") {
     const phone = await browser.newContext({
         viewport: { width: 390, height: 844 },
@@ -415,11 +635,52 @@ try {
       p = await phone.newPage();
     instrument(p);
     diagnosticPage = p;
+    await ready(p, 2);
+    const initialTurn = (await read(p)).tiles.find(
+      (t: any) => t.id === "turn",
+    ).rotation;
+    await p.locator('[data-tile="turn"]').focus();
+    await p.locator("#rotate-back").tap();
+    assert.equal(
+      (await read(p)).tiles.find((t: any) => t.id === "turn").rotation,
+      (initialTurn + 3) % 4,
+    );
+    await p.locator("#rotate").tap();
+    assert.equal(
+      (await read(p)).tiles.find((t: any) => t.id === "turn").rotation,
+      initialTurn,
+    );
+    const bar = await p.locator("#selected-actions").boundingBox();
+    assert.ok(
+      bar &&
+        bar.x >= 0 &&
+        bar.x + bar.width <= 391 &&
+        bar.y + bar.height <= 845,
+    );
+    await p.locator("#deselect").tap();
+    assert.equal((await read(p)).selected, null);
+    results.cases.push({
+      case: "portrait visible counterclockwise and clockwise buttons rotate exactly one quarter-turn each; selection close fits viewport",
+    });
     await ready(p, 24);
+    const inventoryBefore = (await read(p)).tiles.map((t: any) => t.id);
+    for (const id of ["spare-24-0", "spare-24-1"]) {
+      await p.locator(`[data-tile="${id}"]`).focus();
+      await p.locator("#to-tray").tap();
+      assert.equal(
+        (await read(p)).tiles.find((t: any) => t.id === id).cell,
+        null,
+      );
+    }
+    assert.deepEqual(
+      (await read(p)).tiles.map((t: any) => t.id),
+      inventoryBefore,
+    );
+    await capture(p, "portrait-24-spares-returned");
     // Genuine touch drag, and the visible rotation button for an oriented held/selected piece.
     for (const a of MISSIONS[23].solution) {
       if (a.type === "rotate") await touchRotate(p, a.tile, a.turns ?? 1);
-      else await touchDrag(p, phone, a.tile, a.cell);
+      else await touchDrag(p, phone, a.tile, a.cell, a.tile === "last-bridge");
     }
     await step(p, 1200);
     await capture(p, "portrait-24-moving");

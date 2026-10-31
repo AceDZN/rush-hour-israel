@@ -1,0 +1,121 @@
+{
+  "method": "Recorded from the actual saved first-plan terminal states and failed24 screenshot/text after the first replay stopped. Plans were logged before input. No authored pose list or hint used.",
+  "records": [
+    {
+      "id": 4,
+      "mode": "won",
+      "goal": {
+        "total": 6,
+        "arrived": 6,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 8,
+        "time": 7.158333333333325,
+        "stars": 3,
+        "groups": [
+          {
+            "id": "kids",
+            "label": "\u05d4\u05d1\u05ea\u05d9\u05dd",
+            "total": 6,
+            "arrived": 6
+          }
+        ]
+      },
+      "hints": 0,
+      "evidence": "first-plan-4-won.json"
+    },
+    {
+      "id": 8,
+      "mode": "won",
+      "goal": {
+        "total": 6,
+        "arrived": 6,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 11,
+        "time": 10.158666666666775,
+        "stars": 3,
+        "groups": [
+          {
+            "id": "kids",
+            "label": "\u05d4\u05d1\u05ea\u05d9\u05dd",
+            "total": 6,
+            "arrived": 6
+          }
+        ]
+      },
+      "hints": 0,
+      "evidence": "first-plan-8-won.json"
+    },
+    {
+      "id": 13,
+      "mode": "won",
+      "goal": {
+        "total": 14,
+        "arrived": 14,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 10,
+        "time": 22.74243333333333,
+        "stars": 3,
+        "groups": [
+          {
+            "id": "queue",
+            "label": "\u05d4\u05d1\u05ea\u05d9\u05dd",
+            "total": 14,
+            "arrived": 14
+          }
+        ]
+      },
+      "hints": 0,
+      "evidence": "first-plan-13-won.json"
+    },
+    {
+      "id": 24,
+      "mode": "playing",
+      "goal": {
+        "total": 22,
+        "arrived": 0,
+        "waiting": 10,
+        "riding": 12,
+        "walking": 0,
+        "moves": 0,
+        "time": 1.591700000000002,
+        "stars": 3,
+        "groups": [
+          {
+            "id": "coast",
+            "label": "\u05e7\u05d4\u05d9\u05dc\u05ea \u05d4\u05d7\u05d5\u05e3",
+            "total": 12,
+            "arrived": 0
+          },
+          {
+            "id": "hill",
+            "label": "\u05d4\u05e9\u05db\u05d5\u05e0\u05d4 \u05d1\u05de\u05d6\u05e8\u05d7",
+            "total": 6,
+            "arrived": 0
+          },
+          {
+            "id": "local",
+            "label": "\u05d4\u05e7\u05d1\u05d5\u05e6\u05d4 \u05dc\u05de\u05e8\u05e4\u05d0\u05d4",
+            "total": 4,
+            "arrived": 0
+          }
+        ]
+      },
+      "message": "\u05d4\u05db\u05d1\u05d9\u05e9 \u05d4\u05d6\u05d4 \u05e7\u05d1\u05d5\u05e2.",
+      "piece": {
+        "id": "last-clinic",
+        "kind": "clinic",
+        "rotation": 0,
+        "cell": null,
+        "locked": false,
+        "ports": []
+      },
+      "evidence": "failed-play.json"
+    }
+  ]
+}
