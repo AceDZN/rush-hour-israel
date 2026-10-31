@@ -1,0 +1,246 @@
+{
+  "mode": "running",
+  "level": 18,
+  "title": "קרוב אבל רחוק",
+  "coordinates": "x east/right, z south/down; height up; screen pixel positions are for current camera",
+  "objective": "הדרך הקצרה מתעכבת במעבר. תוואי ארוך ומהיר יכול להביא אנשים מוקדם יותר.",
+  "time": 12.499999999999972,
+  "duration": 65,
+  "budget": 48,
+  "selectedTool": "interchange",
+  "selectedNode": null,
+  "hintUsed": false,
+  "modelLoaded": true,
+  "fps": 120,
+  "metrics": {
+    "expected": 42,
+    "created": 42,
+    "pending": 0,
+    "waiting": 11,
+    "riding": 24,
+    "arrived": 7,
+    "timely": 7,
+    "worst": 0,
+    "groups": [
+      {
+        "origin": "A",
+        "label": "שכונה קרובה",
+        "total": 28,
+        "arrived": 7,
+        "timely": 7,
+        "access": 0.25,
+        "meanTime": 9.45102505910488,
+        "waiting": 9
+      },
+      {
+        "origin": "B",
+        "label": "שכונה רחוקה",
+        "total": 14,
+        "arrived": 0,
+        "timely": 0,
+        "access": 0,
+        "meanTime": 0,
+        "waiting": 2
+      }
+    ],
+    "footprint": 26.94919856094996,
+    "noise": 0,
+    "success": false,
+    "meanTime": 9.45102505910488,
+    "induced": 0,
+    "score": 7
+  },
+  "nodes": [
+    {
+      "id": "A",
+      "x": -4,
+      "z": 2,
+      "h": 0.3,
+      "kind": "home",
+      "label": "שכונה קרובה",
+      "screen": {
+        "x": 580.4878048780488,
+        "y": 540.5968569389513
+      },
+      "stop": true,
+      "service": false,
+      "waiting": 9
+    },
+    {
+      "id": "B",
+      "x": -5,
+      "z": -4,
+      "h": 0.3,
+      "kind": "home",
+      "label": "שכונה רחוקה",
+      "screen": {
+        "x": 525.609756097561,
+        "y": 278.79066470494485
+      },
+      "stop": true,
+      "service": false,
+      "waiting": 2
+    },
+    {
+      "id": "J",
+      "x": -1,
+      "z": 2,
+      "h": 0.5,
+      "kind": "junction",
+      "label": "מעבר עמוס",
+      "screen": {
+        "x": 745.1219512195122,
+        "y": 533.9406045503855
+      },
+      "stop": false,
+      "service": false,
+      "waiting": 0
+    },
+    {
+      "id": "T",
+      "x": 0,
+      "z": -3,
+      "h": 0.4,
+      "kind": "station",
+      "label": "מסדרון מהיר",
+      "screen": {
+        "x": 800,
+        "y": 319.09690388299634
+      },
+      "stop": true,
+      "service": false,
+      "waiting": 0
+    },
+    {
+      "id": "S",
+      "x": 5,
+      "z": 0,
+      "h": 0.5,
+      "kind": "clinic",
+      "label": "מרכז השירות",
+      "screen": {
+        "x": 1074.3902439024391,
+        "y": 446.67187380571664
+      },
+      "stop": true,
+      "service": false,
+      "waiting": 0
+    }
+  ],
+  "links": [
+    {
+      "id": "A~J:road",
+      "a": "A",
+      "b": "J",
+      "mode": "road",
+      "level": 1,
+      "travelTime": 2.66,
+      "grade": 0.06666666666666667,
+      "headway": 0.8,
+      "nextDeparture": 12.800000000000002,
+      "closed": false
+    },
+    {
+      "id": "J~S:road",
+      "a": "J",
+      "b": "S",
+      "mode": "road",
+      "level": 1,
+      "travelTime": 3.9212242986087906,
+      "grade": 0,
+      "headway": 0.8,
+      "nextDeparture": 12.800000000000002,
+      "closed": false
+    },
+    {
+      "id": "A~T:road",
+      "a": "A",
+      "b": "T",
+      "mode": "road",
+      "level": 1,
+      "travelTime": 4.157345541474694,
+      "grade": 0.015617376188860612,
+      "headway": 0.8,
+      "nextDeparture": 12.800000000000002,
+      "closed": false
+    },
+    {
+      "id": "A~T:bus",
+      "a": "A",
+      "b": "T",
+      "mode": "bus",
+      "level": 2,
+      "travelTime": 3.9985480603863586,
+      "grade": 0.015617376188860612,
+      "headway": 3.5,
+      "nextDeparture": 14,
+      "closed": false
+    },
+    {
+      "id": "B~T:road",
+      "a": "B",
+      "b": "T",
+      "mode": "road",
+      "level": 1,
+      "travelTime": 3.396731460593348,
+      "grade": 0.019611613513818408,
+      "headway": 0.8,
+      "nextDeparture": 12.800000000000002,
+      "closed": false
+    },
+    {
+      "id": "B~T:bus",
+      "a": "B",
+      "b": "T",
+      "mode": "bus",
+      "level": 2,
+      "travelTime": 3.2702757766562467,
+      "grade": 0.019611613513818408,
+      "headway": 3.5,
+      "nextDeparture": 14,
+      "closed": false
+    },
+    {
+      "id": "S~T:rail",
+      "a": "T",
+      "b": "S",
+      "mode": "rail",
+      "level": 2,
+      "travelTime": 1.811025059104893,
+      "grade": 0.017149858514250882,
+      "headway": 4,
+      "nextDeparture": 16,
+      "closed": false
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 5,
+      "mode": "bus",
+      "a": "A",
+      "b": "T",
+      "people": 6,
+      "capacity": 6,
+      "fraction": 0.5001815583546452
+    },
+    {
+      "id": 6,
+      "mode": "bus",
+      "a": "B",
+      "b": "T",
+      "people": 6,
+      "capacity": 6,
+      "fraction": 0.611569218191418
+    },
+    {
+      "id": 7,
+      "mode": "rail",
+      "a": "T",
+      "b": "S",
+      "people": 12,
+      "capacity": 14,
+      "fraction": 0.27608673744532586
+    }
+  ],
+  "message": "שעת שיא! אפשר לתקן את הרשת תוך כדי תנועה."
+}

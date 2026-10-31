@@ -1,0 +1,92 @@
+[
+  {
+    "advanceTime": 0
+  },
+  {
+    "click": "#campaign-button"
+  },
+  {
+    "click": "[data-level=\"18\"]"
+  },
+  {
+    "click": "[data-tool=\"bus\"]"
+  },
+  {
+    "click": "[data-node=\"A\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-tool=\"bus\"]"
+  },
+  {
+    "click": "[data-node=\"B\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-tool=\"rail\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-node=\"S\"]"
+  },
+  {
+    "click": "[data-tool=\"stop\"]"
+  },
+  {
+    "click": "[data-node=\"A\"]"
+  },
+  {
+    "click": "[data-node=\"B\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-node=\"S\"]"
+  },
+  {
+    "click": "[data-tool=\"upgrade\"]"
+  },
+  {
+    "click": "[data-node=\"A\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-tool=\"upgrade\"]"
+  },
+  {
+    "click": "[data-node=\"B\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-tool=\"upgrade\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "[data-node=\"S\"]"
+  },
+  {
+    "click": "[data-tool=\"interchange\"]"
+  },
+  {
+    "click": "[data-node=\"T\"]"
+  },
+  {
+    "click": "#run"
+  },
+  {
+    "advanceTime": 12500
+  }
+]
