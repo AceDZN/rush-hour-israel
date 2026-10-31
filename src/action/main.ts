@@ -57,10 +57,10 @@ const app = $("app");
 app.innerHTML = [
   '<canvas id="game" aria-label="לוח דרכים תלת ממדי"></canvas>',
   '<div id="world-targets" aria-label="חלקים ומקומות בלוח"></div>',
-  '<header class="hud"><div class="identity"><span class="wordmark">שעת שיא<span class="brand-dot">.</span></span><span id="chapter"></span></div><div class="task"><span id="mission-name"></span><h1 id="instruction"></h1></div><div class="people-count"><span class="count-icon" aria-hidden="true"><svg width="26" height="28" viewBox="0 0 26 28" fill="currentColor"><circle cx="13" cy="7" r="4"/><path d="M6 25v-7a7 7 0 0 1 14 0v7z"/><circle cx="3" cy="10" r="2.5"/><circle cx="23" cy="10" r="2.5"/><path d="M0 23v-6a4 4 0 0 1 4-4h1v10zm21 0V13h1a4 4 0 0 1 4 4v6z"/></svg></span><b id="arrived">0</b><span class="count-slash">/</span><b id="total">6</b><small>הגיעו ליעד</small></div></header>',
+  '<header class="hud"><div class="identity"><span class="wordmark">שעת שיא<span class="brand-dot">.</span></span><span id="chapter"></span><button id="challenge-sample">אתגר לדוגמה ↗</button></div><div class="task"><span id="mission-name"></span><h1 id="instruction"></h1></div><div class="people-count"><span class="count-icon" aria-hidden="true"><svg width="26" height="28" viewBox="0 0 26 28" fill="currentColor"><circle cx="13" cy="7" r="4"/><path d="M6 25v-7a7 7 0 0 1 14 0v7z"/><circle cx="3" cy="10" r="2.5"/><circle cx="23" cy="10" r="2.5"/><path d="M0 23v-6a4 4 0 0 1 4-4h1v10zm21 0V13h1a4 4 0 0 1 4 4v6z"/></svg></span><b id="arrived">0</b><span class="count-slash">/</span><b id="total">6</b><small>הגיעו ליעד</small></div></header>',
   '<div id="north" class="north" hidden><span id="north-arrow">↑</span><small>צפון · מפה סכמטית</small></div>',
   '<div id="feedback" role="status" aria-live="polite"></div>',
-  '<div id="selected-actions" hidden><span id="selected-name"></span><button id="rotate" aria-label="סובבו את החלק רבע סיבוב"><span>↻</span>סיבוב</button><button id="to-tray" aria-label="החזירו את החלק למגש">↓ למגש</button></div>',
+  '<div id="selected-actions" hidden><span id="selected-name"></span><button id="rotate" aria-label="סובבו את החלק רבע סיבוב לימין"><span>↻</span>סיבוב</button><button id="rotate-back" aria-label="סובבו את החלק רבע סיבוב לשמאל">↺</button><button id="to-tray" aria-label="החזירו את החלק למגש">↓ למגש</button></div>',
   '<div id="tray-caption">גררו חלק אל הלוח</div>',
   '<nav class="controls" aria-label="פקדי משחק"><button id="undo" title="צעד אחורה — Z" aria-label="צעד אחורה">↶</button><button id="pause" title="השהיה — רווח" aria-label="השהיה">Ⅱ</button><button id="menu" title="תפריט" aria-label="תפריט">☰</button></nav>',
   '<button id="hint" class="hint-button" aria-label="רמז קטן" title="רמז קטן">?</button>',
@@ -75,7 +75,7 @@ void Promise.all(
     document.fonts.load(weight + " 16px Heebo", "↶Ⅱ▶☰↻↓?←×★☆"),
   ),
 ).catch(() => {});
-const STORAGE = "rush-hour-road-puzzle-v3";
+const STORAGE = "rush-hour-road-puzzle-v4";
 let saved: {
   unlocked: number;
   stars: Record<number, number>;
@@ -95,12 +95,33 @@ try {
       ...old,
       unlocked: Math.max(1, Math.min(24, Number(old.unlocked) || 1)),
     };
+  else {
+    const previous = JSON.parse(
+      localStorage.getItem("rush-hour-road-puzzle-v3") ?? "null",
+    );
+    if (previous)
+      saved = {
+        ...saved,
+        unlocked: Math.max(1, Math.min(24, Number(previous.unlocked) || 1)),
+        muted: Boolean(previous.muted),
+        reduced: Boolean(previous.reduced),
+        stars: Object.fromEntries(
+          Object.entries(previous.stars ?? {})
+            .filter(([id]) => Number(id) <= 2)
+            .map(([id, score]) => [
+              id,
+              Math.max(0, Math.min(3, Number(score) || 0)),
+            ]),
+        ),
+      };
+  }
 } catch {}
 const save = () => {
   try {
     localStorage.setItem(STORAGE, JSON.stringify(saved));
   } catch {}
 };
+save();
 let requested = Number(new URLSearchParams(location.search).get("level"));
 if (!Number.isInteger(requested) || requested < 1 || requested > 24)
   requested = saved.unlocked;
@@ -257,7 +278,9 @@ function updateTargets() {
 function update() {
   const st = stats(state),
     m = state.mission;
-  $("chapter").innerHTML = "בוקר <bdi>" + m.id + " / 24</bdi>";
+  $("chapter").innerHTML =
+    (m.id <= 2 ? "היכרות קצרה · " : "אתגר · ") + "<bdi>" + m.id + " / 24</bdi>";
+  $("challenge-sample").hidden = m.id > 2;
   $("mission-name").textContent = m.title;
   $("instruction").textContent = m.instruction;
   $("arrived").textContent = String(st.arrived);
@@ -275,6 +298,7 @@ function update() {
   if (selected) {
     $("selected-name").textContent = names[selected.kind];
     $("rotate").hidden = selected.kind === "clinic";
+    $("rotate-back").hidden = selected.kind === "clinic";
     $("to-tray").hidden = selected.cell === null && !state.held;
   }
   $("tray-caption").hidden = state.mode === "won" || Boolean(selected);
@@ -354,6 +378,7 @@ settings.addEventListener("close", () => {
   update();
 });
 $("menu").onclick = openSettings;
+$("challenge-sample").onclick = () => start(4);
 $("undo").onclick = () => {
   undo(state);
   ui.selected = null;
@@ -363,6 +388,7 @@ $("undo").onclick = () => {
 $("pause").onclick = () => setPause(state.mode !== "paused");
 $("resume").onclick = () => setPause(false);
 $("rotate").onclick = () => turn();
+$("rotate-back").onclick = () => turn(-1);
 $("to-tray").onclick = () => {
   if (ui.selected && returnToTray(state, ui.selected)) {
     ui.selected = null;
@@ -425,7 +451,7 @@ $("hint").onclick = () => {
   for (const action of state.mission.solution) {
     const tile = expected.find((t) => t.id === action.tile)!;
     if (action.type === "place") tile.cell = action.cell;
-    else tile.rotation = (tile.rotation + (action.turns ?? 1)) % 4;
+    else tile.rotation = (tile.rotation + (action.turns ?? 1) + 4) % 4;
   }
   const candidate = expected.find(
     (t) =>
@@ -586,7 +612,7 @@ document.addEventListener("visibilitychange", () => {
 function textState() {
   const st = stats(state);
   return JSON.stringify({
-    version: 3,
+    version: 4,
     interaction: "grab-rotate-snap",
     mode: state.mode,
     level: state.mission.id,
@@ -598,7 +624,11 @@ function textState() {
     held: ui.dragging,
     hints,
     message: state.message,
-    modelLoaded: scene.busLoaded,
+    modelLoaded:
+      scene.assetStatus.busLoaded &&
+      scene.assetStatus.schoolLoaded &&
+      scene.assetStatus.texturesLoaded,
+    assets: scene.assetStatus,
     fps: scene.fps,
     tiles: state.tiles.map((t) => ({ ...t, ports: roadPorts(t) })),
     cells: state.mission.cells,
@@ -610,17 +640,21 @@ function textState() {
 }
 window.render_game_to_text = textState;
 window.advanceTime = (ms) => {
-  tick(state, Math.max(0, ms) / 1000);
+  if (assetsReady()) tick(state, Math.max(0, ms) / 1000);
   scene.render(state, ui, 0);
   update();
 };
 let previous = performance.now();
+function assetsReady() {
+  const assets = scene.assetStatus;
+  return assets.busLoaded && assets.schoolLoaded && assets.texturesLoaded;
+}
 function frame(now: number) {
   const dt = Math.min(0.05, (now - previous) / 1000);
   previous = now;
-  tick(state, dt);
+  if (assetsReady()) tick(state, dt);
   scene.render(state, ui, dt);
-  audio.update(state.mode === "playing");
+  audio.update(state.mode === "playing" && assetsReady());
   update();
   requestAnimationFrame(frame);
 }

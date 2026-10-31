@@ -20,7 +20,12 @@ export interface Cell {
   terrain: "land" | "water" | "rock" | "quiet" | "built";
   bridgeAxis?: 0 | 1;
   servicePlot?: boolean;
-  landmark?: { kind: LandmarkKind; label: string; lot?: string };
+  landmark?: {
+    kind: LandmarkKind;
+    label: string;
+    lot?: string;
+    lots?: string[];
+  };
 }
 export interface Tile {
   id: string;

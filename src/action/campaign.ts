@@ -1,232 +1,23 @@
-import type {
-  Action,
-  Cell,
-  Dir,
-  Group,
-  Mission,
-  Tile,
-  TileKind,
-  VehicleSpec,
-} from "./types";
-import { key, roadPorts } from "./model";
-type P = [number, number];
-const K = (p: P) => key(...p);
-const ROAD =
-  "https://geography.workbook.co.il/grade-9/chapter-5/transport-communication";
-const CITY =
-  "https://geography.workbook.co.il/grade-7/chapter-5/city-structure";
-const RELIEF =
-  "https://geography.workbook.co.il/grade-9/chapter-2/landform-belts";
-const CORE =
-  "https://geography.workbook.co.il/grade-9/chapter-4/core-periphery-israel";
-const NOISE =
-  "https://geography.workbook.co.il/grade-7/chapter-5/urban-nuisances";
-const dir = (a: P, b: P): Dir =>
-  b[0] > a[0] ? 1 : b[0] < a[0] ? 3 : b[1] > a[1] ? 2 : 0;
-const rotate = (tile: string, turns = 1): Action => ({
-  type: "rotate",
-  tile,
-  turns,
-});
-const put = (tile: string, cell: string): Action => ({
-  type: "place",
-  tile,
-  cell,
-});
-function board(
-  id: number,
-  title: string,
-  instruction: string,
-  cols: number,
-  rows: number,
-  paths: P[][],
-  groups: Group[],
-  source = ROAD,
-): Mission {
-  const cells: Cell[] = Array.from({ length: cols * rows }, (_, i) => ({
-    id: key(i % cols, Math.floor(i / cols)),
-    x: i % cols,
-    z: Math.floor(i / cols),
-    height: 0,
-    terrain: "land",
-  }));
-  const ports = new Map<string, Set<Dir>>();
-  for (const path of paths)
-    for (let i = 0; i < path.length; i++) {
-      const ds = ports.get(K(path[i])) ?? new Set<Dir>();
-      if (i > 0) ds.add(dir(path[i], path[i - 1]));
-      if (i < path.length - 1) ds.add(dir(path[i], path[i + 1]));
-      ports.set(K(path[i]), ds);
-    }
-  const tiles: Tile[] = [];
-  for (const [cell, ds] of ports) {
-    const dirs = [...ds];
-    let kind: TileKind =
-      dirs.length >= 3
-        ? "tee"
-        : dirs.length === 2 && Math.abs(dirs[0] - dirs[1]) % 2 === 1
-          ? "corner"
-          : "straight";
-    const tile: Tile = {
-      id: "road-" + cell,
-      kind,
-      rotation: 0,
-      cell,
-      locked: true,
-    };
-    for (let r = 0; r < 4; r++) {
-      tile.rotation = r;
-      if (dirs.every((d) => roadPorts(tile).includes(d))) break;
-    }
-    tiles.push(tile);
-  }
-  for (const g of groups) {
-    cells.find((c) => c.id === g.origin)!.landmark = {
-      kind: "home",
-      label: g.label,
-    };
-    const end = cells.find((c) => c.id === g.destination)!;
-    if (!end.landmark)
-      end.landmark = {
-        kind: g.local ? "clinic" : "school",
-        label: g.local ? "מרפאה" : "בית ספר",
-      };
-    if (g.via)
-      cells.find((c) => c.id === g.via)!.landmark = {
-        kind: "station",
-        label: "תחנת רכבת",
-      };
-    if (g.walkFrom)
-      cells.find((c) => c.id === g.walkFrom)!.landmark = {
-        kind: "station",
-        label: "תחנה",
-      };
-  }
-  const fleet: VehicleSpec[] = groups
-    .filter((g) => !g.local)
-    .flatMap((g) => [
-      { id: "bus-" + g.id, group: g.id, leg: 0, mode: "bus", capacity: 6 },
-      ...(g.via
-        ? [
-            {
-              id: "train-" + g.id,
-              group: g.id,
-              leg: 1,
-              mode: "rail" as const,
-              capacity: 14,
-            },
-          ]
-        : []),
-    ]);
-  return {
-    roadCells: [...ports.keys()],
-    id,
-    title,
-    instruction,
-    lesson: "חיבור שימושי הוא חיבור שמביא את האנשים ליעד.",
-    source,
-    cols,
-    rows,
-    cells,
-    tiles,
-    groups,
-    fleet,
-    par: 0,
-    solution: [],
-  };
-}
-const group = (
-  id: string,
-  origin: P,
-  destination: P,
-  count = 6,
-  label = "הבתים",
-  extra: Partial<Group> = {},
-): Group => ({
-  id,
-  origin: K(origin),
-  destination: K(destination),
-  count,
-  label,
-  ...extra,
-});
-const c = (m: Mission, id: string) => m.cells.find((c) => c.id === id)!;
-const t = (m: Mission, id: string) => m.tiles.find((t) => t.cell === id)!;
-function loose(
-  m: Mission,
-  cell: string,
-  rotation?: number,
-  id = "piece-" + cell,
-) {
-  const tile = t(m, cell);
-  tile.locked = false;
-  tile.id = id;
-  if (rotation !== undefined) tile.rotation = rotation;
-  return tile;
-}
-function gap(
-  m: Mission,
-  cell: string,
-  rotation?: number,
-  id = "piece-" + cell,
-) {
-  const tile = loose(m, cell, rotation, id);
-  tile.cell = null;
-  return tile;
-}
-function finish(m: Mission, actions: Action[], lesson: string) {
-  m.solution = actions;
-  m.par = actions.reduce(
-    (n, a) => n + (a.type === "rotate" ? Math.abs(a.turns ?? 1) : 1),
-    0,
-  );
-  m.lesson = lesson;
-  // A missing road is still reserved road space. Buildings receive explicit
-  // lots before rendering, so a larger facade can never cover a puzzle socket.
-  const occupied = new Set([
-    ...(m.roadCells ?? []),
-    ...m.tiles.flatMap((t) => (t.cell ? [t.cell] : [])),
-    ...actions.flatMap((a) => (a.type === "place" ? [a.cell] : [])),
-    ...m.cells.filter((c) => c.landmark || c.servicePlot).map((c) => c.id),
-  ]);
-  for (const at of m.cells.filter((c) => c.landmark)) {
-    const candidates = [
-      [0, -1],
-      [1, 0],
-      [0, 1],
-      [-1, 0],
-    ].map(([dx, dz]) =>
-      m.cells.find((c) => c.x === at.x + dx && c.z === at.z + dz),
-    );
-    const lot = candidates.find(
-      (c) =>
-        c &&
-        c.terrain === "land" &&
-        c.height === at.height &&
-        !occupied.has(c.id),
-    );
-    if (lot) {
-      at.landmark!.lot = lot.id;
-      lot.terrain = "built";
-      occupied.add(lot.id);
-    }
-  }
-  return m;
-}
-function kind(m: Mission, cell: string, kind: TileKind, rotation?: number) {
-  const tile = t(m, cell);
-  tile.kind = kind;
-  if (rotation !== undefined) tile.rotation = rotation;
-  return tile;
-}
-function river(m: Mission, x: number, bridges: string[]) {
-  for (const cell of m.cells)
-    if (cell.x === x) {
-      cell.terrain = "water";
-      if (bridges.includes(cell.id)) cell.bridgeAxis = 1;
-    }
-}
-
+import type { Action, Mission } from "./types";
+import {
+  board,
+  group,
+  c,
+  t,
+  loose,
+  gap,
+  finish,
+  kind,
+  river,
+  rotate,
+  put,
+  ROAD,
+  CITY,
+  RELIEF,
+  CORE,
+  NOISE,
+} from "./authoring";
+import { polishCampaign, routeActions } from "./challenges";
 const one = board(
   1,
   "חסר רק חלק אחד",
@@ -1114,7 +905,7 @@ finish(
   "נוף, מיקום שירותים וקבוצות שונות משנים יחד את הדרך המועילה.",
 );
 
-export const MISSIONS: Mission[] = [
+const baseline: Mission[] = [
   one,
   two,
   three,
@@ -1140,11 +931,48 @@ export const MISSIONS: Mission[] = [
   twentythree,
   twentyfour,
 ];
+export const MISSIONS = polishCampaign(baseline);
 export const getMission = (id: number) =>
   MISSIONS[Math.max(0, Math.min(23, id - 1))];
-export const ALTERNATE_23: Action[] = [
-  put("corner-a", "0,3"),
-  rotate("corner-b", 3),
-  put("corner-b", "4,3"),
-];
-export const ALTERNATE_21: Action[] = [put("slim", "2,2")];
+export const ALTERNATE_4 = routeActions(MISSIONS[3], {
+  "road-2,3": { cell: "3,3", rotation: 3 },
+  "road-2,1": { cell: "3,1", rotation: 1 },
+  "road-2,2": { cell: "2,3", rotation: 0 },
+  "road-3,1": { cell: "3,2", rotation: 1 },
+});
+export const ALTERNATE_8 = routeActions(MISSIONS[7], {
+  "road-1,1": { cell: "1,3", rotation: 0 },
+  "road-2,1": { cell: "2,3", rotation: 0 },
+  "road-3,1": { cell: "3,3", rotation: 0 },
+  "road-4,1": { cell: "4,3", rotation: 0 },
+  "road-5,1": { cell: "5,3", rotation: 3 },
+});
+export const ALTERNATE_23 = routeActions(MISSIONS[22], {
+  "corner-a": { cell: "0,3", rotation: 0 },
+  "corner-b": { cell: "4,3", rotation: 3 },
+  "road-1,1": { cell: "1,3", rotation: 0 },
+  "road-2,1": { cell: "2,3", rotation: 0 },
+  "road-3,1": { cell: "3,3", rotation: 0 },
+});
+export const ALTERNATE_21 = routeActions(
+  MISSIONS[20],
+  Object.fromEntries(
+    MISSIONS[20].solution
+      .filter((a) => a.tile !== "wide")
+      .reduce(
+        (entries, a) => {
+          let v = entries.find(([id]) => id === a.tile);
+          if (!v) {
+            const initial = MISSIONS[20].tiles.find((t) => t.id === a.tile)!;
+            v = [a.tile, { cell: initial.cell!, rotation: initial.rotation }];
+            entries.push(v);
+          }
+          if (a.type === "place") v[1].cell = a.cell;
+          else v[1].rotation = (v[1].rotation + (a.turns ?? 1) + 4) % 4;
+          return entries;
+        },
+        [] as [string, { cell: string; rotation: number }][],
+      )
+      .concat([["slim", { cell: "2,2", rotation: 0 }]]),
+  ),
+);

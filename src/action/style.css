@@ -581,3 +581,133 @@ dialog h3 {
     transition: none !important;
   }
 }
+
+/* Restrained architectural-model surface: ink HUD over neutral stone. */
+:root {
+  color: #2b3734;
+  background: #e8e3d8;
+}
+.hud {
+  color: #263631;
+  text-shadow: 0 1px 0 #ffffff50;
+}
+.brand-dot {
+  color: #9e7850;
+}
+.identity > span + span,
+.task > span {
+  color: #59655d;
+}
+.count-icon {
+  color: #88704c;
+}
+.count-slash,
+.people-count small {
+  color: #647068;
+}
+.controls button,
+.hint-button {
+  color: #30433b;
+  background: #f6f2e9e8;
+  border: 1px solid #53635845;
+  box-shadow: 0 3px 10px #26372818;
+}
+.controls button:hover,
+.hint-button:hover {
+  background: #fffaf0;
+}
+.north {
+  color: #45564c;
+}
+#tray-caption {
+  color: #485a4d;
+}
+#selected-actions {
+  background: #f7f3e9ed;
+  color: #293c32;
+  box-shadow: 0 3px 12px #26372822;
+  border: 1px solid #52644d25;
+}
+#selected-name {
+  color: #47594b;
+}
+#selected-actions button {
+  background: #334b40;
+  color: #fffaf0;
+}
+#feedback {
+  background: #e4d3ad;
+  color: #384432;
+  box-shadow: 0 3px 10px #2637281a;
+  border: 1px solid #a8936c40;
+}
+#win {
+  background: #fbf7eeef;
+  color: #2d4337;
+  box-shadow: 0 12px 30px #20312630;
+  border: 1px solid #7b8a7525;
+}
+#win button,
+#resume {
+  background: #354f42;
+  color: #fff9ed;
+}
+#stars {
+  color: #a17b43;
+}
+#paused {
+  background: #e8e3d88a;
+  color: #2d4237;
+}
+.pause-mark {
+  color: #8c7853;
+}
+dialog::backdrop {
+  background: #d1cfc5bb;
+}
+.webgl-error {
+  color: #2d4237;
+}
+#challenge-sample {
+  pointer-events: auto;
+  margin: 10px 0 0;
+  padding: 0 0 3px;
+  border: 0;
+  border-bottom: 1px solid #596b515c;
+  background: transparent;
+  color: #475f4d;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  align-self: flex-start;
+}
+.world-target:focus-visible {
+  outline-color: #9b8350;
+  background: #b9a16b15;
+}
+@media (max-width: 700px) {
+  #challenge-sample {
+    font-size: 10px;
+    margin-top: 8px;
+  }
+  .task h1 {
+    font-size: 15px;
+  }
+  .identity > span + span {
+    font-size: 9px;
+  }
+}
+@media (max-width: 700px) {
+  #challenge-sample {
+    position: fixed;
+    top: 80px;
+    left: 18px;
+    margin: 0;
+  }
+}
+#selected-actions #rotate-back {
+  font-size: 23px;
+  line-height: 1;
+  min-width: 36px;
+  padding: 3px 8px;
+}
