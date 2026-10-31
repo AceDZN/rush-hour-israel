@@ -1,0 +1,14 @@
+slug,domain,seed_1,seed_2,pairwise_sim,related,centroid_nn_sim,isolation_pct,density_mean_topk,neighborhood_reviews,nearest_1,nearest_2
+basin-breakers-alt,Water engineering,From Dust,Poly Bridge,0.427,True,0.845,9.0,0.715,41750,From Dust,Poly Bridge
+orbit-outlaws,Earth motions,Outer Wilds,Kerbal Space Program,0.436,True,0.847,8.6,0.679,948011,Kerbal Space Program,Outer Wilds
+rush-hour-israel-alt,Accessibility networks,Mini Metro,ISLANDERS,0.445,True,0.850,8.2,0.709,59627,Mini Metro,ISLANDERS
+faultline,Tectonics,From Dust,Teardown,0.449,True,0.851,8.1,0.761,239111,From Dust,Teardown
+windshift-riders-alt,Weather flight,Superflight,A Short Hike,0.507,True,0.868,6.2,0.662,35886,Superflight,A Short Hike
+grid-guardians,Energy resources,Mini Motorways,ISLANDERS,0.534,True,0.876,5.4,0.734,59751,Mini Motorways,ISLANDERS
+dune-drifters,Erosion terrain traversal,SnowRunner,Lonely Mountains: Downhill,0.534,True,0.876,5.4,0.732,423206,SnowRunner,Lonely Mountains: Downhill
+basin-breakers,Water landscape puzzles,From Dust,Terra Nil,0.568,True,0.886,4.6,0.692,36526,Terra Nil,From Dust
+windshift-riders,Weather flight,Superflight,Fugl,0.596,True,0.893,4.0,0.709,19711,Fugl,Superflight
+settlement-stack,Settlement location,ISLANDERS,Townscaper,0.633,True,0.903,3.2,0.780,119558,ISLANDERS,Townscaper
+rewild-rangers,River and coastal restoration,Terra Nil,Dorfromantik,0.640,True,0.906,3.1,0.759,46167,Terra Nil,Dorfromantik
+rush-hour-israel,Accessibility networks,Mini Motorways,Cities: Skylines,0.641,True,0.906,3.1,0.722,416218,Cities: Skylines,Mini Motorways
+port-panic,Globalization and trade,Overcooked! 2,Transport Fever 2,0.378,False,0.830,11.1,0.699,217279,Transport Fever 2,Overcooked! 2

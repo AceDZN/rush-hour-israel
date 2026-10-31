@@ -1,0 +1,619 @@
+{
+ "classification": "Exploratory blend evidence; G1 pending; no accepted concept or supported void claim",
+ "corpus": "data/assisted-2026-10-23/corpus",
+ "n": 73466,
+ "neighborhood_k": 50,
+ "pairs": [
+  {
+   "slug": "basin-breakers-alt",
+   "domain": "Water engineering",
+   "seeds": [
+    "From Dust",
+    "Poly Bridge"
+   ],
+   "pairwise_sim": 0.4266696572303772,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8446815013885498,
+   "centroid_isolation_percentile": 8.982386410040018,
+   "density_proxy_mean_top_k_sim": 0.7146470546722412,
+   "centroid_specificity": 0.1179884672164917,
+   "neighborhood_reviews": 41750,
+   "nearest": [
+    {
+     "title": "From Dust",
+     "sim": 0.8446815013885498
+    },
+    {
+     "title": "Poly Bridge",
+     "sim": 0.8445265889167786
+    },
+    {
+     "title": "Tiny Bridge: Ratventure",
+     "sim": 0.7491222620010376
+    },
+    {
+     "title": "The God",
+     "sim": 0.7460896372795105
+    },
+    {
+     "title": "Art of Destruction",
+     "sim": 0.741473913192749
+    }
+   ],
+   "leans_toward": [
+    "Immersive Sim",
+    "Nature",
+    "Level Editor",
+    "Sandbox",
+    "City Builder",
+    "Simulation",
+    "God Game",
+    "Farming Sim"
+   ]
+  },
+  {
+   "slug": "orbit-outlaws",
+   "domain": "Earth motions",
+   "seeds": [
+    "Outer Wilds",
+    "Kerbal Space Program"
+   ],
+   "pairwise_sim": 0.43576475977897644,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8473705649375916,
+   "centroid_isolation_percentile": 8.61895298505431,
+   "density_proxy_mean_top_k_sim": 0.6794682145118713,
+   "centroid_specificity": 0.16996970772743225,
+   "neighborhood_reviews": 948011,
+   "nearest": [
+    {
+     "title": "Kerbal Space Program",
+     "sim": 0.8473705649375916
+    },
+    {
+     "title": "Outer Wilds",
+     "sim": 0.8472307920455933
+    },
+    {
+     "title": "Kerbal Space Program 2",
+     "sim": 0.7290424108505249
+    },
+    {
+     "title": "Out of Orbit",
+     "sim": 0.712490975856781
+    },
+    {
+     "title": "Space Worthy",
+     "sim": 0.7060880064964294
+    }
+   ],
+   "leans_toward": [
+    "Space Sim",
+    "Space",
+    "Spaceships",
+    "Mars",
+    "Science",
+    "Sci-fi",
+    "Aliens",
+    "Warhammer 40K"
+   ]
+  },
+  {
+   "slug": "rush-hour-israel-alt",
+   "domain": "Accessibility networks",
+   "seeds": [
+    "Mini Metro",
+    "ISLANDERS"
+   ],
+   "pairwise_sim": 0.4450632333755493,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8501209616661072,
+   "centroid_isolation_percentile": 8.214684343778075,
+   "density_proxy_mean_top_k_sim": 0.7093449234962463,
+   "centroid_specificity": 0.1253364086151123,
+   "neighborhood_reviews": 59627,
+   "nearest": [
+    {
+     "title": "Mini Metro",
+     "sim": 0.8501209616661072
+    },
+    {
+     "title": "ISLANDERS",
+     "sim": 0.8498262763023376
+    },
+    {
+     "title": "Mini Motorways",
+     "sim": 0.7758544683456421
+    },
+    {
+     "title": "MiniTrans",
+     "sim": 0.7707177996635437
+    },
+    {
+     "title": "Match Village",
+     "sim": 0.7515769004821777
+    }
+   ],
+   "leans_toward": [
+    "City Builder",
+    "Minimalist",
+    "Isometric",
+    "Grid-Based Movement",
+    "Procedural Generation",
+    "Building",
+    "Colony Sim",
+    "Music-Based Procedural Generation"
+   ]
+  },
+  {
+   "slug": "faultline",
+   "domain": "Tectonics",
+   "seeds": [
+    "From Dust",
+    "Teardown"
+   ],
+   "pairwise_sim": 0.4489944875240326,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8512485027313232,
+   "centroid_isolation_percentile": 8.06767756513217,
+   "density_proxy_mean_top_k_sim": 0.7608571648597717,
+   "centroid_specificity": 0.10715386271476746,
+   "neighborhood_reviews": 239111,
+   "nearest": [
+    {
+     "title": "From Dust",
+     "sim": 0.8512485027313232
+    },
+    {
+     "title": "Teardown",
+     "sim": 0.8511543273925781
+    },
+    {
+     "title": "Modiverse",
+     "sim": 0.7838250994682312
+    },
+    {
+     "title": "Ficterra",
+     "sim": 0.7799005508422852
+    },
+    {
+     "title": "Astral Terra",
+     "sim": 0.7771164178848267
+    }
+   ],
+   "leans_toward": [
+    "Nature",
+    "Voxel",
+    "Sandbox",
+    "Open World Survival Craft",
+    "Immersive Sim",
+    "Outbreak Sim",
+    "Destruction",
+    "God Game"
+   ]
+  },
+  {
+   "slug": "windshift-riders-alt",
+   "domain": "Weather flight",
+   "seeds": [
+    "Superflight",
+    "A Short Hike"
+   ],
+   "pairwise_sim": 0.5070551037788391,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8680763840675354,
+   "centroid_isolation_percentile": 6.208314050036751,
+   "density_proxy_mean_top_k_sim": 0.6617268323898315,
+   "centroid_specificity": 0.12284381687641144,
+   "neighborhood_reviews": 35886,
+   "nearest": [
+    {
+     "title": "Superflight",
+     "sim": 0.8680763840675354
+    },
+    {
+     "title": "A Short Hike",
+     "sim": 0.8680630922317505
+    },
+    {
+     "title": "Sky Conqueror",
+     "sim": 0.731610894203186
+    },
+    {
+     "title": "Hike",
+     "sim": 0.7213844060897827
+    },
+    {
+     "title": "Hyperglide",
+     "sim": 0.7213035225868225
+    }
+   ],
+   "leans_toward": [
+    "Skiing",
+    "Flight",
+    "Birds",
+    "Relaxing",
+    "Snowboarding",
+    "Parkour",
+    "Skating",
+    "Golf"
+   ]
+  },
+  {
+   "slug": "grid-guardians",
+   "domain": "Energy resources",
+   "seeds": [
+    "Mini Motorways",
+    "ISLANDERS"
+   ],
+   "pairwise_sim": 0.5343044400215149,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8758947253227234,
+   "centroid_isolation_percentile": 5.441973157651159,
+   "density_proxy_mean_top_k_sim": 0.7338368892669678,
+   "centroid_specificity": 0.12834613025188446,
+   "neighborhood_reviews": 59751,
+   "nearest": [
+    {
+     "title": "Mini Motorways",
+     "sim": 0.8758947253227234
+    },
+    {
+     "title": "ISLANDERS",
+     "sim": 0.8757113218307495
+    },
+    {
+     "title": "Hexarium",
+     "sim": 0.7991847991943359
+    },
+    {
+     "title": "Match Village",
+     "sim": 0.7841277122497559
+    },
+    {
+     "title": "My Low Poly City",
+     "sim": 0.7840595245361328
+    }
+   ],
+   "leans_toward": [
+    "City Builder",
+    "Minimalist",
+    "Building",
+    "Grid-Based Movement",
+    "Transportation",
+    "Automobile Sim",
+    "Procedural Generation",
+    "Colony Sim"
+   ]
+  },
+  {
+   "slug": "dune-drifters",
+   "domain": "Erosion terrain traversal",
+   "seeds": [
+    "SnowRunner",
+    "Lonely Mountains: Downhill"
+   ],
+   "pairwise_sim": 0.5341881513595581,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8759450912475586,
+   "centroid_isolation_percentile": 5.433806114393053,
+   "density_proxy_mean_top_k_sim": 0.7320840358734131,
+   "centroid_specificity": 0.18699629604816437,
+   "neighborhood_reviews": 423206,
+   "nearest": [
+    {
+     "title": "SnowRunner",
+     "sim": 0.8759450912475586
+    },
+    {
+     "title": "Lonely Mountains: Downhill",
+     "sim": 0.8758220076560974
+    },
+    {
+     "title": "MudRunner",
+     "sim": 0.7859518527984619
+    },
+    {
+     "title": "Sledders",
+     "sim": 0.7857829928398132
+    },
+    {
+     "title": "Pure Rock Crawling",
+     "sim": 0.7741557955741882
+    }
+   ],
+   "leans_toward": [
+    "Snowboarding",
+    "Offroad",
+    "Cycling",
+    "Bikes",
+    "Skiing",
+    "Motorbike",
+    "Motocross",
+    "Automobile Sim"
+   ]
+  },
+  {
+   "slug": "basin-breakers",
+   "domain": "Water landscape puzzles",
+   "seeds": [
+    "From Dust",
+    "Terra Nil"
+   ],
+   "pairwise_sim": 0.5680649280548096,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8855072259902954,
+   "centroid_isolation_percentile": 4.602128875942613,
+   "density_proxy_mean_top_k_sim": 0.6916512250900269,
+   "centroid_specificity": 0.1435573250055313,
+   "neighborhood_reviews": 36526,
+   "nearest": [
+    {
+     "title": "Terra Nil",
+     "sim": 0.8855072259902954
+    },
+    {
+     "title": "From Dust",
+     "sim": 0.8855041861534119
+    },
+    {
+     "title": "Of Life and Land",
+     "sim": 0.7241805195808411
+    },
+    {
+     "title": "Unnatural Disaster",
+     "sim": 0.7231981158256531
+    },
+    {
+     "title": "Preserve",
+     "sim": 0.7224595546722412
+    }
+   ],
+   "leans_toward": [
+    "Nature",
+    "Procedural Generation",
+    "Atmospheric",
+    "God Game",
+    "City Builder",
+    "Music-Based Procedural Generation",
+    "Post-apocalyptic",
+    "Sandbox"
+   ]
+  },
+  {
+   "slug": "windshift-riders",
+   "domain": "Weather flight",
+   "seeds": [
+    "Superflight",
+    "Fugl"
+   ],
+   "pairwise_sim": 0.5963088274002075,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.8934406042098999,
+   "centroid_isolation_percentile": 3.958293632428606,
+   "density_proxy_mean_top_k_sim": 0.7091004848480225,
+   "centroid_specificity": 0.12295982241630554,
+   "neighborhood_reviews": 19711,
+   "nearest": [
+    {
+     "title": "Fugl",
+     "sim": 0.8934406042098999
+    },
+    {
+     "title": "Superflight",
+     "sim": 0.8933969736099243
+    },
+    {
+     "title": "Fly Flew Flown",
+     "sim": 0.7809754610061646
+    },
+    {
+     "title": "Hyperglide",
+     "sim": 0.7779257893562317
+    },
+    {
+     "title": "FreeFlight",
+     "sim": 0.7777782678604126
+    }
+   ],
+   "leans_toward": [
+    "Birds",
+    "Flight",
+    "Nature",
+    "Procedural Generation",
+    "Relaxing",
+    "Atmospheric",
+    "Jet",
+    "Music-Based Procedural Generation"
+   ]
+  },
+  {
+   "slug": "settlement-stack",
+   "domain": "Settlement location",
+   "seeds": [
+    "ISLANDERS",
+    "Townscaper"
+   ],
+   "pairwise_sim": 0.6325610280036926,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.9033709764480591,
+   "centroid_isolation_percentile": 3.2395938257152967,
+   "density_proxy_mean_top_k_sim": 0.7799730896949768,
+   "centroid_specificity": 0.15232428908348083,
+   "neighborhood_reviews": 119558,
+   "nearest": [
+    {
+     "title": "ISLANDERS",
+     "sim": 0.9033709764480591
+    },
+    {
+     "title": "Townscaper",
+     "sim": 0.90337073802948
+    },
+    {
+     "title": "Match Village",
+     "sim": 0.8769476413726807
+    },
+    {
+     "title": "Reefland",
+     "sim": 0.8631600141525269
+    },
+    {
+     "title": "Tranquil Isle",
+     "sim": 0.8362505435943604
+    }
+   ],
+   "leans_toward": [
+    "City Builder",
+    "Building",
+    "Procedural Generation",
+    "Base-Building",
+    "Minimalist",
+    "Colony Sim",
+    "Isometric",
+    "Music-Based Procedural Generation"
+   ]
+  },
+  {
+   "slug": "rewild-rangers",
+   "domain": "River and coastal restoration",
+   "seeds": [
+    "Terra Nil",
+    "Dorfromantik"
+   ],
+   "pairwise_sim": 0.6401782035827637,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.9056593179702759,
+   "centroid_isolation_percentile": 3.070808265047777,
+   "density_proxy_mean_top_k_sim": 0.7586293816566467,
+   "centroid_specificity": 0.1476057469844818,
+   "neighborhood_reviews": 46167,
+   "nearest": [
+    {
+     "title": "Terra Nil",
+     "sim": 0.9056593179702759
+    },
+    {
+     "title": "Dorfromantik",
+     "sim": 0.9055702686309814
+    },
+    {
+     "title": "Growth",
+     "sim": 0.8205174803733826
+    },
+    {
+     "title": "Harmonis: the hand-made kingdoms",
+     "sim": 0.8199113607406616
+    },
+    {
+     "title": "Planet Pioneers",
+     "sim": 0.8063238859176636
+    }
+   ],
+   "leans_toward": [
+    "City Builder",
+    "Procedural Generation",
+    "Music-Based Procedural Generation",
+    "Nature",
+    "Tile-Matching",
+    "Base-Building",
+    "Farming Sim",
+    "Roguelike Deckbuilder"
+   ]
+  },
+  {
+   "slug": "rush-hour-israel",
+   "domain": "Accessibility networks",
+   "seeds": [
+    "Mini Motorways",
+    "Cities: Skylines"
+   ],
+   "pairwise_sim": 0.641463577747345,
+   "relatedness_gate_passed": true,
+   "centroid_nn_sim": 0.9059346914291382,
+   "centroid_isolation_percentile": 3.0599188740369696,
+   "density_proxy_mean_top_k_sim": 0.7215295433998108,
+   "centroid_specificity": 0.16046729683876038,
+   "neighborhood_reviews": 416218,
+   "nearest": [
+    {
+     "title": "Cities: Skylines",
+     "sim": 0.9059346914291382
+    },
+    {
+     "title": "Mini Motorways",
+     "sim": 0.9059149026870728
+    },
+    {
+     "title": "MiniTrans",
+     "sim": 0.8040381669998169
+    },
+    {
+     "title": "TheoTown",
+     "sim": 0.7755426168441772
+    },
+    {
+     "title": "Hexarium",
+     "sim": 0.7741416692733765
+    }
+   ],
+   "leans_toward": [
+    "City Builder",
+    "Automobile Sim",
+    "Transportation",
+    "Political Sim",
+    "Time Management",
+    "Colony Sim",
+    "Job Simulator",
+    "Hobby Sim"
+   ]
+  },
+  {
+   "slug": "port-panic",
+   "domain": "Globalization and trade",
+   "seeds": [
+    "Overcooked! 2",
+    "Transport Fever 2"
+   ],
+   "pairwise_sim": 0.3777047097682953,
+   "relatedness_gate_passed": false,
+   "centroid_nn_sim": 0.830072283744812,
+   "centroid_isolation_percentile": 11.050009528217135,
+   "density_proxy_mean_top_k_sim": 0.6994272470474243,
+   "centroid_specificity": 0.1298738270998001,
+   "neighborhood_reviews": 217279,
+   "nearest": [
+    {
+     "title": "Transport Fever 2",
+     "sim": 0.830072283744812
+    },
+    {
+     "title": "Overcooked! 2",
+     "sim": 0.8299230337142944
+    },
+    {
+     "title": "Overcooked",
+     "sim": 0.7524611949920654
+    },
+    {
+     "title": "Overcooked! All You Can Eat",
+     "sim": 0.7513132691383362
+    },
+    {
+     "title": "Transports",
+     "sim": 0.725970983505249
+    }
+   ],
+   "leans_toward": [
+    "Transportation",
+    "Cooking",
+    "Online Co-Op",
+    "Local Co-Op",
+    "City Builder",
+    "Farming Sim",
+    "Colony Sim",
+    "Co-op Campaign"
+   ]
+  }
+ ]
+}

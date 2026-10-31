@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "windshift-riders",
+    "domain": "Weather flight",
+    "seeds": [
+      "Superflight",
+      "Fugl"
+    ]
+  },
+  {
+    "slug": "windshift-riders-alt",
+    "domain": "Weather flight",
+    "seeds": [
+      "Superflight",
+      "A Short Hike"
+    ]
+  },
+  {
+    "slug": "basin-breakers",
+    "domain": "Water landscape puzzles",
+    "seeds": [
+      "From Dust",
+      "Terra Nil"
+    ]
+  },
+  {
+    "slug": "basin-breakers-alt",
+    "domain": "Water engineering",
+    "seeds": [
+      "From Dust",
+      "Poly Bridge"
+    ]
+  },
+  {
+    "slug": "rush-hour-israel",
+    "domain": "Accessibility networks",
+    "seeds": [
+      "Mini Motorways",
+      "Cities: Skylines"
+    ]
+  },
+  {
+    "slug": "rush-hour-israel-alt",
+    "domain": "Accessibility networks",
+    "seeds": [
+      "Mini Metro",
+      "ISLANDERS"
+    ]
+  },
+  {
+    "slug": "faultline",
+    "domain": "Tectonics",
+    "seeds": [
+      "From Dust",
+      "Teardown"
+    ]
+  },
+  {
+    "slug": "orbit-outlaws",
+    "domain": "Earth motions",
+    "seeds": [
+      "Outer Wilds",
+      "Kerbal Space Program"
+    ]
+  },
+  {
+    "slug": "dune-drifters",
+    "domain": "Erosion terrain traversal",
+    "seeds": [
+      "SnowRunner",
+      "Lonely Mountains: Downhill"
+    ]
+  },
+  {
+    "slug": "rewild-rangers",
+    "domain": "River and coastal restoration",
+    "seeds": [
+      "Terra Nil",
+      "Dorfromantik"
+    ]
+  },
+  {
+    "slug": "port-panic",
+    "domain": "Globalization and trade",
+    "seeds": [
+      "Overcooked! 2",
+      "Transport Fever 2"
+    ]
+  },
+  {
+    "slug": "settlement-stack",
+    "domain": "Settlement location",
+    "seeds": [
+      "ISLANDERS",
+      "Townscaper"
+    ]
+  },
+  {
+    "slug": "grid-guardians",
+    "domain": "Energy resources",
+    "seeds": [
+      "Mini Motorways",
+      "ISLANDERS"
+    ]
+  }
+]
