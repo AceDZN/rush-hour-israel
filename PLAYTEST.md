@@ -1,7 +1,5 @@
-# Current rebuilt game verification
+# Current playtest record
 
-The human rejected the first implementation. Its previous test report is preserved at [docs/archive/v1/PLAYTEST.md](docs/archive/v1/PLAYTEST.md); it is not evidence that this rebuild is understandable or fun.
+The current hands-on road-piece version is documented in [docs/action-puzzle/PLAYTEST.md](docs/action-puzzle/PLAYTEST.md), with independent fixtures and normal-control checks in `tests/action/`. Its first-minute real-time replay imports no authored solution or time hook.
 
-The active verification record is [docs/redesign/PLAYTEST.md](docs/redesign/PLAYTEST.md). New model fixtures and actual-input checks are in [tests/rebuild/](tests/rebuild/). The lead's complete normal-control campaign trace is [docs/redesign/actual/campaign/results.json](docs/redesign/actual/campaign/results.json).
-
-The first-minute tests use real elapsed time, no solution imports, no injected progress/plan and no `advanceTime`. The later campaign checks may use the supported deterministic clock after actual UI actions. An experienced-agent inspection is not a novice learner study; human enjoyment and learning gains remain unvalidated.
+The earlier route-drawing record in `docs/redesign/` and archived V1/V2 reports are historical. Their passing counts do not certify this new interaction or establish fun. Human acceptance and student learning remain separate.

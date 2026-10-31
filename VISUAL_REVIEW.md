@@ -1,7 +1,5 @@
-# Current living-town visual review
+# Current visual direction and review
 
-The human rejected the original appearance and flow. Its earlier review remains historical at [docs/archive/v1/VISUAL_REVIEW.md](docs/archive/v1/VISUAL_REVIEW.md).
+The human-confirmed interaction is physical road rescue. Fresh built-in imagegen targets in [docs/action-puzzle/mockups/](docs/action-puzzle/mockups/README.md) preceded `src/action/` implementation. See [art direction and actual comparison](docs/action-puzzle/ART_DIRECTION.md) and [normal-input evidence](docs/action-puzzle/PLAYTEST.md).
 
-The fresh [art audit](docs/redesign/ART_AUDIT.md), [playability audit](docs/redesign/PLAYABILITY_AUDIT.md), and [three generated targets with exact built-in prompts](docs/redesign/mockups/PROMPTS.md) preceded rebuild implementation. The selected beginner target is `03-first-minute-target.png`.
-
-[docs/redesign/SCENE_REVIEW.md](docs/redesign/SCENE_REVIEW.md) records the current target-versus-actual comparison, real desktop/portrait captures and deliberate fidelity differences. Generated concepts remain separate from gameplay evidence. The active scene uses a close inhabited town, readable passengers, persistent original Tripo buses, coherent streets, local feedback and a small nonmodal reward. Simplified authored geometry does not reproduce every photographic detail of the generated concepts, and visual similarity does not establish fun.
+The target is a close crafted teal/ivory/terracotta board with tactile road pieces, a substantial bus, clear landmarks and sparse Hebrew HUD. Real ports/heights determine rendered road geometry. The first generated image's impossible corner connection and photographic details were rejected. The prior open-green route version is retained as historical material, not visual acceptance of this version.

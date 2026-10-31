@@ -1,56 +1,44 @@
-# שעת שיא — Rush Hour Israel
+# שעת שיא — הדרך בידיים שלכם
 
-A rebuilt 3D transport puzzle for Hebrew-speaking students: **draw a route, watch people board a bus, and bring them to school or services**. The first morning has eight visible students, one school, one route gesture, and no failure clock or setup toolbar.
+A real 3D **hands-on road rescue puzzle** for Hebrew-speaking students. Grab a chunky road piece, rotate it, snap it into the town, and the same waiting bus resumes. Six children and one missing road make the first action clear. Twenty-four authored boards add new physical problems gradually.
 
-[Play locally](http://localhost:5303/) · [Rebuild preview](http://localhost:5303/rebuild.html) · [Public source](https://github.com/AceDZN/rush-hour-israel)
+[Play locally](http://localhost:5303/?level=1) · [Public source](https://github.com/AceDZN/rush-hour-israel) · [Fresh gameplay mockups](docs/action-puzzle/mockups/README.md)
 
-## What changed after human feedback
+The human explicitly chose **“Grab and rotate roads; rescue the bus”** after rejecting the earlier graphics and route-drawing flow. Two fresh built-in imagegen mockups were generated and inspected **before** the action runtime. They establish a close teal/ivory/terracotta tabletop direction. An impossible corner connection in the first generated image was rejected; actual ports, heights and vehicle curves share one model.
 
-The human rejected the first version as ugly, unclear, boring and too difficult to operate. The new version was replanned using other Workbook games as read-only references. Three fresh built-in imagegen gameplay mockups were generated and inspected before implementation. They are saved with exact prompts in [docs/redesign/mockups/PROMPTS.md](docs/redesign/mockups/PROMPTS.md).
+## Play
 
-- A close, inhabited town replaces the remote beige atlas: recognizable homes, school courtyard, clinic, large buses and backpack figures.
-- Drawing a complete line automatically supplies stops and starts service. Continuous strokes keep intermediate bends.
-- The same bus continues through junctions, returns and collects remaining passengers. It does not disappear and create a new boarding at every segment.
-- Introductory goals use exact people counts. There is no mandatory time limit; time and route efficiency award optional stars. Explicit quiet-street and footprint constraints remain in relevant missions.
-- Mistakes have local feedback and an Undo action. A small success banner leaves the town moving and visible.
-- Fleet, rail and local-service actions appear gradually across 24 authored missions. The campaign unlocks sequentially; completed mornings can be replayed.
+- **Drag** a loose road from the physical tray or board into a cell. **Tap an installed free piece** to turn it a quarter turn. Tiles snap to position, retaining your chosen orientation.
+- Touch alternative: select a tray piece, use the large **סיבוב** control if needed, then tap the board. Grabbing a road leaves a real gap; buses brake instead of driving through its ghost. An occupied/reserved piece stays safely locked.
+- **Q / E** turn the selected piece. **Z / ↶** undo the complete board-and-simulation change. **R** starts the same morning again. **Space / P** pause. **F** fullscreen. **Escape** cancels a held piece or pauses.
+- **↓ למגש** or dragging back to the tray returns a piece. Board-to-board drags can exchange two free pieces when both supports are legal. Keyboard focus + Enter selects/places the same objects.
+- The bus starts and stops automatically. It keeps its passengers through bends and returns when its six seats cannot hold everyone. Later one-way roads need a repaired return loop, bridges have finite occupancy, ramps must match height, and rail requires an actual transfer.
+- Completion is untimed. Move-efficiency stars support replay. The menu contains sound, reduced motion, retry and the 24-morning selector. A small optional hint highlights one useful piece.
 
-## Controls
-
-**Drag from a place to its destination along the streets.** Bends and crossing choices follow the gesture. Release at the destination to start service.
-
-Tap alternative: tap the origin, intermediate points and destination. At a station, continue tapping to extend the same line or press **סיימו כאן ✓** to finish it. Ordinary school/job/clinic destinations finish directly. Keyboard focus + Enter uses these same buttons.
-
-- Select a line to add a bus or redraw it. When only one line exists, the bus card can add directly; it can also be dragged onto a line.
-- Rail becomes available later. A clinic card opens a marked construction site; an unopened site cannot satisfy health demand.
-- **↶ / Z:** rewind the last change, including the modeled moment. **P / Space:** pause. **R:** retry the same network and fleet. **F:** fullscreen.
-- Help/settings pause play. Sound, reduced motion, restart and fullscreen are in the menu. Leaving the page pauses active play.
-- Progress and settings stay only in local browser storage. `?level=1..24` deliberately opens a particular mission for practice without inventing earlier completions.
+Progress/settings stay in local browser storage under `rush-hour-road-puzzle-v3`. Sequential wins unlock the next morning. `?level=1..24` opens a deliberate practice board without fabricating earlier progress. No student data or analytics leave the browser.
 
 ## Run
 
-Node 22.12+ (Node 24 used here):
+Node 22.12+; Node 24 used here.
 
 ```sh
 npm ci
 npm run dev
 npm test
+npm run test:first-minute
+npm run test:browser
 npm run build
 npm run preview
 ```
 
-Strict dev port **5303** and preview **4303**. Static build uses relative URLs. No backend, runtime AI, key, student account, remote fonts, analytics or external asset service is needed. The existing original Tripo bus and Heebo fonts are bundled locally. No new Tripo credits were spent on this rebuild. No production deployment is included. The measured production first-load resource bodies total about **1.22 MB**, including the bus; the JS bundle is about 677 KB uncompressed / 181 KB gzip.
+Strict dev **5303**, static preview **4303**. Relative asset URLs, locally bundled font/GLB, no backend, key, runtime AI or external asset call. The original permitted Tripo bus is reused; no new generation or credits. No production deployment is included.
 
-## Verification and evidence
+## Evidence and source
 
-[Rebuilt playtest record](docs/redesign/PLAYTEST.md) distinguishes new tests and real input observations from the rejected version's historical checks. [Scene review](docs/redesign/SCENE_REVIEW.md) compares actual desktop/portrait play to the new generated targets and records remaining fidelity differences. [Curriculum mapping](docs/redesign/CURRICULUM.md) maps all 24 missions to the exact supplied Workbook source snapshots.
+[Design](docs/action-puzzle/DESIGN.md), [art direction and target critique](docs/action-puzzle/ART_DIRECTION.md), [playtest record](docs/action-puzzle/PLAYTEST.md), [all 24 curriculum mappings](docs/action-puzzle/CURRICULUM.md).
 
-`src/rebuild/model.ts` is the new deterministic persistent-vehicle model. `campaign.ts` defines the missions, `scene.ts` renders the town, and `main.ts` handles gestures and progressive UI. `window.render_game_to_text()` exposes visible state; `window.advanceTime(ms)` supports deterministic verification. Browser tests use normal controls and never inject a plan or win. The first-minute checks use actual elapsed time, without a solution oracle or time acceleration.
+`src/action/model.ts` owns reciprocal ports, directional rules, heights, finite inventory, passengers and vehicles. `campaign.ts` contains authored boards; `scene.ts` renders physical pieces from that contract; `main.ts` handles actual input. `window.render_game_to_text()` exposes visible state and screen targets; `window.advanceTime(ms)` advances elapsed simulation for rule/browser verification. The first-minute replay uses real time and imports no campaign solution. Other campaign sweeps use authored witnesses through actual controls, never injected road plans or wins.
 
-The prior source and reports are retained as historical material in Git and `docs/archive/v1/`. Their 69-test result is not evidence for the rebuilt game. `npm run test:legacy` runs those historical checks separately.
+V1 and route-drawing V2 remain historical in Git, `docs/archive/`, `src/main.ts` and `src/rebuild/`. Their test counts do not carry forward. `test:legacy` and `test:routes` run those suites separately.
 
-## Scope
-
-Maps, grades, budgets, capacities and compressed time are original schematic teaching scenarios, not present-day Israeli infrastructure, exact GIS or engineering values. Relief, crossings, carrying capacity, service reach and the small peripheral community change the useful plan. A north cue appears on regional maps, including portrait orientation. The transport snapshot's conflicting fixed/mobile wording remains unassessed.
-
-The town uses simpler authored geometry than the generated concepts. Rigid passenger figures and a procedural railcar accompany the original Tripo bus. The original quiet Web Audio groove and cues are locally generated. Automated checks and an experienced-agent inspection cannot establish that a new learner finds this fun or intuitive; the human's next playtest remains the relevant feedback.
+Maps are original schematic teaching boards, not exact GIS, engineering values or current Israeli infrastructure. The optional north cue follows camera orientation. Quiet land, terrain support and service location change useful moves. Walking and induced demand are explicitly simplified authored scenarios; wider tiles do not demonstrate extra traffic capacity. Student enjoyment, discovery and learning require human evaluation.

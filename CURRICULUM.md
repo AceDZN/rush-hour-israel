@@ -1,7 +1,5 @@
-# Current rebuilt curriculum mapping
+# Current curriculum mapping
 
-The active 24-mission mapping is [docs/redesign/CURRICULUM.md](docs/redesign/CURRICULUM.md), grounded in the exact supplied Workbook snapshots under `docs/curriculum/`.
+See [docs/action-puzzle/CURRICULUM.md](docs/action-puzzle/CURRICULUM.md) for every current road-piece mission, exact supplied Workbook module links, action/feedback, misconceptions and honest model limits. Source snapshots remain in `docs/curriculum/`.
 
-It documents the changed first three missions, continuous routes/persistent vehicles, explicit all-person arrival goals, optional time/efficiency rewards, and honest exclusions. The public-transport rebuild does not assess a private-car ownership contrast that is no longer modeled. The source's conflicting fixed/mobile infrastructure wording remains unassessed.
-
-The original mapping is retained only as history at [docs/archive/v1/CURRICULUM.md](docs/archive/v1/CURRICULUM.md). Scenario maps, capacities, budgets and time are original teaching simplifications; no Ministry approval, current infrastructure claim, or validated learning gain is implied.
+Geography changes legal/useful moves through terrain height, supported crossings, land use and access. Walking is an abstract short leg; the wide-road scenario adds authored demand without claiming an implemented capacity increase. Conflicting source fixed/mobile terminology stays unassessed. The route-drawing V2 and V1 mappings are historical.
