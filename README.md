@@ -33,6 +33,8 @@ npm run preview
 
 Strict dev **5303**, static preview **4303**. Relative asset URLs, locally bundled font/GLB, no backend, key, runtime AI or external asset call. The original permitted Tripo bus is reused; no new generation or credits. No production deployment is included.
 
+The verified production load has about **1.33 MB** of resource bodies including the bus and local font faces. The first rescue completed through actual pointer input after the network was disabled, with no console errors.
+
 ## Evidence and source
 
 [Design](docs/action-puzzle/DESIGN.md), [art direction and target critique](docs/action-puzzle/ART_DIRECTION.md), [playtest record](docs/action-puzzle/PLAYTEST.md), [all 24 curriculum mappings](docs/action-puzzle/CURRICULUM.md).

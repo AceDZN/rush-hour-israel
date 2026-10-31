@@ -457,6 +457,19 @@ export function vehiclePosition(s: GameState, v: Vehicle) {
       : opposite(exit);
   function sample(cell: Cell, enter: Dir, leave: Dir, u: number) {
     const tile = tileAt(s, cell.id);
+    // A terminal's road corner belongs to its feeder. The train is aligned
+    // with the rail approach, including while waiting and on its return.
+    if (v.mode === "rail" && cell.landmark?.kind === "station") {
+      const adjacent = neighbors(s, cell.id, "rail");
+      if (adjacent.length === 1) {
+        const axis = heading(cell, cellAt(s, adjacent[0])!);
+        if (enter === axis) leave = opposite(axis);
+        else {
+          enter = opposite(axis);
+          leave = axis;
+        }
+      }
+    }
     const e = DIRS[enter],
       o = DIRS[leave];
     let x = 0,

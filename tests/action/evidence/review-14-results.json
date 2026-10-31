@@ -1,0 +1,20 @@
+{
+  "url": "http://localhost:5303/action.html",
+  "started": "2026-10-31T15:46:07.670Z",
+  "campaign": [],
+  "cases": [
+    {
+      "case": "14 corrected berth / station wait / rail arrival",
+      "stationWait": true,
+      "arrived": 12,
+      "twoBoardings": true
+    }
+  ],
+  "errors": [],
+  "hmr": {
+    "pageReloads": 0,
+    "messages": [],
+    "interrupted": false
+  },
+  "completed": "2026-10-31T15:46:13.785Z"
+}

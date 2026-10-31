@@ -1,0 +1,518 @@
+{
+  "version": 3,
+  "interaction": "grab-rotate-snap",
+  "mode": "playing",
+  "level": 11,
+  "title": "גשר עם תמיכות",
+  "coordinates": "grid x east/right, z south/down; world view may rotate; north arrow is authoritative",
+  "goal": {
+    "total": 12,
+    "arrived": 0,
+    "waiting": 6,
+    "riding": 6,
+    "walking": 0,
+    "moves": 2,
+    "time": 1.6416999999999975,
+    "stars": 3,
+    "groups": [
+      {
+        "id": "river",
+        "label": "הבתים",
+        "total": 12,
+        "arrived": 0
+      }
+    ]
+  },
+  "selected": null,
+  "held": null,
+  "hints": 0,
+  "message": "קליק! החיבור השתנה.",
+  "modelLoaded": true,
+  "fps": 123.99563535803435,
+  "tiles": [
+    {
+      "id": "road-0,2",
+      "kind": "straight",
+      "rotation": 0,
+      "cell": "0,2",
+      "locked": true,
+      "ports": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "road-1,2",
+      "kind": "straight",
+      "rotation": 0,
+      "cell": "1,2",
+      "locked": true,
+      "ports": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "bridge",
+      "kind": "bridge",
+      "rotation": 2,
+      "cell": "2,2",
+      "locked": false,
+      "ports": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "road-3,2",
+      "kind": "straight",
+      "rotation": 0,
+      "cell": "3,2",
+      "locked": true,
+      "ports": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "road-4,2",
+      "kind": "straight",
+      "rotation": 0,
+      "cell": "4,2",
+      "locked": true,
+      "ports": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "ordinary-road",
+      "kind": "straight",
+      "rotation": 0,
+      "cell": null,
+      "ports": [
+        1,
+        3
+      ]
+    }
+  ],
+  "cells": [
+    {
+      "id": "0,0",
+      "x": 0,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "1,0",
+      "x": 1,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,0",
+      "x": 2,
+      "z": 0,
+      "height": 0,
+      "terrain": "water"
+    },
+    {
+      "id": "3,0",
+      "x": 3,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,0",
+      "x": 4,
+      "z": 0,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "0,1",
+      "x": 0,
+      "z": 1,
+      "height": 0,
+      "terrain": "built"
+    },
+    {
+      "id": "1,1",
+      "x": 1,
+      "z": 1,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,1",
+      "x": 2,
+      "z": 1,
+      "height": 0,
+      "terrain": "water"
+    },
+    {
+      "id": "3,1",
+      "x": 3,
+      "z": 1,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,1",
+      "x": 4,
+      "z": 1,
+      "height": 0,
+      "terrain": "built"
+    },
+    {
+      "id": "0,2",
+      "x": 0,
+      "z": 2,
+      "height": 0,
+      "terrain": "land",
+      "landmark": {
+        "kind": "home",
+        "label": "הבתים",
+        "lot": "0,1"
+      }
+    },
+    {
+      "id": "1,2",
+      "x": 1,
+      "z": 2,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,2",
+      "x": 2,
+      "z": 2,
+      "height": 0,
+      "terrain": "water",
+      "bridgeAxis": 1
+    },
+    {
+      "id": "3,2",
+      "x": 3,
+      "z": 2,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,2",
+      "x": 4,
+      "z": 2,
+      "height": 0,
+      "terrain": "land",
+      "landmark": {
+        "kind": "school",
+        "label": "בית ספר",
+        "lot": "4,1"
+      }
+    },
+    {
+      "id": "0,3",
+      "x": 0,
+      "z": 3,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "1,3",
+      "x": 1,
+      "z": 3,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "2,3",
+      "x": 2,
+      "z": 3,
+      "height": 0,
+      "terrain": "water"
+    },
+    {
+      "id": "3,3",
+      "x": 3,
+      "z": 3,
+      "height": 0,
+      "terrain": "land"
+    },
+    {
+      "id": "4,3",
+      "x": 4,
+      "z": 3,
+      "height": 0,
+      "terrain": "land"
+    }
+  ],
+  "closed": [],
+  "people": [
+    {
+      "id": 1,
+      "group": "river",
+      "cell": null,
+      "vehicle": "bus-river",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 2,
+      "group": "river",
+      "cell": null,
+      "vehicle": "bus-river",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 3,
+      "group": "river",
+      "cell": null,
+      "vehicle": "bus-river",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 4,
+      "group": "river",
+      "cell": null,
+      "vehicle": "bus-river",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 5,
+      "group": "river",
+      "cell": null,
+      "vehicle": "bus-river",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 6,
+      "group": "river",
+      "cell": null,
+      "vehicle": "bus-river",
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 1
+    },
+    {
+      "id": 7,
+      "group": "river",
+      "cell": "0,2",
+      "vehicle": null,
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 0
+    },
+    {
+      "id": 8,
+      "group": "river",
+      "cell": "0,2",
+      "vehicle": null,
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 0
+    },
+    {
+      "id": 9,
+      "group": "river",
+      "cell": "0,2",
+      "vehicle": null,
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 0
+    },
+    {
+      "id": 10,
+      "group": "river",
+      "cell": "0,2",
+      "vehicle": null,
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 0
+    },
+    {
+      "id": 11,
+      "group": "river",
+      "cell": "0,2",
+      "vehicle": null,
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 0
+    },
+    {
+      "id": 12,
+      "group": "river",
+      "cell": "0,2",
+      "vehicle": null,
+      "leg": 0,
+      "arrived": false,
+      "walking": 0,
+      "boardings": 0
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "bus-river",
+      "group": "river",
+      "leg": 0,
+      "mode": "bus",
+      "capacity": 6,
+      "cell": "0,2",
+      "previous": null,
+      "next": "1,2",
+      "progress": 0.7653706666666649,
+      "returning": false,
+      "onboard": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "dwell": 0,
+      "heading": 1,
+      "status": "moving",
+      "reason": "",
+      "trips": 1
+    }
+  ],
+  "targets": {
+    "cells": {
+      "0,0": {
+        "x": 362.5970192782946,
+        "y": 250.3082540259596
+      },
+      "1,0": {
+        "x": 527.4996352214308,
+        "y": 240.82405837335025
+      },
+      "2,0": {
+        "x": 692.4022511645668,
+        "y": 231.3398627207409
+      },
+      "3,0": {
+        "x": 857.304867107703,
+        "y": 221.85566706813157
+      },
+      "4,0": {
+        "x": 1022.2074830508391,
+        "y": 212.37147141552228
+      },
+      "0,1": {
+        "x": 375.5024413955836,
+        "y": 371.49519847596775
+      },
+      "1,1": {
+        "x": 540.4050573387198,
+        "y": 362.0110028233584
+      },
+      "2,1": {
+        "x": 705.3076732818557,
+        "y": 352.52680717074907
+      },
+      "3,1": {
+        "x": 870.2102892249918,
+        "y": 343.0426115181397
+      },
+      "4,1": {
+        "x": 1035.112905168128,
+        "y": 333.5584158655304
+      },
+      "0,2": {
+        "x": 388.4078635128725,
+        "y": 492.6821429259759
+      },
+      "1,2": {
+        "x": 553.3104794560086,
+        "y": 483.1979472733665
+      },
+      "2,2": {
+        "x": 718.2130953991447,
+        "y": 473.7137516207572
+      },
+      "3,2": {
+        "x": 883.1157113422807,
+        "y": 464.2295559681479
+      },
+      "4,2": {
+        "x": 1048.0183272854167,
+        "y": 454.7453603155385
+      },
+      "0,3": {
+        "x": 401.31328563016143,
+        "y": 613.869087375984
+      },
+      "1,3": {
+        "x": 566.2159015732975,
+        "y": 604.3848917233746
+      },
+      "2,3": {
+        "x": 731.1185175164336,
+        "y": 594.9006960707653
+      },
+      "3,3": {
+        "x": 896.0211334595696,
+        "y": 585.4165004181559
+      },
+      "4,3": {
+        "x": 1060.9237494027059,
+        "y": 575.9323047655466
+      }
+    },
+    "tiles": {
+      "road-0,2": {
+        "x": 388.4078635128725,
+        "y": 490.52493425326446
+      },
+      "road-1,2": {
+        "x": 553.3104794560086,
+        "y": 481.0407386006552
+      },
+      "bridge": {
+        "x": 718.205313989256,
+        "y": 472.7807512950578
+      },
+      "road-3,2": {
+        "x": 883.1157113422807,
+        "y": 462.0723472954365
+      },
+      "road-4,2": {
+        "x": 1048.0183272854167,
+        "y": 452.5881516428271
+      },
+      "ordinary-road": {
+        "x": 747.9759422119033,
+        "y": 747.4962795093703
+      }
+    },
+    "vehicles": {
+      "bus-river": {
+        "x": 514.6194886123476,
+        "y": 466.43978145668046
+      }
+    }
+  }
+}

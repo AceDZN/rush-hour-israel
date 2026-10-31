@@ -1,0 +1,301 @@
+{
+  "url": "http://localhost:5303/action.html",
+  "started": "2026-10-31T15:38:00.853Z",
+  "campaign": [
+    {
+      "id": 1,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.573699999999985,
+      "moves": 1,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 2,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.591733333333319,
+      "moves": 2,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 3,
+      "arrived": 6,
+      "total": 6,
+      "time": 5.483566666666645,
+      "moves": 3,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 4,
+      "arrived": 6,
+      "total": 6,
+      "time": 5.500066666666647,
+      "moves": 4,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 5,
+      "arrived": 6,
+      "total": 6,
+      "time": 4.575833333333318,
+      "moves": 2,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 6,
+      "arrived": 12,
+      "total": 12,
+      "time": 6.390933333333308,
+      "moves": 4,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 7,
+      "arrived": 8,
+      "total": 8,
+      "time": 11.88426666666682,
+      "moves": 2,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 8,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.375099999999977,
+      "moves": 5,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 9,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.3749666666666425,
+      "moves": 4,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 10,
+      "arrived": 6,
+      "total": 6,
+      "time": 6.96616666666664,
+      "moves": 3,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 11,
+      "arrived": 12,
+      "total": 12,
+      "time": 12.783300000000185,
+      "moves": 2,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 12,
+      "arrived": 12,
+      "total": 12,
+      "time": 3.3416666666666566,
+      "moves": 6,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 13,
+      "arrived": 14,
+      "total": 14,
+      "time": 20.13280000000011,
+      "moves": 3,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 14,
+      "arrived": 12,
+      "total": 12,
+      "time": 11.424600000000117,
+      "moves": 4,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 15,
+      "arrived": 10,
+      "total": 10,
+      "time": 15.35786666666697,
+      "moves": 6,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 16,
+      "arrived": 16,
+      "total": 16,
+      "time": 19.99200000000011,
+      "moves": 5,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 17,
+      "arrived": 16,
+      "total": 16,
+      "time": 18.199533333333537,
+      "moves": 1,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 18,
+      "arrived": 12,
+      "total": 12,
+      "time": 8.77586666666667,
+      "moves": 3,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 19,
+      "arrived": 10,
+      "total": 10,
+      "time": 3.691966666666654,
+      "moves": 1,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 20,
+      "arrived": 16,
+      "total": 16,
+      "time": 20.89140000000007,
+      "moves": 6,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 21,
+      "arrived": 18,
+      "total": 18,
+      "time": 24.625799999999863,
+      "moves": 4,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 22,
+      "arrived": 12,
+      "total": 12,
+      "time": 20.015900000000105,
+      "moves": 6,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 23,
+      "arrived": 12,
+      "total": 12,
+      "time": 18.21640000000021,
+      "moves": 5,
+      "hints": 0,
+      "modelLoaded": true
+    },
+    {
+      "id": 24,
+      "arrived": 22,
+      "total": 22,
+      "time": 27.457999999999725,
+      "moves": 8,
+      "hints": 0,
+      "modelLoaded": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "2 wrong orientation / small nonmodal hint / rotate recovery",
+      "arrived": 6
+    },
+    {
+      "case": "11 ordinary road rejected on river / bridge repair",
+      "movesUnchanged": true
+    },
+    {
+      "case": "13 first6 / return-loop repair / all14",
+      "trips": 3
+    },
+    {
+      "case": "14 real bus / station wait / rail",
+      "stationWait": true,
+      "twoBoardings": true
+    },
+    {
+      "case": "22 repair after closure",
+      "arrived": 12
+    },
+    {
+      "case": "3 physical hold / missing road / cancel restores",
+      "time": 3.391871999999993
+    },
+    {
+      "case": "undo / pause / menu / mute / motion / fullscreen / resize / retry / blur / recovered win",
+      "prefsPersist": true
+    },
+    {
+      "case": "24 portrait390×844 genuine touch bridge/ramp/corner/clinic",
+      "arrived": 22,
+      "banner": {
+        "x": 14,
+        "y": 604,
+        "width": 362,
+        "height": 118
+      }
+    }
+  ],
+  "errors": [],
+  "hmr": {
+    "pageReloads": 0,
+    "messages": [],
+    "interrupted": false
+  },
+  "persistence": {
+    "unlocked": 24,
+    "stars": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3,
+      "10": 3,
+      "11": 3,
+      "12": 3,
+      "13": 3,
+      "14": 3,
+      "15": 3,
+      "16": 3,
+      "17": 3,
+      "18": 3,
+      "19": 3,
+      "20": 3,
+      "21": 3,
+      "22": 3,
+      "23": 3,
+      "24": 3
+    },
+    "muted": false,
+    "reduced": false
+  },
+  "completed": "2026-10-31T15:39:02.997Z"
+}

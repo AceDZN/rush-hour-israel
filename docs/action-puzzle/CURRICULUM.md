@@ -48,7 +48,7 @@ The codes in every row below refer to these exact URLs. CORE7 supplies the broad
 
 ## Rules that make geography consequential
 
-Reciprocal ports alone are insufficient. Water rejects ordinary road and requires the bridge's authored support axis. Rock and quiet land reject road placement. A ramp connects only when the heights of its endpoints match neighbours. Bus-only and rail-only corridors restrict a complete trip; actual transfer changes the vehicle while preserving the person. A local service plot changes whether the local group can finish, and an unserved edge group blocks an all-person win.
+Reciprocal ports alone are insufficient. Water rejects ordinary road and requires the bridge's authored support axis. Rock, built lots and quiet land reject road placement. A ramp connects only when the heights of its endpoints match neighbours. Bus-only and rail-only corridors restrict a complete trip; actual transfer changes the vehicle while preserving the person. A local service plot changes whether the local group can finish, and an unserved edge group blocks an all-person win.
 
 The runtime uses shortest-edge-count routing over the player's valid connections. Tee pieces are connectivity junctions, not manually controlled switches. When a complete path is absent, a bus may advance along a locked approach and then brake before the editable puzzle. The game does not simulate discretionary turns, an exploratory wrong-facility visit or live traffic assignment. These limits should not be replaced by stronger learning claims in instructional copy.
 
@@ -68,6 +68,6 @@ The independent V3 suite is `tests/action/*.test.ts`, run with:
 node --import tsx --test tests/action/*.test.ts
 ```
 
-At this mapping's initial check, all **52** tests passed: twenty independent rule fixtures, twenty-four authored campaign witnesses and eight counterexamples/alternate-plan checks. These cover persistent identity and seats; real bends/return trips; occupied locks; held swaps/cancel/undo; bridge support/occupancy; ramp heights; mode transfer and final walking; local services; all-group completion; induced demand; delayed closure recovery; and alternate plans. No browser state or victory is injected by these tests.
+At this mapping's initial check, all **55** tests passed: twenty-two independent rule fixtures, twenty-four authored campaign witnesses, eight counterexamples/alternate-plan checks and an all-campaign building-lot layout check. These cover persistent identity and seats; real bends/return trips; occupied locks; held swaps/cancel/undo; bridge support/occupancy; ramp heights; mode transfer, a rail-axis station berth and final walking; local services; all-group completion; induced demand; delayed closure recovery; and alternate plans. No browser state or victory is injected by these tests.
 
 V1 and V2 test counts do not carry forward. A witness is model evidence only. Normal-control browser observation, comparison with the new tactile mockups, first-minute discoverability, touch comfort and an unprompted human's enjoyment require separate evidence. Human fun and student learning remain unvalidated by this suite.

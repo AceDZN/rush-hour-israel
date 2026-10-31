@@ -1,0 +1,67 @@
+
+> rush-hour-israel@3.0.0 test
+> node --import tsx --test tests/action/*.test.ts
+
+✔ mission 1: public-action witness serves every group (17.030083ms)
+✔ mission 2: public-action witness serves every group (5.275417ms)
+✔ mission 3: public-action witness serves every group (7.539542ms)
+✔ mission 4: public-action witness serves every group (7.952917ms)
+✔ mission 5: public-action witness serves every group (6.335959ms)
+✔ mission 6: public-action witness serves every group (32.487542ms)
+✔ mission 7: public-action witness serves every group (26.608291ms)
+✔ mission 8: public-action witness serves every group (6.326541ms)
+✔ mission 9: public-action witness serves every group (5.427667ms)
+✔ mission 10: public-action witness serves every group (11.750417ms)
+✔ mission 11: public-action witness serves every group (12.227542ms)
+✔ mission 12: public-action witness serves every group (4.680916ms)
+✔ mission 13: public-action witness serves every group (11.186042ms)
+✔ mission 14: public-action witness serves every group (12.789042ms)
+✔ mission 15: public-action witness serves every group (12.828709ms)
+✔ mission 16: public-action witness serves every group (57.5555ms)
+✔ mission 17: public-action witness serves every group (21.46825ms)
+✔ mission 18: public-action witness serves every group (9.86725ms)
+✔ mission 19: public-action witness serves every group (1.909666ms)
+✔ mission 20: public-action witness serves every group (45.138209ms)
+✔ mission 21: public-action witness serves every group (18.60025ms)
+✔ mission 22: public-action witness serves every group (24.26925ms)
+✔ mission 23: public-action witness serves every group (12.608042ms)
+✔ mission 24: public-action witness serves every group (53.589708ms)
+✔ 13: first six arrive but missing one-way return loop strands the remaining eight (22.200958ms)
+✔ 18: the near group has a longer real path and arrives later than the far group (13.102042ms)
+✔ 8: quiet land rejects a direct road, while the real bypass serves the children (4.26925ms)
+✔ 19: a clinic at the other valid plot does not erase the local group (3.724209ms)
+✔ 21: normal road and announced wider-road demand are two genuinely different solvable plans (13.391709ms)
+✔ 22: waiting until after closure is recoverable by building the alternate crossing (19.589375ms)
+✔ 23: independently authored lower corridor also wins with the same piece inventory (12.232042ms)
+✔ 24: the connected majority cannot win without opening the actual local clinic (49.450417ms)
+✔ all24: explicit building lots preserve every authored road, puzzle socket and service plot (1.761292ms)
+✔ quarter-turns rotate real ports and four turns restore every piece kind (3.044041ms)
+✔ loaded bus reaches the locked approach, brakes at a gap, and same bus resumes after snap (21.835542ms)
+✔ a wrong flat orientation stays visible and correct rotation resumes without retry (9.753292ms)
+✔ corner ports describe a real bent trip and riders do not reboard at the bend (4.772958ms)
+✔ occupied and reserved next pieces cannot be rotated, lifted, moved or returned to tray (0.642333ms)
+✔ illegal terrain and bridge support orientation reject atomically (9.890459ms)
+✔ height continuity distinguishes ramp direction despite identical plan-view ports (2.799125ms)
+✔ one-way arrow constrains entry/exit and the same road is not a reverse return route (0.251667ms)
+✔ opposite-direction buses share finite bridge occupancy without losing people (11.733917ms)
+✔ same-direction buses preserve seats and spacing while sharing a group (12.559875ms)
+✔ a transfer preserves identity across bus, real rail vehicle and final walk (31.661708ms)
+✔ clinic fits only an authored service plot and creates actual local walking (1.006458ms)
+✔ opening a clinic cannot turn onboard people into walking/arrived duplicates (2.620917ms)
+✔ a small unconnected group prevents a majority-only victory (6.409333ms)
+✔ holding removes real connectivity, cancel restores orientation without rewinding elapsed traffic (12.018291ms)
+✔ a held compound move undoes to the complete pre-lift simulation snapshot (4.050167ms)
+✔ held and direct moves have consistent occupied-cell swap semantics (3.431416ms)
+✔ pause freezes time and rejects board mutation; retry repeats the authored initial state (19.665791ms)
+✔ wide placement schedules the conditional group once and undo rewinds it coherently (18.370625ms)
+✔ closure blocks new entry but a vehicle already entering finishes without passenger loss (4.186916ms)
+✔ built land rejects new infrastructure atomically with a building reason (0.607667ms)
+✔ a train berths on its rail axis at a bent road station before boarding and after returning (8.276958ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 55
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 927.341459

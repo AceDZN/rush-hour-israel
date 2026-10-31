@@ -710,10 +710,99 @@ test("closure blocks new entry but a vehicle already entering finishes without p
   assert.equal(stats(s).arrived, 4);
 });
 
-test('built land rejects new infrastructure atomically with a building reason',()=>{
- for(const kind of ['straight','clinic'] as const){
-  const s=createState(mission({cells:mission().cells.map(c=>c.id==='2,0'?{...c,terrain:'built',servicePlot:kind==='clinic'}:c),tiles:mission().tiles.map(t=>t.id==='loose'?{...t,kind}:t)}));
-  const before=core(s),history=s.undo.length;
-  assert.equal(place(s,'loose','2,0'),false);assert.match(s.message,/מבנה/);assert.deepEqual(core(s),before);assert.equal(s.undo.length,history);conserved(s);
- }
+test("built land rejects new infrastructure atomically with a building reason", () => {
+  for (const kind of ["straight", "clinic"] as const) {
+    const s = createState(
+      mission({
+        cells: mission().cells.map((c) =>
+          c.id === "2,0"
+            ? { ...c, terrain: "built", servicePlot: kind === "clinic" }
+            : c,
+        ),
+        tiles: mission().tiles.map((t) =>
+          t.id === "loose" ? { ...t, kind } : t,
+        ),
+      }),
+    );
+    const before = core(s),
+      history = s.undo.length;
+    assert.equal(place(s, "loose", "2,0"), false);
+    assert.match(s.message, /מבנה/);
+    assert.deepEqual(core(s), before);
+    assert.equal(s.undo.length, history);
+    conserved(s);
+  }
+});
+
+test("a train berths on its rail axis at a bent road station before boarding and after returning", () => {
+  const s = createState(
+    mission({
+      cols: 4,
+      rows: 4,
+      cells: [
+        cell(1, 3),
+        cell(1, 2),
+        cell(1, 1, {
+          landmark: { kind: "station", label: "bent feeder station" },
+        }),
+        cell(2, 1),
+        cell(3, 1),
+      ],
+      tiles: [
+        tile("h", "1,3", "straight", 1, true),
+        tile("feeder", "1,2", "straight", 1, true),
+        tile("station", "1,1", "corner", 1, true),
+        tile("rail", "2,1", "rail", 0, true),
+        tile("goal", "3,1", "rail", 0, true),
+      ],
+      groups: [
+        {
+          id: "g",
+          origin: "1,3",
+          via: "1,1",
+          destination: "3,1",
+          count: 8,
+          label: "transfer",
+        },
+      ],
+      fleet: [
+        { id: "bus", group: "g", leg: 0, mode: "bus", capacity: 6 },
+        { id: "train", group: "g", leg: 1, mode: "rail", capacity: 14 },
+      ],
+    }),
+  );
+  const aligned = () => {
+    const p = vehiclePosition(s, s.vehicles.find((v) => v.id === "train")!);
+    assert.ok([p.x, p.y, p.z, p.angle].every(Number.isFinite));
+    assert.ok(
+      Math.abs(Math.cos(p.angle)) < 1e-8,
+      "E/W berth does not inherit the diagonal road-corner tangent",
+    );
+    assert.ok(
+      Math.abs(p.z - 1) < 1e-8,
+      "berth stays on the east-west rail centreline",
+    );
+  };
+  aligned();
+  let observedReturn = false;
+  for (let n = 0; n < 6000 && s.mode !== "won"; n++) {
+    tick(s, 1 / 60);
+    conserved(s);
+    const train = s.vehicles.find((v) => v.id === "train")!;
+    if (
+      train.cell === "1,1" &&
+      !train.next &&
+      train.trips === 1 &&
+      !train.returning
+    ) {
+      observedReturn = true;
+      aligned();
+    }
+  }
+  assert.ok(
+    observedReturn,
+    "first train returns to wait for the second feeder load",
+  );
+  assert.equal(s.mode, "won");
+  assert.ok(s.people.every((p) => p.boardings === 2));
 });
