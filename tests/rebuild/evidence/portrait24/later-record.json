@@ -1,0 +1,2051 @@
+{
+  "reviewOnly": true,
+  "records": [
+    {
+      "name": "24-portrait-ready",
+      "state": {
+        "version": 2,
+        "mode": "ready",
+        "interaction": "idle",
+        "level": 24,
+        "title": "מחברים את הארץ",
+        "objective": "חברו את החוף וההר, ופתחו שירות גם ליישוב הבקע",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0,
+        "completedAt": null,
+        "goal": {
+          "total": 42,
+          "arrived": 0,
+          "pending": 24,
+          "waiting": 18,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "קהילת החוף",
+              "total": 18,
+              "arrived": 0,
+              "waiting": 18
+            },
+            {
+              "origin": "B",
+              "label": "קהילת הצפון",
+              "total": 18,
+              "arrived": 0,
+              "waiting": 0
+            },
+            {
+              "origin": "C",
+              "label": "יישוב הבקע",
+              "total": 6,
+              "arrived": 0,
+              "waiting": 0
+            }
+          ],
+          "length": 0,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 6,
+          "trainsLeft": 2,
+          "time": 0
+        },
+        "modelLoaded": true,
+        "fps": 103,
+        "budget": 235,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 0,
+        "message": "חברו את החוף וההר, ופתחו שירות גם ליישוב הבקע",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -6,
+            "z": 3,
+            "h": 0.2,
+            "kind": "home",
+            "label": "קהילת החוף",
+            "screen": {
+              "x": 284.1606918238994,
+              "y": 629.4214238275994
+            },
+            "waiting": 18
+          },
+          {
+            "id": "B",
+            "x": -5,
+            "z": -4,
+            "h": 0.3,
+            "kind": "home",
+            "label": "קהילת הצפון",
+            "screen": {
+              "x": 106.8066936208446,
+              "y": 590.1342612751979
+            },
+            "waiting": 0
+          },
+          {
+            "id": "I",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "station",
+            "label": "מחלף השפלה",
+            "screen": {
+              "x": 219.66832884097033,
+              "y": 536.663554414741
+            },
+            "waiting": 0
+          },
+          {
+            "id": "M",
+            "x": 1,
+            "z": 2,
+            "h": 1.4,
+            "kind": "junction",
+            "label": "מרפסת ההר",
+            "screen": {
+              "x": 280.93607367475295,
+              "y": 466.7499776042375
+            },
+            "waiting": 0
+          },
+          {
+            "id": "P",
+            "x": 3,
+            "z": -1,
+            "h": 2.3,
+            "kind": "station",
+            "label": "אוכף ההר",
+            "screen": {
+              "x": 209.99447439353102,
+              "y": 404.36748626703775
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 5,
+            "z": -4,
+            "h": 2.6,
+            "kind": "school",
+            "label": "בית הספר בהר",
+            "screen": {
+              "x": 139.05287511230907,
+              "y": 351.77540604513297
+            },
+            "waiting": 0
+          },
+          {
+            "id": "W",
+            "x": -4,
+            "z": 0,
+            "h": 0.3,
+            "kind": "jobs",
+            "label": "תעסוקה בחוף",
+            "screen": {
+              "x": 213.21909254267743,
+              "y": 580.0928139774595
+            },
+            "waiting": 0
+          },
+          {
+            "id": "C",
+            "x": 8,
+            "z": 3,
+            "h": 0,
+            "kind": "home",
+            "label": "יישוב הבקע",
+            "screen": {
+              "x": 329.30534591194964,
+              "y": 351.5243698626895
+            },
+            "waiting": 0
+          },
+          {
+            "id": "L",
+            "x": 7,
+            "z": 1,
+            "h": 0.4,
+            "kind": "clinic",
+            "label": "מרפאה מקומית +",
+            "screen": {
+              "x": 274.48683737646,
+              "y": 360.05960006576714
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [],
+        "vehicles": [],
+        "people": [
+          {
+            "id": 0,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 1,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 2,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 3,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 4,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 5,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 8,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 9,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 10,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 11,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 12,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 13,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 14,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 15,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 16,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 17,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 18,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 19,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 20,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 21,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 22,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 23,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 24,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 25,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 26,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 27,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 28,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 29,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 30,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 31,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 32,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 33,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 34,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 35,
+            "status": "pending",
+            "node": "B",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 36,
+            "status": "pending",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 37,
+            "status": "pending",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 38,
+            "status": "pending",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 39,
+            "status": "pending",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 40,
+            "status": "pending",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 41,
+            "status": "pending",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "24-unopened-clinic-gap",
+      "state": {
+        "version": 2,
+        "mode": "running",
+        "interaction": "idle",
+        "level": 24,
+        "title": "מחברים את הארץ",
+        "objective": "חברו את החוף וההר, ופתחו שירות גם ליישוב הבקע",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 119.99999999999532,
+        "completedAt": null,
+        "goal": {
+          "total": 42,
+          "arrived": 36,
+          "pending": 0,
+          "waiting": 6,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "קהילת החוף",
+              "total": 18,
+              "arrived": 18,
+              "waiting": 0
+            },
+            {
+              "origin": "B",
+              "label": "קהילת הצפון",
+              "total": 18,
+              "arrived": 18,
+              "waiting": 0
+            },
+            {
+              "origin": "C",
+              "label": "יישוב הבקע",
+              "total": 6,
+              "arrived": 0,
+              "waiting": 6
+            }
+          ],
+          "length": 22.81665382639197,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 4,
+          "trainsLeft": 2,
+          "time": 119.99999999999532
+        },
+        "modelLoaded": true,
+        "fps": 111,
+        "budget": 211,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 2,
+        "message": "הקו מוכן — עולים ונוסעים!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -6,
+            "z": 3,
+            "h": 0.2,
+            "kind": "home",
+            "label": "קהילת החוף",
+            "screen": {
+              "x": 284.1606918238994,
+              "y": 629.4214238275994
+            },
+            "waiting": 0
+          },
+          {
+            "id": "B",
+            "x": -5,
+            "z": -4,
+            "h": 0.3,
+            "kind": "home",
+            "label": "קהילת הצפון",
+            "screen": {
+              "x": 106.8066936208446,
+              "y": 590.1342612751979
+            },
+            "waiting": 0
+          },
+          {
+            "id": "I",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "station",
+            "label": "מחלף השפלה",
+            "screen": {
+              "x": 219.66832884097033,
+              "y": 536.663554414741
+            },
+            "waiting": 0
+          },
+          {
+            "id": "M",
+            "x": 1,
+            "z": 2,
+            "h": 1.4,
+            "kind": "junction",
+            "label": "מרפסת ההר",
+            "screen": {
+              "x": 280.93607367475295,
+              "y": 466.7499776042375
+            },
+            "waiting": 0
+          },
+          {
+            "id": "P",
+            "x": 3,
+            "z": -1,
+            "h": 2.3,
+            "kind": "station",
+            "label": "אוכף ההר",
+            "screen": {
+              "x": 209.99447439353102,
+              "y": 404.36748626703775
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 5,
+            "z": -4,
+            "h": 2.6,
+            "kind": "school",
+            "label": "בית הספר בהר",
+            "screen": {
+              "x": 139.05287511230907,
+              "y": 351.77540604513297
+            },
+            "waiting": 0
+          },
+          {
+            "id": "W",
+            "x": -4,
+            "z": 0,
+            "h": 0.3,
+            "kind": "jobs",
+            "label": "תעסוקה בחוף",
+            "screen": {
+              "x": 213.21909254267743,
+              "y": 580.0928139774595
+            },
+            "waiting": 0
+          },
+          {
+            "id": "C",
+            "x": 8,
+            "z": 3,
+            "h": 0,
+            "kind": "home",
+            "label": "יישוב הבקע",
+            "screen": {
+              "x": 329.30534591194964,
+              "y": 351.5243698626895
+            },
+            "waiting": 6
+          },
+          {
+            "id": "L",
+            "x": 7,
+            "z": 1,
+            "h": 0.4,
+            "kind": "clinic",
+            "label": "מרפאה מקומית +",
+            "screen": {
+              "x": 274.48683737646,
+              "y": 360.05960006576714
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "I",
+              "M",
+              "P",
+              "S"
+            ],
+            "cost": 17
+          },
+          {
+            "id": 2,
+            "mode": "bus",
+            "path": [
+              "B",
+              "I",
+              "W"
+            ],
+            "cost": 7
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "I",
+            "to": "M",
+            "progress": 0.6522748670187419,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 5
+          },
+          {
+            "id": 2,
+            "line": 2,
+            "mode": "bus",
+            "from": "B",
+            "to": "I",
+            "progress": 0.3038793103448276,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 15
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 7,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 8,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 9,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 10,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 11,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 12,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 13,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 14,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 15,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 16,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 17,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 18,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 19,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 20,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 21,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 22,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 23,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 24,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 25,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 26,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 27,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 28,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 29,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 30,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 31,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 32,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 33,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 34,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 35,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 36,
+            "status": "waiting",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 37,
+            "status": "waiting",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 38,
+            "status": "waiting",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 39,
+            "status": "waiting",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 40,
+            "status": "waiting",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 41,
+            "status": "waiting",
+            "node": "C",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "24-all-communities-win",
+      "state": {
+        "version": 2,
+        "mode": "won",
+        "interaction": "idle",
+        "level": 24,
+        "title": "מחברים את הארץ",
+        "objective": "חברו את החוף וההר, ופתחו שירות גם ליישוב הבקע",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 180.00000000000668,
+        "completedAt": 121.94999999999521,
+        "goal": {
+          "total": 42,
+          "arrived": 42,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "קהילת החוף",
+              "total": 18,
+              "arrived": 18,
+              "waiting": 0
+            },
+            {
+              "origin": "B",
+              "label": "קהילת הצפון",
+              "total": 18,
+              "arrived": 18,
+              "waiting": 0
+            },
+            {
+              "origin": "C",
+              "label": "יישוב הבקע",
+              "total": 6,
+              "arrived": 6,
+              "waiting": 0
+            }
+          ],
+          "length": 22.81665382639197,
+          "noise": 0,
+          "stars": 2,
+          "busesLeft": 4,
+          "trainsLeft": 2,
+          "time": 121.94999999999521
+        },
+        "modelLoaded": true,
+        "fps": 111,
+        "budget": 189,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 3,
+        "message": "כולם הגיעו!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -6,
+            "z": 3,
+            "h": 0.2,
+            "kind": "home",
+            "label": "קהילת החוף",
+            "screen": {
+              "x": 284.1606918238994,
+              "y": 629.4214238275994
+            },
+            "waiting": 0
+          },
+          {
+            "id": "B",
+            "x": -5,
+            "z": -4,
+            "h": 0.3,
+            "kind": "home",
+            "label": "קהילת הצפון",
+            "screen": {
+              "x": 106.8066936208446,
+              "y": 590.1342612751979
+            },
+            "waiting": 0
+          },
+          {
+            "id": "I",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "station",
+            "label": "מחלף השפלה",
+            "screen": {
+              "x": 219.66832884097033,
+              "y": 536.663554414741
+            },
+            "waiting": 0
+          },
+          {
+            "id": "M",
+            "x": 1,
+            "z": 2,
+            "h": 1.4,
+            "kind": "junction",
+            "label": "מרפסת ההר",
+            "screen": {
+              "x": 280.93607367475295,
+              "y": 466.7499776042375
+            },
+            "waiting": 0
+          },
+          {
+            "id": "P",
+            "x": 3,
+            "z": -1,
+            "h": 2.3,
+            "kind": "station",
+            "label": "אוכף ההר",
+            "screen": {
+              "x": 209.99447439353102,
+              "y": 404.36748626703775
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 5,
+            "z": -4,
+            "h": 2.6,
+            "kind": "school",
+            "label": "בית הספר בהר",
+            "screen": {
+              "x": 139.05287511230907,
+              "y": 351.77540604513297
+            },
+            "waiting": 0
+          },
+          {
+            "id": "W",
+            "x": -4,
+            "z": 0,
+            "h": 0.3,
+            "kind": "jobs",
+            "label": "תעסוקה בחוף",
+            "screen": {
+              "x": 213.21909254267743,
+              "y": 580.0928139774595
+            },
+            "waiting": 0
+          },
+          {
+            "id": "C",
+            "x": 8,
+            "z": 3,
+            "h": 0,
+            "kind": "home",
+            "label": "יישוב הבקע",
+            "screen": {
+              "x": 329.30534591194964,
+              "y": 351.5243698626895
+            },
+            "waiting": 0
+          },
+          {
+            "id": "L",
+            "x": 7,
+            "z": 1,
+            "h": 0.4,
+            "kind": "clinic",
+            "label": "מרפאה מקומית +",
+            "screen": {
+              "x": 274.48683737646,
+              "y": 360.05960006576714
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "I",
+              "M",
+              "P",
+              "S"
+            ],
+            "cost": 17
+          },
+          {
+            "id": 2,
+            "mode": "bus",
+            "path": [
+              "B",
+              "I",
+              "W"
+            ],
+            "cost": 7
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "M",
+            "to": "I",
+            "progress": 0.9457985571771752,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 7
+          },
+          {
+            "id": 2,
+            "line": 2,
+            "mode": "bus",
+            "from": "I",
+            "to": "B",
+            "progress": 0.3849137931034483,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 22
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 7,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 8,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 9,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 10,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 11,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 12,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 13,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 14,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 15,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 16,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 17,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 18,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 19,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 20,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 21,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 22,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 23,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 24,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 25,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 26,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 27,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 28,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 29,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 30,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 31,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 32,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 33,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 34,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 35,
+            "status": "arrived",
+            "node": "W",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 36,
+            "status": "arrived",
+            "node": "L",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 37,
+            "status": "arrived",
+            "node": "L",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 38,
+            "status": "arrived",
+            "node": "L",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 39,
+            "status": "arrived",
+            "node": "L",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 40,
+            "status": "arrived",
+            "node": "L",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 41,
+            "status": "arrived",
+            "node": "L",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [
+          "L"
+        ],
+        "widened": [],
+        "induced": false
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "level": 1,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 1
+    },
+    {
+      "level": 2,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "V",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 2
+    },
+    {
+      "level": 3,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "K",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 3,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "N",
+        "P",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 3
+    },
+    {
+      "level": 4,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 4,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "M",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 4
+    },
+    {
+      "level": 5,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 5,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "W"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 5,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "J",
+        "C"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 5
+    },
+    {
+      "level": 6,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "C"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 6,
+      "type": "open-service",
+      "node": "L"
+    },
+    {
+      "type": "mission-won",
+      "level": 6
+    },
+    {
+      "level": 7,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 7,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 7
+    },
+    {
+      "level": 8,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 8
+    },
+    {
+      "level": 9,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 9,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "J",
+        "W"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 9
+    },
+    {
+      "level": 10,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "V",
+        "M",
+        "P",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 10
+    },
+    {
+      "level": 11,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "K",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 11,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "J",
+        "K",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 11
+    },
+    {
+      "level": 12,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "J",
+        "P",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 12,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "K",
+        "P",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 12
+    },
+    {
+      "level": 13,
+      "type": "extra-bus",
+      "lineId": 1
+    },
+    {
+      "level": 13,
+      "type": "extra-bus",
+      "lineId": 2
+    },
+    {
+      "type": "mission-won",
+      "level": 13
+    },
+    {
+      "level": 14,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "I"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 14,
+      "type": "drag-line",
+      "path": [
+        "I",
+        "T"
+      ],
+      "mode": "rail"
+    },
+    {
+      "level": 14,
+      "type": "extra-bus",
+      "lineId": 1
+    },
+    {
+      "type": "mission-won",
+      "level": 14
+    },
+    {
+      "level": 15,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "I"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 15,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "T"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 15
+    },
+    {
+      "level": 16,
+      "type": "drag-line",
+      "path": [
+        "I",
+        "S"
+      ],
+      "mode": "rail"
+    },
+    {
+      "level": 16,
+      "type": "extra-bus",
+      "lineId": 1
+    },
+    {
+      "level": 16,
+      "type": "extra-bus",
+      "lineId": 2
+    },
+    {
+      "type": "mission-won",
+      "level": 16
+    },
+    {
+      "level": 17,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "J",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 17
+    },
+    {
+      "level": 18,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "T"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 18,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "T"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 18,
+      "type": "drag-line",
+      "path": [
+        "T",
+        "S"
+      ],
+      "mode": "rail"
+    },
+    {
+      "type": "mission-won",
+      "level": 18
+    },
+    {
+      "level": 19,
+      "type": "open-service",
+      "node": "L"
+    },
+    {
+      "type": "mission-won",
+      "level": 19
+    },
+    {
+      "level": 20,
+      "type": "extra-bus",
+      "lineId": 1
+    },
+    {
+      "level": 20,
+      "type": "open-service",
+      "node": "L"
+    },
+    {
+      "type": "mission-won",
+      "level": 20
+    },
+    {
+      "level": 21,
+      "type": "extra-bus",
+      "lineId": 1
+    },
+    {
+      "level": 21,
+      "type": "extra-bus",
+      "lineId": 1
+    },
+    {
+      "type": "mission-won",
+      "level": 21
+    },
+    {
+      "level": 22,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "N",
+        "P",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 22
+    },
+    {
+      "level": 23,
+      "type": "drag-line",
+      "path": [
+        "A",
+        "I",
+        "P",
+        "W"
+      ],
+      "mode": "bus"
+    },
+    {
+      "level": 23,
+      "type": "drag-line",
+      "path": [
+        "B",
+        "P",
+        "I",
+        "S"
+      ],
+      "mode": "bus"
+    },
+    {
+      "type": "mission-won",
+      "level": 23
+    },
+    {
+      "level": 24,
+      "type": "portrait-tap-line",
+      "path": [
+        "A",
+        "I",
+        "M",
+        "P",
+        "S"
+      ]
+    },
+    {
+      "level": 24,
+      "type": "portrait-tap-line",
+      "path": [
+        "B",
+        "I",
+        "W"
+      ]
+    },
+    {
+      "level": 24,
+      "type": "open-service",
+      "node": "L"
+    },
+    {
+      "type": "mission-won",
+      "level": 24
+    },
+    {
+      "type": "earned-progress-persists-after-reload"
+    }
+  ],
+  "errors": []
+}

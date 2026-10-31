@@ -1,0 +1,16 @@
+{
+  "active": {
+    "notes": 14,
+    "states": [
+      "running"
+    ]
+  },
+  "muted": {
+    "notes": 14,
+    "states": [
+      "running"
+    ]
+  },
+  "mutedStartNotes": 14,
+  "method": "Instrumented native AudioContext read-only counters; normal gesture and mute button. No physical listening claim."
+}

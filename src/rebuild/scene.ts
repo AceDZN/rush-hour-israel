@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { MapNode, Point, Corridor } from "../types";
-import type { Mission, GameState, SceneUI, Pick, Bus } from "./types";
+import type { Mission, GameState, SceneUI, Pick, Bus, Line } from "./types";
 import {
   vehiclePosition,
   walkingPosition,
@@ -287,7 +287,21 @@ export class TownScene {
         }
       }
     }
-    return h;
+    // A valid road must remain visible from the strategic camera. Decorative peaks may
+    // rise behind a route, but the nearby embankment cannot form an occluding cliff.
+    let corridorCeiling = Infinity;
+    for (const c of m.corridors) {
+      if (c.forbidden || !this.canBuild(c) || c.bridge) continue;
+      const ps = corridorPoints(m, c);
+      for (let i = 1; i < ps.length; i++) {
+        const a = ps[i - 1], b = ps[i], d = distanceToSegment(x, z, a, b);
+        if (d.distance < 2.75) {
+          const roadHeight = a.h + (b.h - a.h) * d.t;
+          corridorCeiling = Math.min(corridorCeiling, roadHeight - .035 + Math.max(0, d.distance - .84) * .68);
+        }
+      }
+    }
+    return Math.min(h, corridorCeiling);
   }
   private coastX(z: number) {
     const west = Math.min(...this.mission!.nodes.map((n) => n.x)) - 4.6;
@@ -709,6 +723,21 @@ export class TownScene {
         this.mats.ochre,
       );
   }
+  private homeYaw(n: MapNode, scale: number) {
+    if (this.mission!.id <= 2) return 0;
+    const footprint = [[-1.48,-1.7,.7],[0,-2.1,.75],[1.5,-1.65,.7],[-2.45,-1.6,.65],[2.5,-1.8,.65]];
+    let best = Infinity, angle = 0;
+    for (const yaw of [0, Math.PI/2, -Math.PI/2]) {
+      let score = Math.abs(yaw)*.015;
+      for (const [lx,lz,radius] of footprint) {
+        const x=n.x+(lx*Math.cos(yaw)+lz*Math.sin(yaw))*scale, z=n.z+(-lx*Math.sin(yaw)+lz*Math.cos(yaw))*scale;
+        if (x<this.coastX(z)+.65) score+=20;
+        for (const c of this.mission!.corridors) { if (!this.canBuild(c)) continue; const ps=corridorPoints(this.mission!,c); for(let i=1;i<ps.length;i++){const d=distanceToSegment(x,z,ps[i-1],ps[i]).distance;score+=Math.pow(Math.max(0,radius*scale+.82-d),2)*20;}}
+      }
+      if (score<best) {best=score;angle=yaw;}
+    }
+    return angle;
+  }
   private buildPlace(n: MapNode) {
     if (n.kind === "junction") return;
     const g = new THREE.Group();
@@ -842,6 +871,10 @@ export class TownScene {
       this.box(pad, 0.7, 0.58, -0.55, 0.11, 0.4, 0.06, M.ochre);
       this.box(pad, 0.7, 0.72, -0.54, 0.4, 0.11, 0.07, M.ochre);
       this.servicePlaces.set(n.id, { built: g, pad });
+    }
+    if (n.kind === 'home') {
+      const yaw=this.homeYaw(n,placeScale);
+      if(yaw){const architecture=new THREE.Group();for(const child of [...g.children]){g.remove(child);architecture.add(child);}architecture.rotation.y=yaw;g.add(architecture);}
     }
     // Each landmark gets a physical pickup curb, so route handles refer to an inhabited place.
     this.box(g, 0, 0.045, 0.83, 2.3, 0.04, 0.3, M.curb);
@@ -1126,6 +1159,31 @@ export class TownScene {
       return [...ps, ...(ps.length ? closest.points.slice(1) : closest.points)];
     return ps;
   }
+  private railShift(state: GameState, line: Line, p: THREE.Vector3) {
+    let best = Infinity, shift = new THREE.Vector3();
+    for (let i = 1; i < line.path.length; i++) {
+      const key = pair(line.path[i - 1], line.path[i]);
+      const shared = state.lines.some(l => l.mode === 'bus' && l.path.slice(1).some((id, j) => pair(l.path[j], id) === key));
+      if (!shared) continue;
+      const c = state.mission.corridors.find(c => pair(c.a, c.b) === key)!;
+      const raw = corridorPoints(state.mission, c);
+      for (let j = 1; j < raw.length; j++) {
+        const a = raw[j - 1], b = raw[j], d = distanceToSegment(p.x, p.z, a, b);
+        if (d.distance < best) { best = d.distance; const length = Math.hypot(b.x-a.x, b.z-a.z) || 1; shift.set(-(b.z-a.z)/length*1.18, 0, (b.x-a.x)/length*1.18); }
+      }
+    }
+    return best < .25 ? shift : new THREE.Vector3();
+  }
+  private linePoints(state: GameState, line: Line) {
+    return this.sample(this.getPath(line.path)).map(p => {
+      const result = p.clone().add(new THREE.Vector3(0, .078, 0));
+      if (line.mode === 'rail') result.add(this.railShift(state, line, p));
+      return result;
+    });
+  }
+  private queueOffset(state: GameState, node: string) {
+    return state.lines.some(l => l.mode === 'rail' && l.path.includes(node) && this.railShift(state,l,new THREE.Vector3(state.mission.nodes.find(n=>n.id===node)!.x,0,state.mission.nodes.find(n=>n.id===node)!.z)).lengthSq() > 0) ? 1.95 : 1.05;
+  }
   private drawLines(state: GameState, ui: SceneUI) {
     const key =
       state.revision +
@@ -1137,11 +1195,10 @@ export class TownScene {
     this.lineKey = key;
     this.clear(this.lineWorld);
     for (const line of state.lines) {
-      const ps = this.sample(this.getPath(line.path)).map((p) =>
-        p.add(new THREE.Vector3(0, 0.078, 0)),
-      );
+      const ps = this.linePoints(state, line);
       if (ps.length < 2) continue;
       if (line.mode === "rail") {
+        this.ribbon(ps.map(p=>p.clone().add(new THREE.Vector3(0,-.025,0))), .75, this.mats.curb, this.lineWorld);
         for (const side of [-0.17, 0.17])
           this.ribbon(ps, 0.045, this.mats.metal, this.lineWorld, side);
         for (let i = 0; i < ps.length; i += 2) {
@@ -1216,6 +1273,7 @@ export class TownScene {
         this.moving.add(mesh);
       }
       const p = vehiclePosition(state, bus);
+      if (bus.mode === 'rail') { const line = state.lines.find(l=>l.id===bus.line)!; const shift=this.railShift(state,line,new THREE.Vector3(p.x,p.y,p.z)); p.x+=shift.x; p.z+=shift.z; }
       mesh.position.set(p.x, p.y - 0.025, p.z);
       mesh.rotation.y = p.angle;
     }
@@ -1269,7 +1327,7 @@ export class TownScene {
           waiting[i].id,
           n.x - 1.12 + (i % 8) * 0.235,
           n.h + 0.08,
-          n.z + 1.05 + Math.floor(i / 8) * 0.32,
+          n.z + this.queueOffset(state, n.id) + Math.floor(i / 8) * 0.32,
           -Math.PI / 2,
         );
       const arrived = state.people.filter(
@@ -1296,12 +1354,13 @@ export class TownScene {
       if (!n || !bus) continue;
       const p = vehiclePosition(state, bus),
         t = THREE.MathUtils.smoothstep(this.elapsed - ghost.start, 0, 0.65);
+      if (bus.mode === 'rail') { const line = state.lines.find(l=>l.id===bus.line)!; const shift=this.railShift(state,line,new THREE.Vector3(p.x,p.y,p.z)); p.x+=shift.x; p.z+=shift.z; }
       placePerson(
         ghost.id,
         THREE.MathUtils.lerp(n.x - 0.8, p.x, t),
         THREE.MathUtils.lerp(n.h + 0.08, p.y + 0.2, t) +
           Math.sin(t * Math.PI) * 0.08,
-        THREE.MathUtils.lerp(n.z + 1.05, p.z, t),
+        THREE.MathUtils.lerp(n.z + this.queueOffset(state, n.id), p.z, t),
         p.angle,
         1 - t * 0.65,
       );
@@ -1446,10 +1505,10 @@ export class TownScene {
       min = 16;
     if (!node && this.currentState)
       for (const l of this.currentState.lines) {
-        const ps = this.getPath(l.path);
+        const ps = this.linePoints(this.currentState, l);
         for (let i = 1; i < ps.length; i++) {
-          const a = vec(ps[i - 1]).project(this.camera),
-            b = vec(ps[i]).project(this.camera),
+          const a = ps[i - 1].clone().project(this.camera),
+            b = ps[i].clone().project(this.camera),
             ax = (a.x * 0.5 + 0.5) * this.width,
             ay = (-a.y * 0.5 + 0.5) * this.height,
             bx = (b.x * 0.5 + 0.5) * this.width,

@@ -1,0 +1,684 @@
+{
+  "version": 2,
+  "mode": "running",
+  "interaction": "idle",
+  "level": 16,
+  "title": "היום כולם נוסעים",
+  "objective": "יותר אנשים הבוקר. חברו רכבת לציר הראשי",
+  "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+  "time": 3.6025719999999954,
+  "completedAt": null,
+  "goal": {
+    "total": 72,
+    "arrived": 0,
+    "pending": 24,
+    "waiting": 48,
+    "riding": 0,
+    "walking": 0,
+    "groups": [
+      {
+        "origin": "A",
+        "label": "רובע מגורים",
+        "total": 48,
+        "arrived": 0,
+        "waiting": 24
+      },
+      {
+        "origin": "B",
+        "label": "שכונת הצפון",
+        "total": 24,
+        "arrived": 0,
+        "waiting": 24
+      }
+    ],
+    "length": 17.071067811865476,
+    "noise": 0,
+    "stars": 0,
+    "busesLeft": 4,
+    "trainsLeft": 1,
+    "time": 3.6025719999999954
+  },
+  "modelLoaded": true,
+  "fps": 0,
+  "budget": 95,
+  "path": [],
+  "modeTool": "rail",
+  "selectedLine": null,
+  "invalid": null,
+  "history": 1,
+  "message": "הקו מוכן — עולים ונוסעים!",
+  "nodes": [
+    {
+      "id": "A",
+      "x": -6,
+      "z": 3,
+      "h": 0.3,
+      "kind": "home",
+      "label": "רובע מגורים",
+      "screen": {
+        "x": 391.37217736010734,
+        "y": 716.2441770186332
+      },
+      "waiting": 18
+    },
+    {
+      "id": "I",
+      "x": -2,
+      "z": 0,
+      "h": 0.4,
+      "kind": "station",
+      "label": "מחלף",
+      "screen": {
+        "x": 674.0627774804451,
+        "y": 553.3850931677016
+      },
+      "waiting": 6
+    },
+    {
+      "id": "S",
+      "x": 5,
+      "z": -1,
+      "h": 0.5,
+      "kind": "jobs",
+      "label": "מרכז התעסוקה",
+      "screen": {
+        "x": 1168.7713276910363,
+        "y": 495.9607919254655
+      },
+      "waiting": 0
+    },
+    {
+      "id": "B",
+      "x": -6,
+      "z": -3,
+      "h": 0.3,
+      "kind": "home",
+      "label": "שכונת הצפון",
+      "screen": {
+        "x": 391.37217736010734,
+        "y": 399.93982919254626
+      },
+      "waiting": 24
+    }
+  ],
+  "lines": [
+    {
+      "id": 1,
+      "mode": "bus",
+      "path": [
+        "A",
+        "I",
+        "S"
+      ],
+      "cost": 0
+    },
+    {
+      "id": 2,
+      "mode": "bus",
+      "path": [
+        "B",
+        "I"
+      ],
+      "cost": 0
+    },
+    {
+      "id": 3,
+      "mode": "rail",
+      "path": [
+        "I",
+        "S"
+      ],
+      "cost": 0
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "line": 1,
+      "mode": "bus",
+      "from": "I",
+      "to": "S",
+      "progress": 0.11009135785030805,
+      "moving": true,
+      "blocked": false,
+      "people": 0,
+      "capacity": 6,
+      "trips": 0
+    },
+    {
+      "id": 2,
+      "line": 2,
+      "mode": "bus",
+      "from": "I",
+      "to": "B",
+      "progress": 0.45694444444444443,
+      "moving": true,
+      "blocked": false,
+      "people": 0,
+      "capacity": 6,
+      "trips": 0
+    },
+    {
+      "id": 3,
+      "line": 3,
+      "mode": "rail",
+      "from": "S",
+      "to": "I",
+      "progress": 0.7241027227676488,
+      "moving": true,
+      "blocked": false,
+      "people": 0,
+      "capacity": 14,
+      "trips": 0
+    }
+  ],
+  "people": [
+    {
+      "id": 0,
+      "status": "waiting",
+      "node": "I",
+      "vehicle": null,
+      "boardings": 1
+    },
+    {
+      "id": 1,
+      "status": "waiting",
+      "node": "I",
+      "vehicle": null,
+      "boardings": 1
+    },
+    {
+      "id": 2,
+      "status": "waiting",
+      "node": "I",
+      "vehicle": null,
+      "boardings": 1
+    },
+    {
+      "id": 3,
+      "status": "waiting",
+      "node": "I",
+      "vehicle": null,
+      "boardings": 1
+    },
+    {
+      "id": 4,
+      "status": "waiting",
+      "node": "I",
+      "vehicle": null,
+      "boardings": 1
+    },
+    {
+      "id": 5,
+      "status": "waiting",
+      "node": "I",
+      "vehicle": null,
+      "boardings": 1
+    },
+    {
+      "id": 6,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 7,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 8,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 9,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 10,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 11,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 12,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 13,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 14,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 15,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 16,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 17,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 18,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 19,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 20,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 21,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 22,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 23,
+      "status": "waiting",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 24,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 25,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 26,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 27,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 28,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 29,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 30,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 31,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 32,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 33,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 34,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 35,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 36,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 37,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 38,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 39,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 40,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 41,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 42,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 43,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 44,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 45,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 46,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 47,
+      "status": "waiting",
+      "node": "B",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 48,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 49,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 50,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 51,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 52,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 53,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 54,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 55,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 56,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 57,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 58,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 59,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 60,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 61,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 62,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 63,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 64,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 65,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 66,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 67,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 68,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 69,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 70,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    },
+    {
+      "id": 71,
+      "status": "pending",
+      "node": "A",
+      "vehicle": null,
+      "boardings": 0
+    }
+  ],
+  "services": [],
+  "widened": [],
+  "induced": false
+}

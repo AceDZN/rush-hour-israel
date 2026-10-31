@@ -1,19 +1,29 @@
-# שעת שיא — Rush Hour Israel
+# שעת שיא — living-town rebuild
 
-A fast route-building strategy on a living 3D relief atlas. The player draws infrastructure, watches a finite rush-hour wave reveal queues, and changes the network until people reach school, work and services.
+The human rejected V1's remote graphics, unclear gestures, editor burden, difficulty and passive waiting. Its rule tests did not establish playability. This identity supersedes the original atlas-editor first minute; that document remains in docs/archive/v1/.
 
 ## First minute
-Connect the neighborhood to the school through the low valley approach. Start the wave with Space. Watch passengers board real moving vehicles, then extend a bus service or improve a crossing to drain its queue. A steep direct line is an expensive or invalid shortcut. Restart the same deterministic demand with R and compare people served and the worst-served neighborhood.
 
-## Verbs and outcomes
-Click or drag between map nodes to draw roads, bus services or rail. Place stops, upgrade a crossing, or provide a local service. Delete a link and receive its cost back while planning. Time continues during active network repair. Space toggles planning/run/pause; R replays demand with the current plan; Escape pauses; F toggles fullscreen. Touch uses the same two-tap link operation. Rotate/tilt controls retain a fixed north arrow and map reset.
+Open directly on eight visible students, a substantial cream/navy bus, and one recognizable school. The instruction is “גררו קו מהבתים לבית הספר”. Draw along the street or tap endpoints. Stops and service appear automatically. Six students board while the bus waits briefly, ride together, and alight at the school. That same bus returns for the remaining two. A small “כולם הגיעו!” banner rewards completion without hiding the town. There is no intro modal, budget puzzle, tool selection, Run button, percentage threshold or failure clock before this payoff.
 
-A wave releases passengers in authored pulses. The deterministic model tracks each passenger through waiting, capacity-limited departures, travel and transfers. Relief changes construction cost and travel time. Stops change walking coverage. Success requires enough timely arrivals in every origin group. Queue overflow or the wave deadline produces a useful failure with a replay action. Lower footprint and shorter waits improve a saved local best score.
+The second morning introduces a visible hill. A steep direct attempt gives a local reason; a continuous bent stroke through the valley keeps its bend. Undo rewinds the action and modeled moment. The player learns a spatial relationship while doing the same familiar action.
 
-## Campaign
-24 authored scenarios: street flow, land use, relief, mode choice, peripheral access and integrated transfer. Each adds or recombines a specific constraint; the last four reduce solution assistance. There is no quiz gate, courier avatar or current-infrastructure claim. All maps and numbers are schematic teaching scenarios.
+## Core loop
+
+Draw a continuous line → automatically launch a persistent bus → observe boarding, travel, queue and arrival → add a bus or redraw a useful path → see the same people arrive. Buses remain one vehicle through ordinary bends and return trips. Passengers change vehicles only for an actual route transfer. Six-seat buses and fourteen-seat rail vehicles conserve individual riders; shared crossings and spaced departures create visible queues.
+
+Early missions are forgiving and untimed. All required individuals must reach the relevant service. Optional time/footprint stars encourage improvement without blocking introductory progress. Explicit nuisance/land constraints remain physical planning goals. New actions appear gradually: extra fleet, rail, then local service. A planned clinic is a construction site until opened and reached; opening does not erase demand. The small community remains visible in its own arrival count.
+
+## Controls and progression
+
+The primary gesture is route drawing. Tap/keyboard input follows the same sequence; stations can be intermediate points or an explicit “finish here”. Undo and pause stay visible. Fleet and mode choices appear only when relevant. Selecting a line exposes its context instead of a permanent eight-tool palette. Twenty-four mornings unlock sequentially, with local replay and saved stars. Direct mission links do not fabricate previous completions.
 
 ## Art and sound
-Visual thesis: warm sand plaster, navy ink routes, ochre roofs and cream buses animate a geographic relief atlas. The high oblique camera leaves most of the screen to terrain, a blue sea in the west, inland green hills and the lower rift east. Sparse edge HUD and projected Hebrew labels support route decisions. Intentional motion: a drawn route snaps into place, boarded vehicles follow its geometry, and queue markers visibly drain. Soft departure ticks and arrival chimes reward flow; mute and reduced motion are available.
 
-Content plan: immediate map and single mission sentence, bottom construction tools, compact wave/access readouts, short result and replay. Interaction thesis: preview the cost of the next segment, see waiting passengers become riders, and observe a repaired bottleneck release flow. Geographic correctness and simulation live independently of the visible prop mesh.
+A close inhabited coastal town: herbal grass, blue shore/river, cream walls, terracotta roofs, a school courtyard, grouped broadleaf trees, large buses and backpack figures. The fixed camera frames active places and adapts the trip vertically for portrait. Regional north remains interpretable. Roads, preview ribbons and vehicles must share the same route geometry; decorative terrain must not hide usable infrastructure.
+
+Original Tripo bus reused; no new generation or credits. Buildings and rigid passengers are original geometry. Local original Web Audio supplies a restrained morning groove, route/departure feedback, arrivals and a completion chord; mute and reduced motion preserve comprehension.
+
+## Acceptance
+
+Fresh generated targets 01/02/03 preceded implementation. Normal-input first-minute checks measure gesture response, preserved bends, actual waiting/boarding/arrival and repair on desktop/portrait. New conservation/capacity tests are separate from V1's checks. Every mission needs a valid plan through the public controls. A human first-time playtest still determines whether the new flow is understandable and enjoyable; a screenshot, internal inspection or known solution cannot establish that.

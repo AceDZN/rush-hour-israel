@@ -1,0 +1,1803 @@
+{
+  "url": "http://localhost:5303/rebuild.html",
+  "record": [
+    {
+      "name": "first-visible-instruction",
+      "text": "הבתים\nבית הספר\nשעת שיא•\nבוקר 1 / 24\nמישור חוף · בוקר ראשון\nהביאו 8 ילדים לבית הספר\n\nגררו קו מהבתים לבית הספר\n\n0 / 8\nהגיעו\nמפה סכמטית · לומדים דרך הדרך\n↶\nⅡ\n☰"
+    },
+    {
+      "name": "desktop-first-drag",
+      "state": {
+        "version": 2,
+        "mode": "running",
+        "interaction": "idle",
+        "level": 1,
+        "title": "הבוקר הראשון",
+        "objective": "הביאו 8 ילדים לבית הספר",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0.30819999999999975,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 0,
+          "pending": 0,
+          "waiting": 2,
+          "riding": 6,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 0,
+              "waiting": 2
+            }
+          ],
+          "length": 9.970988075284193,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 0.30819999999999975
+        },
+        "modelLoaded": true,
+        "fps": 53,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "הקו מוכן — עולים ונוסעים!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -4.8,
+            "z": 2.1,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 424.596319018405,
+              "y": 690.3246623480412
+            },
+            "waiting": 2
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.8,
+            "h": 0.15,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1152.9889570552148,
+              "y": 453.2622085669305
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "S"
+            ],
+            "cost": 10
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "A",
+            "to": "S",
+            "progress": 0,
+            "moving": false,
+            "blocked": false,
+            "people": 6,
+            "capacity": 6,
+            "trips": 0
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "first-arrival-wall-ms",
+      "value": 5543
+    },
+    {
+      "name": "desktop-first-arrival",
+      "state": {
+        "version": 2,
+        "mode": "running",
+        "interaction": "idle",
+        "level": 1,
+        "title": "הבוקר הראשון",
+        "objective": "הביאו 8 ילדים לבית הספר",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 5.466400000000005,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 6,
+          "pending": 0,
+          "waiting": 2,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 6,
+              "waiting": 2
+            }
+          ],
+          "length": 9.970988075284193,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 5.466400000000005
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "הקו מוכן — עולים ונוסעים!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -4.8,
+            "z": 2.1,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 424.596319018405,
+              "y": 690.3246623480412
+            },
+            "waiting": 2
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.8,
+            "h": 0.15,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1152.9889570552148,
+              "y": 453.2622085669305
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "S"
+            ],
+            "cost": 10
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "S",
+            "to": "A",
+            "progress": 0.0440014738604214,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 0
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "first-win-wall-ms",
+      "value": 15144
+    },
+    {
+      "name": "desktop-first-win",
+      "state": {
+        "version": 2,
+        "mode": "won",
+        "interaction": "idle",
+        "level": 1,
+        "title": "הבוקר הראשון",
+        "objective": "הביאו 8 ילדים לבית הספר",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 15.059999999999945,
+        "completedAt": 14.759799999999945,
+        "goal": {
+          "total": 8,
+          "arrived": 8,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 8,
+              "waiting": 0
+            }
+          ],
+          "length": 9.970988075284193,
+          "noise": 0,
+          "stars": 3,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 14.759799999999945
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "כולם הגיעו!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -4.8,
+            "z": 2.1,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 424.596319018405,
+              "y": 690.3246623480412
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.8,
+            "h": 0.15,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1152.9889570552148,
+              "y": 453.2622085669305
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "S"
+            ],
+            "cost": 10
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "S",
+            "to": "A",
+            "progress": 0.04216425156979839,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 1
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 7,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "desktop-slope-mistake",
+      "state": {
+        "version": 2,
+        "mode": "ready",
+        "interaction": "idle",
+        "level": 2,
+        "title": "מסביב לגבעה",
+        "objective": "הביאו 8 ילדים בלי לטפס במדרון התלול",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 0,
+          "pending": 0,
+          "waiting": 8,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 0,
+              "waiting": 8
+            }
+          ],
+          "length": 0,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 1,
+          "trainsLeft": 0,
+          "time": 0
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 0,
+        "message": "העלייה כאן תלולה מדי. נסו את הרחוב המתון",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 2.4,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 437.5433184565099,
+              "y": 695.7276582540336
+            },
+            "waiting": 8
+          },
+          {
+            "id": "V",
+            "x": -0.8,
+            "z": 2.8,
+            "h": 0.45,
+            "kind": "junction",
+            "label": "העמק",
+            "screen": {
+              "x": 753.8948017852189,
+              "y": 701.647186594952
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.5,
+            "h": 1.45,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1130.5037105098725,
+              "y": 409.88467107985076
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [],
+        "vehicles": [],
+        "people": [
+          {
+            "id": 0,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 1,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 2,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 3,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 4,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 5,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "desktop-continuous-bend",
+      "state": {
+        "version": 2,
+        "mode": "running",
+        "interaction": "idle",
+        "level": 2,
+        "title": "מסביב לגבעה",
+        "objective": "הביאו 8 ילדים בלי לטפס במדרון התלול",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0.30829999999999935,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 0,
+          "pending": 0,
+          "waiting": 2,
+          "riding": 6,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 0,
+              "waiting": 2
+            }
+          ],
+          "length": 10.919137877569401,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 0.30829999999999935
+        },
+        "modelLoaded": true,
+        "fps": 114,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "הקו מוכן — עולים ונוסעים!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 2.4,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 437.5433184565099,
+              "y": 695.7276582540336
+            },
+            "waiting": 2
+          },
+          {
+            "id": "V",
+            "x": -0.8,
+            "z": 2.8,
+            "h": 0.45,
+            "kind": "junction",
+            "label": "העמק",
+            "screen": {
+              "x": 753.8948017852189,
+              "y": 701.647186594952
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.5,
+            "h": 1.45,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1130.5037105098725,
+              "y": 409.88467107985076
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "V",
+              "S"
+            ],
+            "cost": 12
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "A",
+            "to": "V",
+            "progress": 0,
+            "moving": false,
+            "blocked": false,
+            "people": 6,
+            "capacity": 6,
+            "trips": 0
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "desktop-second-win",
+      "state": {
+        "version": 2,
+        "mode": "won",
+        "interaction": "idle",
+        "level": 2,
+        "title": "מסביב לגבעה",
+        "objective": "הביאו 8 ילדים בלי לטפס במדרון התלול",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 23.37360000000016,
+        "completedAt": 23.07400000000014,
+        "goal": {
+          "total": 8,
+          "arrived": 8,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 8,
+              "waiting": 0
+            }
+          ],
+          "length": 10.919137877569401,
+          "noise": 0,
+          "stars": 3,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 23.07400000000014
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "כולם הגיעו!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 2.4,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 437.5433184565099,
+              "y": 695.7276582540336
+            },
+            "waiting": 0
+          },
+          {
+            "id": "V",
+            "x": -0.8,
+            "z": 2.8,
+            "h": 0.45,
+            "kind": "junction",
+            "label": "העמק",
+            "screen": {
+              "x": 753.8948017852189,
+              "y": 701.647186594952
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.5,
+            "h": 1.45,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1130.5037105098725,
+              "y": 409.88467107985076
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "V",
+              "S"
+            ],
+            "cost": 12
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "S",
+            "to": "V",
+            "progress": 0.03944887533077819,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 1
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 7,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "both-mornings-wall-ms",
+      "value": 40112
+    },
+    {
+      "name": "desktop-undo",
+      "state": {
+        "version": 2,
+        "mode": "ready",
+        "interaction": "idle",
+        "level": 2,
+        "title": "מסביב לגבעה",
+        "objective": "הביאו 8 ילדים בלי לטפס במדרון התלול",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 0,
+          "pending": 0,
+          "waiting": 8,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 0,
+              "waiting": 8
+            }
+          ],
+          "length": 0,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 1,
+          "trainsLeft": 0,
+          "time": 0
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 0,
+        "message": "חזרנו רגע אחורה. אפשר לנסות דרך אחרת",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 2.4,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 437.5433184565099,
+              "y": 695.7276582540336
+            },
+            "waiting": 8
+          },
+          {
+            "id": "V",
+            "x": -0.8,
+            "z": 2.8,
+            "h": 0.45,
+            "kind": "junction",
+            "label": "העמק",
+            "screen": {
+              "x": 753.8948017852189,
+              "y": 701.647186594952
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.5,
+            "h": 1.45,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 1130.5037105098725,
+              "y": 409.88467107985076
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [],
+        "vehicles": [],
+        "people": [
+          {
+            "id": 0,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 1,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 2,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 3,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 4,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 5,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "portrait-ready",
+      "state": {
+        "version": 2,
+        "mode": "ready",
+        "interaction": "idle",
+        "level": 1,
+        "title": "הבוקר הראשון",
+        "objective": "הביאו 8 ילדים לבית הספר",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 0,
+          "pending": 0,
+          "waiting": 8,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 0,
+              "waiting": 8
+            }
+          ],
+          "length": 0,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 1,
+          "trainsLeft": 0,
+          "time": 0
+        },
+        "modelLoaded": true,
+        "fps": 0,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 0,
+        "message": "גררו קו מהבתים לבית הספר",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -4.8,
+            "z": 2.1,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 273.1653374233129,
+              "y": 599.4712286603337
+            },
+            "waiting": 8
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.8,
+            "h": 0.15,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 175.40361963190188,
+              "y": 338.5977082765543
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [],
+        "vehicles": [],
+        "people": [
+          {
+            "id": 0,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 1,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 2,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 3,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 4,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 5,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "portrait-first-win",
+      "state": {
+        "version": 2,
+        "mode": "won",
+        "interaction": "idle",
+        "level": 1,
+        "title": "הבוקר הראשון",
+        "objective": "הביאו 8 ילדים לבית הספר",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 15.083699999999943,
+        "completedAt": 14.775699999999945,
+        "goal": {
+          "total": 8,
+          "arrived": 8,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 8,
+              "waiting": 0
+            }
+          ],
+          "length": 9.970988075284193,
+          "noise": 0,
+          "stars": 3,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 14.775699999999945
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "כולם הגיעו!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -4.8,
+            "z": 2.1,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 273.1653374233129,
+              "y": 599.4712286603337
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.8,
+            "h": 0.15,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 175.40361963190188,
+              "y": 338.5977082765543
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "S"
+            ],
+            "cost": 10
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "S",
+            "to": "A",
+            "progress": 0.0439325780245228,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 1
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 7,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "portrait-tap-bend",
+      "state": {
+        "version": 2,
+        "mode": "running",
+        "interaction": "idle",
+        "level": 2,
+        "title": "מסביב לגבעה",
+        "objective": "הביאו 8 ילדים בלי לטפס במדרון התלול",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 0.30019999999999725,
+        "completedAt": null,
+        "goal": {
+          "total": 8,
+          "arrived": 0,
+          "pending": 0,
+          "waiting": 2,
+          "riding": 6,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 0,
+              "waiting": 2
+            }
+          ],
+          "length": 10.919137877569401,
+          "noise": 0,
+          "stars": 0,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 0.30019999999999725
+        },
+        "modelLoaded": true,
+        "fps": 109,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "הקו מוכן — עולים ונוסעים!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 2.4,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 262.8485865724382,
+              "y": 608.9437681823277
+            },
+            "waiting": 2
+          },
+          {
+            "id": "V",
+            "x": -0.8,
+            "z": 2.8,
+            "h": 0.45,
+            "kind": "junction",
+            "label": "העמק",
+            "screen": {
+              "x": 294.1308009422851,
+              "y": 492.62446764521906
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.5,
+            "h": 1.45,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 169.84740871613667,
+              "y": 325.44324067435707
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "V",
+              "S"
+            ],
+            "cost": 12
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "A",
+            "to": "V",
+            "progress": 0,
+            "moving": false,
+            "blocked": false,
+            "people": 6,
+            "capacity": 6,
+            "trips": 0
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "riding",
+            "node": "A",
+            "vehicle": 1,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          },
+          {
+            "id": 7,
+            "status": "waiting",
+            "node": "A",
+            "vehicle": null,
+            "boardings": 0
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    },
+    {
+      "name": "portrait-second-win",
+      "state": {
+        "version": 2,
+        "mode": "won",
+        "interaction": "idle",
+        "level": 2,
+        "title": "מסביב לגבעה",
+        "objective": "הביאו 8 ילדים בלי לטפס במדרון התלול",
+        "coordinates": "x east, z south, y up; screen coordinates are currentcamera pixels",
+        "time": 23.383400000000094,
+        "completedAt": 23.075900000000086,
+        "goal": {
+          "total": 8,
+          "arrived": 8,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "walking": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "הבתים",
+              "total": 8,
+              "arrived": 8,
+              "waiting": 0
+            }
+          ],
+          "length": 10.919137877569401,
+          "noise": 0,
+          "stars": 3,
+          "busesLeft": 0,
+          "trainsLeft": 0,
+          "time": 23.075900000000086
+        },
+        "modelLoaded": true,
+        "fps": 120,
+        "budget": null,
+        "path": [],
+        "modeTool": "bus",
+        "selectedLine": null,
+        "invalid": null,
+        "history": 1,
+        "message": "כולם הגיעו!",
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 2.4,
+            "h": 0.12,
+            "kind": "home",
+            "label": "הבתים",
+            "screen": {
+              "x": 262.8485865724382,
+              "y": 608.9437681823277
+            },
+            "waiting": 0
+          },
+          {
+            "id": "V",
+            "x": -0.8,
+            "z": 2.8,
+            "h": 0.45,
+            "kind": "junction",
+            "label": "העמק",
+            "screen": {
+              "x": 294.1308009422851,
+              "y": 492.62446764521906
+            },
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 4.2,
+            "z": -1.5,
+            "h": 1.45,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 169.84740871613667,
+              "y": 325.44324067435707
+            },
+            "waiting": 0
+          }
+        ],
+        "lines": [
+          {
+            "id": 1,
+            "mode": "bus",
+            "path": [
+              "A",
+              "V",
+              "S"
+            ],
+            "cost": 12
+          }
+        ],
+        "vehicles": [
+          {
+            "id": 1,
+            "line": 1,
+            "mode": "bus",
+            "from": "S",
+            "to": "V",
+            "progress": 0.0411069339554898,
+            "moving": true,
+            "blocked": false,
+            "people": 0,
+            "capacity": 6,
+            "trips": 1
+          }
+        ],
+        "people": [
+          {
+            "id": 0,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 1,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 2,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 3,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 4,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 5,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 6,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          },
+          {
+            "id": 7,
+            "status": "arrived",
+            "node": "S",
+            "vehicle": null,
+            "boardings": 1
+          }
+        ],
+        "services": [],
+        "widened": [],
+        "induced": false
+      }
+    }
+  ],
+  "errors": []
+}

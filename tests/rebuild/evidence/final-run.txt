@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "wall": [
+    {
+      "name": "first-arrival-wall-ms",
+      "value": 5543
+    },
+    {
+      "name": "first-win-wall-ms",
+      "value": 15144
+    },
+    {
+      "name": "both-mornings-wall-ms",
+      "value": 40112
+    }
+  ],
+  "errors": []
+}

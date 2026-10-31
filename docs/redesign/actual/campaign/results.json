@@ -1,0 +1,1190 @@
+{
+  "method": "Normal visible node/tool controls, supported time stepping only, no injected plan/win",
+  "report": [
+    {
+      "id": 1,
+      "completedAt": 14.950000000000077,
+      "goal": {
+        "total": 8,
+        "arrived": 8,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "הבתים",
+            "total": 8,
+            "arrived": 8,
+            "waiting": 0
+          }
+        ],
+        "length": 9.970988075284193,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 0,
+        "trainsLeft": 0,
+        "time": 14.950000000000077
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "completedAt": 23.200000000000195,
+      "goal": {
+        "total": 8,
+        "arrived": 8,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "הבתים",
+            "total": 8,
+            "arrived": 8,
+            "waiting": 0
+          }
+        ],
+        "length": 10.919137877569401,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 0,
+        "trainsLeft": 0,
+        "time": 23.200000000000195
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "V",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "completedAt": 16.900000000000105,
+      "goal": {
+        "total": 18,
+        "arrived": 18,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת החוף",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת הגן",
+            "total": 6,
+            "arrived": 6,
+            "waiting": 0
+          }
+        ],
+        "length": 21.59524158061724,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 1,
+        "trainsLeft": 0,
+        "time": 16.900000000000105
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "K",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "N",
+            "P",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "completedAt": 45.69999999999954,
+      "goal": {
+        "total": 16,
+        "arrived": 16,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת הצפון",
+            "total": 8,
+            "arrived": 8,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת ההר",
+            "total": 8,
+            "arrived": 8,
+            "waiting": 0
+          }
+        ],
+        "length": 17.72865690108165,
+        "noise": 0,
+        "stars": 2,
+        "busesLeft": 1,
+        "trainsLeft": 0,
+        "time": 45.69999999999954
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "M",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "completedAt": 42.9499999999997,
+      "goal": {
+        "total": 30,
+        "arrived": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע מגורים",
+            "total": 20,
+            "arrived": 20,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת הגנים",
+            "total": 10,
+            "arrived": 10,
+            "waiting": 0
+          }
+        ],
+        "length": 26.739616779790598,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 1,
+        "trainsLeft": 0,
+        "time": 42.9499999999997
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "W"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "J",
+            "C"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "completedAt": 10.90000000000002,
+      "goal": {
+        "total": 24,
+        "arrived": 24,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת החוף",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת המזרח",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          }
+        ],
+        "length": 6.708203932499369,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 3,
+        "trainsLeft": 0,
+        "time": 10.90000000000002
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "C"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "service",
+          "node": "L"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "completedAt": 31.600000000000314,
+      "goal": {
+        "total": 26,
+        "arrived": 26,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "משפחות עם רכב",
+            "total": 8,
+            "arrived": 8,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "משפחות ללא רכב",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          }
+        ],
+        "length": 16.661903789690598,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 2,
+        "trainsLeft": 0,
+        "time": 31.600000000000314
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "completedAt": 42.39999999999973,
+      "goal": {
+        "total": 22,
+        "arrived": 22,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "בתי הרחוב",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "בתי הגן",
+            "total": 10,
+            "arrived": 10,
+            "waiting": 0
+          }
+        ],
+        "length": 11.47213595499958,
+        "noise": 2,
+        "stars": 3,
+        "busesLeft": 3,
+        "trainsLeft": 0,
+        "time": 42.39999999999973
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "completedAt": 31.90000000000032,
+      "goal": {
+        "total": 36,
+        "arrived": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "מגורים דרום",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "מגורים צפון",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          }
+        ],
+        "length": 16.32389848169889,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 2,
+        "trainsLeft": 0,
+        "time": 31.90000000000032
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "J",
+            "W"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "completedAt": 107.94999999999601,
+      "goal": {
+        "total": 30,
+        "arrived": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "עיר החוף",
+            "total": 30,
+            "arrived": 30,
+            "waiting": 0
+          }
+        ],
+        "length": 14.373380211096359,
+        "noise": 0,
+        "stars": 2,
+        "busesLeft": 3,
+        "trainsLeft": 0,
+        "time": 107.94999999999601
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "V",
+            "M",
+            "P",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "completedAt": 68.54999999999825,
+      "goal": {
+        "total": 40,
+        "arrived": 40,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונה צפונית",
+            "total": 20,
+            "arrived": 20,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונה דרומית",
+            "total": 20,
+            "arrived": 20,
+            "waiting": 0
+          }
+        ],
+        "length": 18.47213595499958,
+        "noise": 0,
+        "stars": 2,
+        "busesLeft": 2,
+        "trainsLeft": 0,
+        "time": 68.54999999999825
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "K",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "J",
+            "K",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "completedAt": 74.39999999999792,
+      "goal": {
+        "total": 30,
+        "arrived": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "יישוב החוף",
+            "total": 15,
+            "arrived": 15,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "יישוב הבקע",
+            "total": 15,
+            "arrived": 15,
+            "waiting": 0
+          }
+        ],
+        "length": 20.566539168818174,
+        "noise": 0,
+        "stars": 2,
+        "busesLeft": 2,
+        "trainsLeft": 0,
+        "time": 74.39999999999792
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "J",
+            "P",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "K",
+            "P",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "completedAt": 51.477207999999216,
+      "goal": {
+        "total": 54,
+        "arrived": 54,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת הבוקר",
+            "total": 54,
+            "arrived": 54,
+            "waiting": 0
+          }
+        ],
+        "length": 15.929971408438085,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 2,
+        "trainsLeft": 0,
+        "time": 51.477207999999216
+      },
+      "trail": [
+        {
+          "type": "extra",
+          "line": 1
+        },
+        {
+          "type": "extra",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "completedAt": 23.5000000000002,
+      "goal": {
+        "total": 36,
+        "arrived": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת המזין",
+            "total": 36,
+            "arrived": 36,
+            "waiting": 0
+          }
+        ],
+        "length": 11.830951894845299,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 4,
+        "trainsLeft": 1,
+        "time": 23.5000000000002
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "I"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "extra",
+          "line": 1
+        },
+        {
+          "type": "route",
+          "path": [
+            "I",
+            "T"
+          ],
+          "mode": "rail"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "completedAt": 22.559208000000186,
+      "goal": {
+        "total": 30,
+        "arrived": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "הבתים המרוחקים",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "בתי החוף",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          }
+        ],
+        "length": 14.82842712474619,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 4,
+        "trainsLeft": 1,
+        "time": 22.559208000000186
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "I"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "T"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "completedAt": 45.65217599999954,
+      "goal": {
+        "total": 72,
+        "arrived": 72,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע מגורים",
+            "total": 48,
+            "arrived": 48,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת הצפון",
+            "total": 24,
+            "arrived": 24,
+            "waiting": 0
+          }
+        ],
+        "length": 17.071067811865476,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 2,
+        "trainsLeft": 1,
+        "time": 45.65217599999954
+      },
+      "trail": [
+        {
+          "type": "extra",
+          "line": 1
+        },
+        {
+          "type": "extra",
+          "line": 2
+        },
+        {
+          "type": "route",
+          "path": [
+            "I",
+            "S"
+          ],
+          "mode": "rail"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "completedAt": 25.192608000000224,
+      "goal": {
+        "total": 36,
+        "arrived": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "מרכז מגורים",
+            "total": 30,
+            "arrived": 30,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "יישוב בקצה",
+            "total": 6,
+            "arrived": 6,
+            "waiting": 0
+          }
+        ],
+        "length": 15.073592581964585,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 4,
+        "trainsLeft": 2,
+        "time": 25.192608000000224
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "J",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "completedAt": 36.41001000000007,
+      "goal": {
+        "total": 42,
+        "arrived": 42,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונה קרובה",
+            "total": 28,
+            "arrived": 28,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונה רחוקה",
+            "total": 14,
+            "arrived": 14,
+            "waiting": 0
+          }
+        ],
+        "length": 26.657650966207694,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 3,
+        "trainsLeft": 1,
+        "time": 36.41001000000007
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "T"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "T"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "T",
+            "S"
+          ],
+          "mode": "rail"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "completedAt": 17.594642000000114,
+      "goal": {
+        "total": 36,
+        "arrived": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "בתי המרכז",
+            "total": 24,
+            "arrived": 24,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "יישוב המזרח",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          }
+        ],
+        "length": 4.242640687119286,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 5,
+        "trainsLeft": 2,
+        "time": 17.594642000000114
+      },
+      "trail": [
+        {
+          "type": "service",
+          "node": "L"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "completedAt": 15.784342000000091,
+      "goal": {
+        "total": 36,
+        "arrived": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "המרכז · 32",
+            "total": 32,
+            "arrived": 32,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "הקצה · 4",
+            "total": 4,
+            "arrived": 4,
+            "waiting": 0
+          }
+        ],
+        "length": 5,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 4,
+        "trainsLeft": 2,
+        "time": 15.784342000000091
+      },
+      "trail": [
+        {
+          "type": "extra",
+          "line": 1
+        },
+        {
+          "type": "service",
+          "node": "L"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "completedAt": 20.293308000000152,
+      "goal": {
+        "total": 36,
+        "arrived": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת הבוקר",
+            "total": 36,
+            "arrived": 36,
+            "waiting": 0
+          }
+        ],
+        "length": 10.77032961426901,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 3,
+        "trainsLeft": 2,
+        "time": 20.293308000000152
+      },
+      "trail": [
+        {
+          "type": "extra",
+          "line": 1
+        },
+        {
+          "type": "extra",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "completedAt": 90.459341999997,
+      "goal": {
+        "total": 30,
+        "arrived": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע מגורים",
+            "total": 30,
+            "arrived": 30,
+            "waiting": 0
+          }
+        ],
+        "length": 26.38620804341483,
+        "noise": 0,
+        "stars": 2,
+        "busesLeft": 4,
+        "trainsLeft": 2,
+        "time": 90.459341999997
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "N",
+            "P",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "completedAt": 39.69999999999988,
+      "goal": {
+        "total": 30,
+        "arrived": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע החוף",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "רובע ההר",
+            "total": 12,
+            "arrived": 12,
+            "waiting": 0
+          }
+        ],
+        "length": 21.95741732923815,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 4,
+        "trainsLeft": 2,
+        "time": 39.69999999999988
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "I",
+            "P",
+            "W"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "P",
+            "I",
+            "S"
+          ],
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "completedAt": 35.35000000000013,
+      "goal": {
+        "total": 42,
+        "arrived": 42,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "קהילת החוף",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "קהילת הצפון",
+            "total": 18,
+            "arrived": 18,
+            "waiting": 0
+          },
+          {
+            "origin": "C",
+            "label": "יישוב הבקע",
+            "total": 6,
+            "arrived": 6,
+            "waiting": 0
+          }
+        ],
+        "length": 22.81665382639197,
+        "noise": 0,
+        "stars": 3,
+        "busesLeft": 3,
+        "trainsLeft": 2,
+        "time": 35.35000000000013
+      },
+      "trail": [
+        {
+          "type": "route",
+          "path": [
+            "A",
+            "I",
+            "M",
+            "P",
+            "S"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "extra",
+          "line": 1
+        },
+        {
+          "type": "route",
+          "path": [
+            "B",
+            "I",
+            "W"
+          ],
+          "mode": "bus"
+        },
+        {
+          "type": "service",
+          "node": "L"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

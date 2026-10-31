@@ -1,0 +1,73 @@
+{
+  "method": "Static production build, actual taps while offline afterinitialload, deterministictimeonly",
+  "version": 2,
+  "mode": "won",
+  "goal": {
+    "total": 8,
+    "arrived": 8,
+    "pending": 0,
+    "waiting": 0,
+    "riding": 0,
+    "walking": 0,
+    "groups": [
+      {
+        "origin": "A",
+        "label": "הבתים",
+        "total": 8,
+        "arrived": 8,
+        "waiting": 0
+      }
+    ],
+    "length": 9.970988075284193,
+    "noise": 0,
+    "stars": 3,
+    "busesLeft": 0,
+    "trainsLeft": 0,
+    "time": 14.966100000000079
+  },
+  "modelLoaded": true,
+  "fps": 0,
+  "resources": [
+    {
+      "name": "index-C1v8fSfy.js",
+      "decoded": 677674,
+      "transferred": 181255
+    },
+    {
+      "name": "index-BsQInyaX.css",
+      "decoded": 10758,
+      "transferred": 3281
+    },
+    {
+      "name": "bus.glb",
+      "decoded": 516128,
+      "transferred": 516428
+    },
+    {
+      "name": "heebo-hebrew-400-normal-CVTJgQVK.woff2",
+      "decoded": 5084,
+      "transferred": 5384
+    },
+    {
+      "name": "heebo-hebrew-800-normal-CDdwy3LD.woff2",
+      "decoded": 5168,
+      "transferred": 5468
+    },
+    {
+      "name": "heebo-hebrew-600-normal-CGRgQ0cj.woff2",
+      "decoded": 5108,
+      "transferred": 5408
+    }
+  ],
+  "decodedResources": 1219920,
+  "network": [
+    "http://localhost:4303/?level=1",
+    "http://localhost:4303/assets/index-C1v8fSfy.js",
+    "http://localhost:4303/assets/index-BsQInyaX.css",
+    "http://localhost:4303/models/bus.glb",
+    "http://localhost:4303/assets/heebo-hebrew-400-normal-CVTJgQVK.woff2",
+    "http://localhost:4303/assets/heebo-hebrew-800-normal-CDdwy3LD.woff2",
+    "http://localhost:4303/assets/heebo-hebrew-600-normal-CGRgQ0cj.woff2"
+  ],
+  "errors": []
+}

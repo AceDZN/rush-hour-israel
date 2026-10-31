@@ -245,6 +245,7 @@ function updateHUD() {
           )
           .join("")
       : "";
+  $("available-tools").hidden = state.mode === "won";
   $("modes").hidden = state.mission.trains === 0;
   $("fleet-card").hidden = m.id < 3;
   $("fleet-left").textContent = `${st.busesLeft} פנויים`;
@@ -263,7 +264,7 @@ function updateHUD() {
     audio.play("arrival");
     lastArrived = st.arrived;
     toastUntil = performance.now() + 1100;
-    tell(arrivedNow + " הגיעו! האוטובוס ממשיך לאסוף את השאר.");
+    tell(arrivedNow + " הגיעו ליעד!");
   }
   const started = state.vehicles.reduce((a, v) => a + v.trips, 0);
   if (started > lastStarted) {

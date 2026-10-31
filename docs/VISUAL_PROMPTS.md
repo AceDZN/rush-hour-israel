@@ -1,3 +1,5 @@
+> Historical first-build prompts. The human rejected that game. Current rebuilt targets and exact prompts are in [docs/redesign/mockups/PROMPTS.md](redesign/mockups/PROMPTS.md), generated before the new runtime.
+
 # Generate before implementation — built-in imagegen
 
 Persist exact prompts, built-in mode and final selected paths. Images are proposed gameplay targets, never evidence of already implemented play.
