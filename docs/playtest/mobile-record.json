@@ -1,0 +1,809 @@
+{
+  "records": [
+    {
+      "name": "mobile01-planning",
+      "state": {
+        "mode": "planning",
+        "level": 1,
+        "title": "דרך לבית הספר",
+        "coordinates": "x east/right, z south/down; height up; screen pixel positions are for current camera",
+        "objective": "חברו את שכונת המגורים לבית הספר. הקו הישיר חוצה מדרון תלול.",
+        "time": 0,
+        "duration": 45,
+        "budget": 38,
+        "selectedTool": "road",
+        "selectedNode": null,
+        "hintUsed": false,
+        "modelLoaded": true,
+        "fps": 0,
+        "metrics": {
+          "expected": 12,
+          "created": 0,
+          "pending": 12,
+          "waiting": 0,
+          "riding": 0,
+          "arrived": 0,
+          "timely": 0,
+          "worst": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "שכונת החוף",
+              "total": 12,
+              "arrived": 0,
+              "timely": 0,
+              "access": 0,
+              "meanTime": 0,
+              "waiting": 0
+            }
+          ],
+          "footprint": 0,
+          "noise": 0,
+          "success": false,
+          "meanTime": 0,
+          "induced": 0,
+          "score": 0
+        },
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 3,
+            "h": 0.3,
+            "kind": "home",
+            "label": "שכונת החוף",
+            "screen": {
+              "x": 113.75000000000001,
+              "y": 461.7473563843974
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "J",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "junction",
+            "label": "מעבר נמוך",
+            "screen": {
+              "x": 162.5,
+              "y": 421.01450485469275
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 3,
+            "z": -2,
+            "h": 0.9,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 243.75,
+              "y": 391.23128344740405
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "H",
+            "x": 3,
+            "z": 3,
+            "h": 3.5,
+            "kind": "junction",
+            "label": "רכס",
+            "screen": {
+              "x": 243.75,
+              "y": 430.21151173456974
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          }
+        ],
+        "links": [],
+        "vehicles": [],
+        "message": "מתכננים את הבוקר. אפשר לערוך גם בזמן הגל."
+      }
+    },
+    {
+      "name": "mobile01-win",
+      "state": {
+        "mode": "won",
+        "level": 1,
+        "title": "דרך לבית הספר",
+        "coordinates": "x east/right, z south/down; height up; screen pixel positions are for current camera",
+        "objective": "חברו את שכונת המגורים לבית הספר. הקו הישיר חוצה מדרון תלול.",
+        "time": 33.1000000000002,
+        "duration": 45,
+        "budget": 22,
+        "selectedTool": "road",
+        "selectedNode": null,
+        "hintUsed": false,
+        "modelLoaded": true,
+        "fps": 0,
+        "metrics": {
+          "expected": 12,
+          "created": 12,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "arrived": 12,
+          "timely": 12,
+          "worst": 1,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "שכונת החוף",
+              "total": 12,
+              "arrived": 12,
+              "timely": 12,
+              "access": 1,
+              "meanTime": 16.153473137006596,
+              "waiting": 0
+            }
+          ],
+          "footprint": 9.62780549425379,
+          "noise": 0,
+          "success": true,
+          "meanTime": 16.153473137006596,
+          "induced": 0,
+          "score": 874
+        },
+        "nodes": [
+          {
+            "id": "A",
+            "x": -5,
+            "z": 3,
+            "h": 0.3,
+            "kind": "home",
+            "label": "שכונת החוף",
+            "screen": {
+              "x": 113.75000000000001,
+              "y": 461.7473563843974
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "J",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "junction",
+            "label": "מעבר נמוך",
+            "screen": {
+              "x": 162.5,
+              "y": 421.01450485469275
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 3,
+            "z": -2,
+            "h": 0.9,
+            "kind": "school",
+            "label": "בית הספר",
+            "screen": {
+              "x": 243.75,
+              "y": 391.23128344740405
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "H",
+            "x": 3,
+            "z": 3,
+            "h": 3.5,
+            "kind": "junction",
+            "label": "רכס",
+            "screen": {
+              "x": 243.75,
+              "y": 430.21151173456974
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          }
+        ],
+        "links": [
+          {
+            "id": "A~J:road",
+            "a": "A",
+            "b": "J",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 3.1961226509631953,
+            "grade": 0.04714045207910317,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "J~S:road",
+            "a": "J",
+            "b": "S",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 4.230139803673242,
+            "grade": 0.07427813527082074,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          }
+        ],
+        "vehicles": [],
+        "message": "דרך שלמה הפכה קִרבה על המפה להגעה ממשית לבית הספר."
+      }
+    },
+    {
+      "name": "mobile24-planning",
+      "state": {
+        "mode": "planning",
+        "level": 24,
+        "title": "מחברים את הארץ",
+        "coordinates": "x east/right, z south/down; height up; screen pixel positions are for current camera",
+        "objective": "מפה לא מוכרת: חברו את החוף, ההר והיישוב הקטן. לכל קהילה צורך משלה.",
+        "time": 0,
+        "duration": 75,
+        "budget": 210,
+        "selectedTool": "road",
+        "selectedNode": null,
+        "hintUsed": false,
+        "modelLoaded": true,
+        "fps": 0,
+        "metrics": {
+          "expected": 42,
+          "created": 0,
+          "pending": 42,
+          "waiting": 0,
+          "riding": 0,
+          "arrived": 0,
+          "timely": 0,
+          "worst": 0,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "קהילת החוף",
+              "total": 18,
+              "arrived": 0,
+              "timely": 0,
+              "access": 0,
+              "meanTime": 0,
+              "waiting": 0
+            },
+            {
+              "origin": "B",
+              "label": "קהילת הצפון",
+              "total": 18,
+              "arrived": 0,
+              "timely": 0,
+              "access": 0,
+              "meanTime": 0,
+              "waiting": 0
+            },
+            {
+              "origin": "C",
+              "label": "יישוב הבקע",
+              "total": 6,
+              "arrived": 0,
+              "timely": 0,
+              "access": 0,
+              "meanTime": 0,
+              "waiting": 0
+            }
+          ],
+          "footprint": 0,
+          "noise": 0,
+          "success": false,
+          "meanTime": 0,
+          "induced": 0,
+          "score": 0
+        },
+        "nodes": [
+          {
+            "id": "A",
+            "x": -6,
+            "z": 3,
+            "h": 0.2,
+            "kind": "home",
+            "label": "קהילת החוף",
+            "screen": {
+              "x": 97.5,
+              "y": 462.7328515297045
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "B",
+            "x": -5,
+            "z": -4,
+            "h": 0.3,
+            "kind": "home",
+            "label": "קהילת הצפון",
+            "screen": {
+              "x": 113.75000000000001,
+              "y": 371.3030134931864
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "I",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "station",
+            "label": "מחלף השפלה",
+            "screen": {
+              "x": 162.5,
+              "y": 421.01450485469275
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "M",
+            "x": 1,
+            "z": 2,
+            "h": 1.4,
+            "kind": "junction",
+            "label": "מרפסת ההר",
+            "screen": {
+              "x": 211.24999999999997,
+              "y": 437.98628937298895
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "P",
+            "x": 3,
+            "z": -1,
+            "h": 2.3,
+            "kind": "station",
+            "label": "אוכף ההר",
+            "screen": {
+              "x": 243.75,
+              "y": 390.35497182613454
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 5,
+            "z": -4,
+            "h": 2.6,
+            "kind": "school",
+            "label": "בית הספר בהר",
+            "screen": {
+              "x": 276.24999999999994,
+              "y": 348.6366251511228
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "W",
+            "x": -4,
+            "z": 0,
+            "h": 0.3,
+            "kind": "jobs",
+            "label": "תעסוקה בחוף",
+            "screen": {
+              "x": 130.00000000000003,
+              "y": 422.985495145307
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "C",
+            "x": 8,
+            "z": 3,
+            "h": 0,
+            "kind": "home",
+            "label": "יישוב הבקע",
+            "screen": {
+              "x": 324.99999999999994,
+              "y": 464.70384182031876
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "L",
+            "x": 7,
+            "z": 1,
+            "h": 0.4,
+            "kind": "clinic",
+            "label": "מרפאה מקומית +",
+            "screen": {
+              "x": 308.75,
+              "y": 434.92062041303
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          }
+        ],
+        "links": [],
+        "vehicles": [],
+        "message": "מתכננים את הבוקר. אפשר לערוך גם בזמן הגל."
+      }
+    },
+    {
+      "name": "mobile24-win",
+      "state": {
+        "mode": "won",
+        "level": 24,
+        "title": "מחברים את הארץ",
+        "coordinates": "x east/right, z south/down; height up; screen pixel positions are for current camera",
+        "objective": "מפה לא מוכרת: חברו את החוף, ההר והיישוב הקטן. לכל קהילה צורך משלה.",
+        "time": 33.2000000000002,
+        "duration": 75,
+        "budget": 51,
+        "selectedTool": "upgrade",
+        "selectedNode": null,
+        "hintUsed": false,
+        "modelLoaded": true,
+        "fps": 120,
+        "metrics": {
+          "expected": 42,
+          "created": 42,
+          "pending": 0,
+          "waiting": 0,
+          "riding": 0,
+          "arrived": 42,
+          "timely": 42,
+          "worst": 1,
+          "groups": [
+            {
+              "origin": "A",
+              "label": "קהילת החוף",
+              "total": 18,
+              "arrived": 18,
+              "timely": 18,
+              "access": 1,
+              "meanTime": 28.23559558347279,
+              "waiting": 0
+            },
+            {
+              "origin": "B",
+              "label": "קהילת הצפון",
+              "total": 18,
+              "arrived": 18,
+              "timely": 18,
+              "access": 1,
+              "meanTime": 15.730000000000006,
+              "waiting": 0
+            },
+            {
+              "origin": "C",
+              "label": "יישוב הבקע",
+              "total": 6,
+              "arrived": 6,
+              "timely": 6,
+              "access": 1,
+              "meanTime": 4.89158902616627,
+              "waiting": 0
+            }
+          ],
+          "footprint": 22.81665382639197,
+          "noise": 0,
+          "success": true,
+          "meanTime": 19.54119653951209,
+          "induced": 0,
+          "score": 791
+        },
+        "nodes": [
+          {
+            "id": "A",
+            "x": -6,
+            "z": 3,
+            "h": 0.2,
+            "kind": "home",
+            "label": "קהילת החוף",
+            "screen": {
+              "x": 97.5,
+              "y": 462.7328515297045
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "B",
+            "x": -5,
+            "z": -4,
+            "h": 0.3,
+            "kind": "home",
+            "label": "קהילת הצפון",
+            "screen": {
+              "x": 113.75000000000001,
+              "y": 371.3030134931864
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "I",
+            "x": -2,
+            "z": 0,
+            "h": 0.5,
+            "kind": "station",
+            "label": "מחלף השפלה",
+            "screen": {
+              "x": 162.5,
+              "y": 421.01450485469275
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "M",
+            "x": 1,
+            "z": 2,
+            "h": 1.4,
+            "kind": "junction",
+            "label": "מרפסת ההר",
+            "screen": {
+              "x": 211.24999999999997,
+              "y": 437.98628937298895
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "P",
+            "x": 3,
+            "z": -1,
+            "h": 2.3,
+            "kind": "station",
+            "label": "אוכף ההר",
+            "screen": {
+              "x": 243.75,
+              "y": 390.35497182613454
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "S",
+            "x": 5,
+            "z": -4,
+            "h": 2.6,
+            "kind": "school",
+            "label": "בית הספר בהר",
+            "screen": {
+              "x": 276.24999999999994,
+              "y": 348.6366251511228
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "W",
+            "x": -4,
+            "z": 0,
+            "h": 0.3,
+            "kind": "jobs",
+            "label": "תעסוקה בחוף",
+            "screen": {
+              "x": 130.00000000000003,
+              "y": 422.985495145307
+            },
+            "stop": true,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "C",
+            "x": 8,
+            "z": 3,
+            "h": 0,
+            "kind": "home",
+            "label": "יישוב הבקע",
+            "screen": {
+              "x": 324.99999999999994,
+              "y": 464.70384182031876
+            },
+            "stop": false,
+            "service": false,
+            "waiting": 0
+          },
+          {
+            "id": "L",
+            "x": 7,
+            "z": 1,
+            "h": 0.4,
+            "kind": "clinic",
+            "label": "מרפאה מקומית +",
+            "screen": {
+              "x": 308.75,
+              "y": 434.92062041303
+            },
+            "stop": false,
+            "service": true,
+            "waiting": 0
+          }
+        ],
+        "links": [
+          {
+            "id": "A~I:road",
+            "a": "A",
+            "b": "I",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 3.8200000000000003,
+            "grade": 0.06,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "A~I:bus",
+            "a": "A",
+            "b": "I",
+            "mode": "bus",
+            "level": 2,
+            "travelTime": 3.6959999999999997,
+            "grade": 0.06,
+            "headway": 2.5,
+            "nextDeparture": 35,
+            "closed": false
+          },
+          {
+            "id": "I~M:road",
+            "a": "I",
+            "b": "M",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 5.230822850403911,
+            "grade": 0.24961508830135307,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "I~M:bus",
+            "a": "I",
+            "b": "M",
+            "mode": "bus",
+            "level": 2,
+            "travelTime": 5.141405178772404,
+            "grade": 0.24961508830135307,
+            "headway": 2.5,
+            "nextDeparture": 35,
+            "closed": false
+          },
+          {
+            "id": "M~P:road",
+            "a": "M",
+            "b": "P",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 5.230822850403911,
+            "grade": 0.24961508830135307,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "M~P:bus",
+            "a": "M",
+            "b": "P",
+            "mode": "bus",
+            "level": 2,
+            "travelTime": 5.141405178772404,
+            "grade": 0.24961508830135307,
+            "headway": 2.5,
+            "nextDeparture": 35,
+            "closed": false
+          },
+          {
+            "id": "P~S:road",
+            "a": "P",
+            "b": "S",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 3.2339021439930864,
+            "grade": 0.08320502943378444,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "P~S:bus",
+            "a": "P",
+            "b": "S",
+            "mode": "bus",
+            "level": 2,
+            "travelTime": 3.1444844723615795,
+            "grade": 0.08320502943378444,
+            "headway": 2.5,
+            "nextDeparture": 35,
+            "closed": false
+          },
+          {
+            "id": "B~I:road",
+            "a": "B",
+            "b": "I",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 3.58,
+            "grade": 0.04,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "B~I:bus",
+            "a": "B",
+            "b": "I",
+            "mode": "bus",
+            "level": 1,
+            "travelTime": 3.456,
+            "grade": 0.04,
+            "headway": 5,
+            "nextDeparture": 35,
+            "closed": false
+          },
+          {
+            "id": "I~W:road",
+            "a": "I",
+            "b": "W",
+            "mode": "road",
+            "level": 1,
+            "travelTime": 2.4400000000000004,
+            "grade": 0.1,
+            "headway": 0.8,
+            "nextDeparture": 33.60000000000001,
+            "closed": false
+          },
+          {
+            "id": "I~W:bus",
+            "a": "I",
+            "b": "W",
+            "mode": "bus",
+            "level": 1,
+            "travelTime": 2.3904,
+            "grade": 0.1,
+            "headway": 5,
+            "nextDeparture": 35,
+            "closed": false
+          }
+        ],
+        "vehicles": [],
+        "message": "חיברתם רשת שלמה: תבליט, שימושי קרקע וקיבולת עובדים יחד עבור כל הקהילות."
+      }
+    }
+  ],
+  "errors": []
+}

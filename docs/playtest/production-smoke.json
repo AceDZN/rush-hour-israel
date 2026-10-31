@@ -1,0 +1,79 @@
+{
+  "mode": "won",
+  "metrics": {
+    "expected": 12,
+    "created": 12,
+    "pending": 0,
+    "waiting": 0,
+    "riding": 0,
+    "arrived": 12,
+    "timely": 12,
+    "worst": 1,
+    "groups": [
+      {
+        "origin": "A",
+        "label": "שכונת החוף",
+        "total": 12,
+        "arrived": 12,
+        "timely": 12,
+        "access": 1,
+        "meanTime": 16.153473137006596,
+        "waiting": 0
+      }
+    ],
+    "footprint": 9.62780549425379,
+    "noise": 0,
+    "success": true,
+    "meanTime": 16.153473137006596,
+    "induced": 0,
+    "score": 874
+  },
+  "modelLoaded": true,
+  "resources": [
+    {
+      "name": "index-BDQHmcmZ.css",
+      "transfer": 4074,
+      "decoded": 14072
+    },
+    {
+      "name": "index-CBFykOeE.js",
+      "transfer": 174734,
+      "decoded": 654473
+    },
+    {
+      "name": "bus.glb",
+      "transfer": 516428,
+      "decoded": 516128
+    },
+    {
+      "name": "heebo-hebrew-400-normal-CVTJgQVK.woff2",
+      "transfer": 5384,
+      "decoded": 5084
+    },
+    {
+      "name": "heebo-hebrew-600-normal-CGRgQ0cj.woff2",
+      "transfer": 5408,
+      "decoded": 5108
+    },
+    {
+      "name": "heebo-hebrew-800-normal-CDdwy3LD.woff2",
+      "transfer": 5468,
+      "decoded": 5168
+    }
+  ],
+  "totalDecoded": 1200033,
+  "requests": [
+    "http://localhost:4303/",
+    "http://localhost:4303/assets/index-CBFykOeE.js",
+    "http://localhost:4303/assets/index-BDQHmcmZ.css",
+    "http://localhost:4303/models/bus.glb",
+    "http://localhost:4303/assets/heebo-hebrew-400-normal-CVTJgQVK.woff2",
+    "http://localhost:4303/assets/heebo-hebrew-600-normal-CGRgQ0cj.woff2",
+    "http://localhost:4303/assets/heebo-hebrew-800-normal-CDdwy3LD.woff2",
+    "blob:http://localhost:4303/bba38a2c-0f0f-43cc-b445-7b53dedffa16",
+    "blob:http://localhost:4303/b1817035-5d73-4209-9ce6-eb503f023cc6",
+    "blob:http://localhost:4303/5320ed7c-ca5f-4f4c-bb3c-c333d5920f23"
+  ],
+  "errors": [],
+  "offlineAfterLoad": true
+}

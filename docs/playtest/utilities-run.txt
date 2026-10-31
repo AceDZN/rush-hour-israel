@@ -1,0 +1,102 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "camera rotate/reset",
+      "value": true
+    },
+    {
+      "name": "mute toggle",
+      "value": true
+    },
+    {
+      "name": "reduced motion",
+      "value": true
+    },
+    {
+      "name": "hint is marked",
+      "value": true
+    },
+    {
+      "name": "help open/close",
+      "value": true
+    },
+    {
+      "name": "fullscreen F enter/exit",
+      "value": true
+    },
+    {
+      "name": "hint pauses active pressure",
+      "value": true
+    },
+    {
+      "name": "dialog pauses pressure",
+      "value": true
+    },
+    {
+      "name": "blur event listener pauses (native headed focus checked separately)",
+      "value": true
+    },
+    {
+      "name": "keyboard retry resets demand",
+      "value": true
+    },
+    {
+      "name": "label pointer drag builds a route",
+      "value": true
+    },
+    {
+      "name": "phase inspector changes departure",
+      "value": {
+        "first": 0,
+        "next": 2
+      }
+    },
+    {
+      "name": "parallel mode inspector permits explicit rail selection",
+      "value": [
+        {
+          "id": "I~S:road",
+          "a": "I",
+          "b": "S",
+          "mode": "road",
+          "level": 1,
+          "travelTime": 4.553767670841366,
+          "grade": 0.014142135623730947,
+          "headway": 0.8,
+          "nextDeparture": 0,
+          "closed": false
+        },
+        {
+          "id": "I~S:bus",
+          "a": "I",
+          "b": "S",
+          "mode": "bus",
+          "level": 1,
+          "travelTime": 4.378405189107102,
+          "grade": 0.014142135623730947,
+          "headway": 7,
+          "nextDeparture": 0,
+          "closed": false
+        },
+        {
+          "id": "I~S:rail",
+          "a": "I",
+          "b": "S",
+          "mode": "rail",
+          "level": 2,
+          "travelTime": 2.1496046148071044,
+          "grade": 0.014142135623730947,
+          "headway": 4.5,
+          "nextDeparture": 0,
+          "closed": false
+        }
+      ]
+    },
+    {
+      "name": "resize retains state",
+      "value": true
+    }
+  ],
+  "errors": []
+}

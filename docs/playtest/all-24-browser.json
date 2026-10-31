@@ -1,0 +1,1890 @@
+{
+  "method": "Real tool/node UI inputs; explicit time advancement only; no injected plan or win",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "results": [
+    {
+      "level": 1,
+      "mode": "won",
+      "metrics": {
+        "expected": 12,
+        "created": 12,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 12,
+        "timely": 12,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת החוף",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 16.153473137006596,
+            "waiting": 0
+          }
+        ],
+        "footprint": 9.62780549425379,
+        "noise": 0,
+        "success": true,
+        "meanTime": 16.153473137006596,
+        "induced": 0,
+        "score": 874
+      },
+      "budget": 22,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "road"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "road"
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "mode": "won",
+      "metrics": {
+        "expected": 48,
+        "created": 48,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 48,
+        "timely": 44,
+        "worst": 0.9166666666666666,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונה דרומית",
+            "total": 24,
+            "arrived": 24,
+            "timely": 22,
+            "access": 0.9166666666666666,
+            "meanTime": 23.20283333333346,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונה צפונית",
+            "total": 24,
+            "arrived": 24,
+            "timely": 22,
+            "access": 0.9166666666666666,
+            "meanTime": 23.236166666666794,
+            "waiting": 0
+          }
+        ],
+        "footprint": 23,
+        "noise": 0,
+        "success": true,
+        "meanTime": 23.219500000000128,
+        "induced": 0,
+        "score": 758
+      },
+      "budget": 17,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "K",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "K",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "K",
+          "b": "W",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "K"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "W"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "mode": "won",
+      "metrics": {
+        "expected": 24,
+        "created": 24,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 24,
+        "timely": 24,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "בתי הגן",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 15.708167937527493,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "בתי הנחל",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 17.708167937527538,
+            "waiting": 0
+          }
+        ],
+        "footprint": 15.326237921249264,
+        "noise": 0,
+        "success": true,
+        "meanTime": 16.708167937527517,
+        "induced": 0,
+        "score": 864
+      },
+      "budget": 19,
+      "trail": [
+        {
+          "type": "link",
+          "a": "P",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "P"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "mode": "won",
+      "metrics": {
+        "expected": 24,
+        "created": 24,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 24,
+        "timely": 24,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת הצפון",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 13.775999999999982,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת ההר",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 19.026000000000085,
+            "waiting": 0
+          }
+        ],
+        "footprint": 17.72865690108165,
+        "noise": 0,
+        "success": true,
+        "meanTime": 16.401000000000025,
+        "induced": 0,
+        "score": 835
+      },
+      "budget": 45,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "M",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "M",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "M"
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "mode": "won",
+      "metrics": {
+        "expected": 30,
+        "created": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 30,
+        "timely": 30,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע מגורים",
+            "total": 20,
+            "arrived": 20,
+            "timely": 20,
+            "access": 1,
+            "meanTime": 13.31176016517129,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת הגנים",
+            "total": 10,
+            "arrived": 10,
+            "timely": 10,
+            "access": 1,
+            "meanTime": 9.925999999999975,
+            "waiting": 0
+          }
+        ],
+        "footprint": 26.739616779790598,
+        "noise": 0,
+        "success": true,
+        "meanTime": 12.183173443447519,
+        "induced": 0,
+        "score": 810
+      },
+      "budget": 48,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "W",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "C",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "W"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "C"
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "mode": "won",
+      "metrics": {
+        "expected": 24,
+        "created": 24,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 24,
+        "timely": 24,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת החוף",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 9.519941752156937,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת המזרח",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 4.289922359499617,
+            "waiting": 0
+          }
+        ],
+        "footprint": 6.708203932499369,
+        "noise": 0,
+        "success": true,
+        "meanTime": 6.9049320558282785,
+        "induced": 0,
+        "score": 869
+      },
+      "budget": 50,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "C",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "C"
+        },
+        {
+          "type": "service",
+          "node": "L"
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "mode": "won",
+      "metrics": {
+        "expected": 26,
+        "created": 26,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 26,
+        "timely": 26,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "משפחות עם רכב",
+            "total": 8,
+            "arrived": 8,
+            "timely": 8,
+            "access": 1,
+            "meanTime": 17.923000000000002,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "משפחות ללא רכב",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 19.18600000000002,
+            "waiting": 0
+          }
+        ],
+        "footprint": 16.661903789690598,
+        "noise": 0,
+        "success": true,
+        "meanTime": 18.797384615384633,
+        "induced": 0,
+        "score": 857
+      },
+      "budget": 17,
+      "trail": [
+        {
+          "type": "link",
+          "a": "B",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "mode": "won",
+      "metrics": {
+        "expected": 22,
+        "created": 22,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 22,
+        "timely": 22,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "בתי הרחוב",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 14.349257142857121,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "בתי הגן",
+            "total": 10,
+            "arrived": 10,
+            "timely": 10,
+            "access": 1,
+            "meanTime": 19.869257142857144,
+            "waiting": 0
+          }
+        ],
+        "footprint": 11.47213595499958,
+        "noise": 2,
+        "success": true,
+        "meanTime": 16.858348051948038,
+        "induced": 0,
+        "score": 861
+      },
+      "budget": 30,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        }
+      ]
+    },
+    {
+      "level": 9,
+      "mode": "won",
+      "metrics": {
+        "expected": 36,
+        "created": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 36,
+        "timely": 36,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "מגורים דרום",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 14.208844236891286,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "מגורים צפון",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 11.910143477715724,
+            "waiting": 0
+          }
+        ],
+        "footprint": 16.32389848169889,
+        "noise": 0,
+        "success": true,
+        "meanTime": 13.059493857303508,
+        "induced": 0,
+        "score": 840
+      },
+      "budget": 42,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "W",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "W"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "mode": "won",
+      "metrics": {
+        "expected": 30,
+        "created": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 30,
+        "timely": 30,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "עיר החוף",
+            "total": 30,
+            "arrived": 30,
+            "timely": 30,
+            "access": 1,
+            "meanTime": 33.733027578653676,
+            "waiting": 0
+          }
+        ],
+        "footprint": 14.373380211096359,
+        "noise": 0,
+        "success": true,
+        "meanTime": 33.733027578653676,
+        "induced": 0,
+        "score": 842
+      },
+      "budget": 62,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "V",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "V",
+          "b": "M",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "M",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "P",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "V"
+        },
+        {
+          "type": "stop",
+          "node": "M"
+        },
+        {
+          "type": "stop",
+          "node": "P"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "mode": "won",
+      "metrics": {
+        "expected": 40,
+        "created": 40,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 40,
+        "timely": 37,
+        "worst": 0.85,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונה צפונית",
+            "total": 20,
+            "arrived": 20,
+            "timely": 20,
+            "access": 1,
+            "meanTime": 20.05847163501571,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונה דרומית",
+            "total": 20,
+            "arrived": 20,
+            "timely": 17,
+            "access": 0.85,
+            "meanTime": 29.133471635015905,
+            "waiting": 0
+          }
+        ],
+        "footprint": 18.47213595499958,
+        "noise": 0,
+        "success": true,
+        "meanTime": 24.595971635015797,
+        "induced": 0,
+        "score": 736
+      },
+      "budget": 48,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "K",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "K",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "K"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "upgrade",
+          "a": "J",
+          "b": "K",
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "level": 12,
+      "mode": "won",
+      "metrics": {
+        "expected": 30,
+        "created": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 30,
+        "timely": 30,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "יישוב החוף",
+            "total": 15,
+            "arrived": 15,
+            "timely": 15,
+            "access": 1,
+            "meanTime": 24.4001124215156,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "יישוב הבקע",
+            "total": 15,
+            "arrived": 15,
+            "timely": 15,
+            "access": 1,
+            "meanTime": 28.500112421515748,
+            "waiting": 0
+          }
+        ],
+        "footprint": 20.566539168818174,
+        "noise": 0,
+        "success": true,
+        "meanTime": 26.450112421515673,
+        "induced": 0,
+        "score": 821
+      },
+      "budget": 75,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "P",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "K",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "K",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "P"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "K"
+        }
+      ]
+    },
+    {
+      "level": 13,
+      "mode": "won",
+      "metrics": {
+        "expected": 54,
+        "created": 54,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 54,
+        "timely": 49,
+        "worst": 0.9074074074074074,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת הבוקר",
+            "total": 54,
+            "arrived": 54,
+            "timely": 49,
+            "access": 0.9074074074074074,
+            "meanTime": 27.753452781436128,
+            "waiting": 0
+          }
+        ],
+        "footprint": 15.929971408438085,
+        "noise": 0,
+        "success": true,
+        "meanTime": 27.753452781436128,
+        "induced": 0,
+        "score": 775
+      },
+      "budget": 6,
+      "trail": [
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "J",
+          "b": "W",
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "mode": "won",
+      "metrics": {
+        "expected": 36,
+        "created": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 36,
+        "timely": 36,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת המזין",
+            "total": 36,
+            "arrived": 36,
+            "timely": 36,
+            "access": 1,
+            "meanTime": 21.24169552338273,
+            "waiting": 0
+          }
+        ],
+        "footprint": 12.1309518948453,
+        "noise": 0,
+        "success": true,
+        "meanTime": 21.24169552338273,
+        "induced": 0,
+        "score": 847
+      },
+      "budget": 34,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "I"
+        },
+        {
+          "type": "link",
+          "a": "I",
+          "b": "T",
+          "mode": "rail"
+        },
+        {
+          "type": "stop",
+          "node": "T"
+        },
+        {
+          "type": "interchange",
+          "node": "I"
+        },
+        {
+          "type": "upgrade",
+          "a": "I",
+          "b": "T",
+          "mode": "rail"
+        },
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "level": 15,
+      "mode": "won",
+      "metrics": {
+        "expected": 30,
+        "created": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 30,
+        "timely": 30,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "הבתים המרוחקים",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 17.181139967827107,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "בתי החוף",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 9.085584412271539,
+            "waiting": 0
+          }
+        ],
+        "footprint": 15.17842712474619,
+        "noise": 0,
+        "success": true,
+        "meanTime": 13.94291774560488,
+        "induced": 0,
+        "score": 851
+      },
+      "budget": 34,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "T",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "interchange",
+          "node": "I"
+        },
+        {
+          "type": "upgrade",
+          "a": "I",
+          "b": "T",
+          "mode": "rail"
+        }
+      ]
+    },
+    {
+      "level": 16,
+      "mode": "won",
+      "metrics": {
+        "expected": 72,
+        "created": 72,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 72,
+        "timely": 72,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע מגורים",
+            "total": 48,
+            "arrived": 48,
+            "timely": 48,
+            "access": 1,
+            "meanTime": 15.925854614807172,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונת הצפון",
+            "total": 24,
+            "arrived": 24,
+            "timely": 24,
+            "access": 1,
+            "meanTime": 14.64460461480712,
+            "waiting": 0
+          }
+        ],
+        "footprint": 24.495689014324224,
+        "noise": 0,
+        "success": true,
+        "meanTime": 15.498771281473811,
+        "induced": 0,
+        "score": 829
+      },
+      "budget": 14,
+      "trail": [
+        {
+          "type": "link",
+          "a": "I",
+          "b": "S",
+          "mode": "rail"
+        },
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "B",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "I",
+          "b": "S",
+          "mode": "rail"
+        },
+        {
+          "type": "interchange",
+          "node": "I"
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "mode": "won",
+      "metrics": {
+        "expected": 36,
+        "created": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 36,
+        "timely": 36,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "מרכז מגורים",
+            "total": 30,
+            "arrived": 30,
+            "timely": 30,
+            "access": 1,
+            "meanTime": 14.229333333333335,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "יישוב בקצה",
+            "total": 6,
+            "arrived": 6,
+            "timely": 6,
+            "access": 1,
+            "meanTime": 10.42227601182108,
+            "waiting": 0
+          }
+        ],
+        "footprint": 15.073592581964585,
+        "noise": 0,
+        "success": true,
+        "meanTime": 13.594823779747955,
+        "induced": 0,
+        "score": 855
+      },
+      "budget": 23,
+      "trail": [
+        {
+          "type": "link",
+          "a": "B",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        }
+      ]
+    },
+    {
+      "level": 18,
+      "mode": "won",
+      "metrics": {
+        "expected": 42,
+        "created": 42,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 42,
+        "timely": 42,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונה קרובה",
+            "total": 28,
+            "arrived": 28,
+            "timely": 28,
+            "access": 1,
+            "meanTime": 15.048167916247746,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "שכונה רחוקה",
+            "total": 14,
+            "arrived": 14,
+            "timely": 14,
+            "access": 1,
+            "meanTime": 11.888167916247722,
+            "waiting": 0
+          }
+        ],
+        "footprint": 26.94919856094996,
+        "noise": 0,
+        "success": true,
+        "meanTime": 13.994834582914397,
+        "induced": 0,
+        "score": 807
+      },
+      "budget": 48,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "T",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "T",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "T"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "link",
+          "a": "T",
+          "b": "S",
+          "mode": "rail"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "T",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "B",
+          "b": "T",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "T",
+          "b": "S",
+          "mode": "rail"
+        },
+        {
+          "type": "interchange",
+          "node": "T"
+        }
+      ]
+    },
+    {
+      "level": 19,
+      "mode": "won",
+      "metrics": {
+        "expected": 36,
+        "created": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 36,
+        "timely": 36,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "בתי המרכז",
+            "total": 24,
+            "arrived": 24,
+            "timely": 24,
+            "access": 1,
+            "meanTime": 11.93222911611467,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "יישוב המזרח",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 4.289922359499611,
+            "waiting": 0
+          }
+        ],
+        "footprint": 4.242640687119286,
+        "noise": 0,
+        "success": true,
+        "meanTime": 9.384793530576317,
+        "induced": 0,
+        "score": 883
+      },
+      "budget": 33,
+      "trail": [
+        {
+          "type": "service",
+          "node": "L"
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "mode": "won",
+      "metrics": {
+        "expected": 36,
+        "created": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 36,
+        "timely": 36,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "המרכז · 32",
+            "total": 32,
+            "arrived": 32,
+            "timely": 32,
+            "access": 1,
+            "meanTime": 8.137249999999987,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "הקצה · 4",
+            "total": 4,
+            "arrived": 4,
+            "timely": 4,
+            "access": 1,
+            "meanTime": 4.094922359499609,
+            "waiting": 0
+          }
+        ],
+        "footprint": 5,
+        "noise": 0,
+        "success": true,
+        "meanTime": 7.688102484388834,
+        "induced": 0,
+        "score": 878
+      },
+      "budget": 10,
+      "trail": [
+        {
+          "type": "service",
+          "node": "L"
+        },
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "C",
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "level": 21,
+      "mode": "won",
+      "metrics": {
+        "expected": 36,
+        "created": 36,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 36,
+        "timely": 36,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "שכונת הבוקר",
+            "total": 36,
+            "arrived": 36,
+            "timely": 36,
+            "access": 1,
+            "meanTime": 14.902905390330497,
+            "waiting": 0
+          }
+        ],
+        "footprint": 10.77032961426901,
+        "noise": 0,
+        "success": true,
+        "meanTime": 14.902905390330497,
+        "induced": 0,
+        "score": 863
+      },
+      "budget": 11,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "J"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "J",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "J",
+          "b": "S",
+          "mode": "bus"
+        }
+      ]
+    },
+    {
+      "level": 22,
+      "mode": "won",
+      "metrics": {
+        "expected": 30,
+        "created": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 30,
+        "timely": 30,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע מגורים",
+            "total": 30,
+            "arrived": 30,
+            "timely": 30,
+            "access": 1,
+            "meanTime": 17.409181703749542,
+            "waiting": 0
+          }
+        ],
+        "footprint": 26.38620804341483,
+        "noise": 0,
+        "success": true,
+        "meanTime": 17.409181703749542,
+        "induced": 0,
+        "score": 827
+      },
+      "budget": 44,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "N",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "N",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "P",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "N"
+        },
+        {
+          "type": "stop",
+          "node": "P"
+        }
+      ]
+    },
+    {
+      "level": 23,
+      "mode": "won",
+      "metrics": {
+        "expected": 30,
+        "created": 30,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 30,
+        "timely": 30,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "רובע החוף",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 19.32090516192263,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "רובע ההר",
+            "total": 12,
+            "arrived": 12,
+            "timely": 12,
+            "access": 1,
+            "meanTime": 26.520143477715877,
+            "waiting": 0
+          }
+        ],
+        "footprint": 21.95741732923815,
+        "noise": 0,
+        "success": true,
+        "meanTime": 22.200600488239914,
+        "induced": 0,
+        "score": 820
+      },
+      "budget": 71,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "I",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "P",
+          "b": "W",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "I",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "I"
+        },
+        {
+          "type": "stop",
+          "node": "P"
+        },
+        {
+          "type": "stop",
+          "node": "W"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        }
+      ]
+    },
+    {
+      "level": 24,
+      "mode": "won",
+      "metrics": {
+        "expected": 42,
+        "created": 42,
+        "pending": 0,
+        "waiting": 0,
+        "riding": 0,
+        "arrived": 42,
+        "timely": 42,
+        "worst": 1,
+        "groups": [
+          {
+            "origin": "A",
+            "label": "קהילת החוף",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 28.23559558347279,
+            "waiting": 0
+          },
+          {
+            "origin": "B",
+            "label": "קהילת הצפון",
+            "total": 18,
+            "arrived": 18,
+            "timely": 18,
+            "access": 1,
+            "meanTime": 15.730000000000006,
+            "waiting": 0
+          },
+          {
+            "origin": "C",
+            "label": "יישוב הבקע",
+            "total": 6,
+            "arrived": 6,
+            "timely": 6,
+            "access": 1,
+            "meanTime": 4.89158902616627,
+            "waiting": 0
+          }
+        ],
+        "footprint": 22.81665382639197,
+        "noise": 0,
+        "success": true,
+        "meanTime": 19.54119653951209,
+        "induced": 0,
+        "score": 791
+      },
+      "budget": 51,
+      "trail": [
+        {
+          "type": "link",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "I",
+          "b": "M",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "M",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "P",
+          "b": "S",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "B",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "link",
+          "a": "I",
+          "b": "W",
+          "mode": "bus"
+        },
+        {
+          "type": "stop",
+          "node": "A"
+        },
+        {
+          "type": "stop",
+          "node": "I"
+        },
+        {
+          "type": "stop",
+          "node": "M"
+        },
+        {
+          "type": "stop",
+          "node": "P"
+        },
+        {
+          "type": "stop",
+          "node": "S"
+        },
+        {
+          "type": "stop",
+          "node": "B"
+        },
+        {
+          "type": "stop",
+          "node": "W"
+        },
+        {
+          "type": "service",
+          "node": "L"
+        },
+        {
+          "type": "upgrade",
+          "a": "I",
+          "b": "M",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "A",
+          "b": "I",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "M",
+          "b": "P",
+          "mode": "bus"
+        },
+        {
+          "type": "upgrade",
+          "a": "P",
+          "b": "S",
+          "mode": "bus"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

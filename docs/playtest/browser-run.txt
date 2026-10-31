@@ -1,0 +1,153 @@
+{
+  "ok": true,
+  "cases": [
+    {
+      "name": "level01-planning",
+      "mode": "planning",
+      "level": 1,
+      "timely": 0,
+      "expected": 12
+    },
+    {
+      "name": "level01-moving",
+      "mode": "running",
+      "level": 1,
+      "timely": 0,
+      "expected": 12
+    },
+    {
+      "name": "level01-win",
+      "mode": "won",
+      "level": 1,
+      "timely": 12,
+      "expected": 12
+    },
+    {
+      "name": "level01-retry-win",
+      "mode": "won",
+      "level": 1,
+      "timely": 12,
+      "expected": 12
+    },
+    {
+      "name": "level02-overload",
+      "mode": "running",
+      "level": 2,
+      "timely": 0,
+      "expected": 48
+    },
+    {
+      "name": "level02-recovered",
+      "mode": "won",
+      "level": 2,
+      "timely": 42,
+      "expected": 48
+    },
+    {
+      "name": "level03-poor-stop",
+      "mode": "lost",
+      "level": 3,
+      "timely": 0,
+      "expected": 24
+    },
+    {
+      "name": "level03-retry-win",
+      "mode": "won",
+      "level": 3,
+      "timely": 24,
+      "expected": 24
+    },
+    {
+      "name": "level10-grade-rejected",
+      "mode": "planning",
+      "level": 10,
+      "timely": 0,
+      "expected": 30
+    },
+    {
+      "name": "level10-relief-moving",
+      "mode": "running",
+      "level": 10,
+      "timely": 0,
+      "expected": 30
+    },
+    {
+      "name": "level10-win",
+      "mode": "won",
+      "level": 10,
+      "timely": 30,
+      "expected": 30
+    },
+    {
+      "name": "level14-transfer-miss",
+      "mode": "lost",
+      "level": 14,
+      "timely": 1,
+      "expected": 36
+    },
+    {
+      "name": "level14-transfer-moving",
+      "mode": "running",
+      "level": 14,
+      "timely": 1,
+      "expected": 36
+    },
+    {
+      "name": "level14-win",
+      "mode": "won",
+      "level": 14,
+      "timely": 36,
+      "expected": 36
+    },
+    {
+      "name": "level18-near-slow",
+      "mode": "lost",
+      "level": 18,
+      "timely": 13,
+      "expected": 42
+    },
+    {
+      "name": "level18-fast-alternative",
+      "mode": "won",
+      "level": 18,
+      "timely": 42,
+      "expected": 42
+    },
+    {
+      "name": "level20-majority-only",
+      "mode": "lost",
+      "level": 20,
+      "timely": 32,
+      "expected": 36
+    },
+    {
+      "name": "level20-equitable-win",
+      "mode": "won",
+      "level": 20,
+      "timely": 36,
+      "expected": 36
+    },
+    {
+      "name": "level24-moving",
+      "mode": "running",
+      "level": 24,
+      "timely": 12,
+      "expected": 42
+    },
+    {
+      "name": "level24-final-win",
+      "mode": "won",
+      "level": 24,
+      "timely": 42,
+      "expected": 42
+    },
+    {
+      "name": "campaign-persisted",
+      "mode": "planning",
+      "level": 24,
+      "timely": 0,
+      "expected": 42
+    }
+  ],
+  "errors": []
+}

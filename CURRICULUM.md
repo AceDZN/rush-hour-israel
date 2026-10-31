@@ -54,4 +54,4 @@ The terrain's coast is west, highlands inland and rift east when represented. Na
 
 ## Independent review status
 
-The mapping above is a design review of all 24 commissioned missions. Implementation assertions, independent conservation/capacity results, known-solvable baseline results and browser transfer evidence must be checked against the final code and recorded in `PLAYTEST.md`. Student evaluation remains future work.
+The mapping above covers all 24 commissioned missions. Independent model verification now passes 69 tests, including every authored baseline and near miss; details and browser transfer evidence are in `PLAYTEST.md`. Actual desktop controls now demonstrate success, mistake/retry, active bottleneck recovery, grade, transfers, near/far time, equity and the final integrated mission. Touch at 390×844 completes the first and final missions. The lead additionally completed a 24-level actual-control sweep. `PLAYTEST.md` distinguishes model, browser and remaining native-focus evidence. Student evaluation remains future work.

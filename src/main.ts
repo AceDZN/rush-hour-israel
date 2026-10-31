@@ -1,59 +1,693 @@
-import '@fontsource/heebo/hebrew-400.css';
-import '@fontsource/heebo/hebrew-600.css';
-import '@fontsource/heebo/hebrew-800.css';
-import './style.css';
-import {levels} from './levels';
-import type {Mode,Tool} from './types';
-import {buildLink,createState,headway,linkId,metrics,node,pair,placeInterchange,placeService,placeStop,quoteLink,removeLink,retry,schedule,startWave,tick,upgrade,type State} from './model';
-import {AtlasScene} from './scene';
-const icon=(name:string)=>{const paths:Record<string,string>={road:'<path d="M7 3h10l5 18H2L7 3Z"/><path d="m12 5 0 3m0 3v3m0 3v3"/>',bus:'<rect x="4" y="3" width="16" height="17" rx="3"/><path d="M4 12h16M8 6h8M7 20v2m10-2v2"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/>',rail:'<rect x="5" y="3" width="14" height="15" rx="4"/><path d="M5 11h14M8 18l-3 4m11-4 3 4M9 6h6M7 21h10"/>',stop:'<path d="M12 10v12"/><rect x="5" y="2" width="14" height="10" rx="2"/><path d="M9 6h6M9 9h6"/>',upgrade:'<path d="m5 13 7-8 7 8M12 5v17M5 3h14"/>',interchange:'<path d="M3 7h15l-4-4m7 14H6l4 4M3 7v6m18 4v-6"/>',service:'<path d="M3 21V7h18v14M8 7V3h8v4M9 13h6m-3-3v6M1 21h22"/>',erase:'<path d="m9 3 12 12-7 7H8L1 15 13 3M6 10l10 10M14 22h9"/>',play:'<path d="m7 3 14 9-14 9V3Z"/>',pause:'<path d="M8 4v16M16 4v16"/>',reset:'<path d="M4 9a9 9 0 1 1-1 7M4 3v6h6"/>',map:'<path d="m2 5 7-3 6 3 7-3v17l-7 3-6-3-7 3V5ZM9 2v17M15 5v17"/>'};return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]??paths.map}</svg>`;};
-const toolNames:Record<Tool,string>={road:'כביש',bus:'אוטובוס',rail:'רכבת',stop:'תחנה',upgrade:'שדרוג',interchange:'מחלף',service:'שירות מקומי',erase:'מחיקה'};
-const app=document.querySelector<HTMLElement>('#app')!;
-app.innerHTML=`<canvas id="atlas" aria-label="מפת תבליט אינטראקטיבית — בחרו שתי נקודות כדי לחבר מסלול"></canvas><div id="map-labels"></div>
-<header><div class="brand"><span class="brand-small">RUSH HOUR ISRAEL</span><h1>שעת שיא<span class="brand-dot">.</span></h1><button id="campaign-button" class="text-button">${icon('map')}<span id="level-number"></span><span>⌄</span></button></div><div class="mission"><span id="region"></span><h2 id="mission-title"></h2><p id="mission-copy"></p></div></header>
+import "@fontsource/heebo/hebrew-400.css";
+import "@fontsource/heebo/hebrew-600.css";
+import "@fontsource/heebo/hebrew-800.css";
+import "./style.css";
+import { levels } from "./levels";
+import type { Mode, Tool } from "./types";
+import {
+  buildLink,
+  createState,
+  headway,
+  linkId,
+  metrics,
+  node,
+  pair,
+  placeInterchange,
+  placeService,
+  placeStop,
+  quoteLink,
+  removeLink,
+  retry,
+  schedule,
+  startWave,
+  tick,
+  upgrade,
+  type State,
+} from "./model";
+import { AtlasScene } from "./scene";
+const icon = (name: string) => {
+  const paths: Record<string, string> = {
+    road: '<path d="M7 3h10l5 18H2L7 3Z"/><path d="m12 5 0 3m0 3v3m0 3v3"/>',
+    bus: '<rect x="4" y="3" width="16" height="17" rx="3"/><path d="M4 12h16M8 6h8M7 20v2m10-2v2"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/>',
+    rail: '<rect x="5" y="3" width="14" height="15" rx="4"/><path d="M5 11h14M8 18l-3 4m11-4 3 4M9 6h6M7 21h10"/>',
+    stop: '<path d="M12 10v12"/><rect x="5" y="2" width="14" height="10" rx="2"/><path d="M9 6h6M9 9h6"/>',
+    upgrade: '<path d="m5 13 7-8 7 8M12 5v17M5 3h14"/>',
+    interchange: '<path d="M3 7h15l-4-4m7 14H6l4 4M3 7v6m18 4v-6"/>',
+    service: '<path d="M3 21V7h18v14M8 7V3h8v4M9 13h6m-3-3v6M1 21h22"/>',
+    erase: '<path d="m9 3 12 12-7 7H8L1 15 13 3M6 10l10 10M14 22h9"/>',
+    play: '<path d="m7 3 14 9-14 9V3Z"/>',
+    pause: '<path d="M8 4v16M16 4v16"/>',
+    reset: '<path d="M4 9a9 9 0 1 1-1 7M4 3v6h6"/>',
+    map: '<path d="m2 5 7-3 6 3 7-3v17l-7 3-6-3-7 3V5ZM9 2v17M15 5v17"/>',
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] ?? paths.map}</svg>`;
+};
+const toolNames: Record<Tool, string> = {
+  road: "כביש",
+  bus: "אוטובוס",
+  rail: "רכבת",
+  stop: "תחנה",
+  upgrade: "שדרוג",
+  interchange: "מחלף",
+  service: "שירות מקומי",
+  erase: "מחיקה",
+};
+const app = document.querySelector<HTMLElement>("#app")!;
+app.innerHTML = `<canvas id="atlas" aria-label="מפת תבליט אינטראקטיבית — בחרו שתי נקודות כדי לחבר מסלול"></canvas><div id="map-labels"></div>
+<header><div class="brand"><span class="brand-small">RUSH HOUR ISRAEL</span><h1>שעת שיא<span class="brand-dot">.</span></h1><button id="campaign-button" class="text-button">${icon("map")}<span id="level-number"></span><span>⌄</span></button></div><div class="mission"><span id="region"></span><h2 id="mission-title"></h2><p id="mission-copy"></p></div></header>
 <aside class="readout" aria-label="נתוני הגל"><div class="wave-line"><strong id="wave-time">תכנון</strong><span id="forecast"></span></div><div class="arrival"><strong id="arrived">0</strong><span>הגיעו בזמן</span><span id="total"></span></div><div id="groups"></div><div class="resource-line"><span>תקציב <b id="budget"></b></span><span id="land"></span></div><div id="scenario-note"></div></aside>
 <div class="orientation"><div id="compass"><b>צ</b><span>▲</span></div><span>ים במערב</span><small>מפה סכמטית<br>זמן ותקציב מפושטים</small></div>
 <div class="camera-controls" aria-label="מצלמה"><button id="rotate-left" title="סיבוב שמאלה">↶</button><button id="view-reset" title="איפוס המפה">⌖</button><button id="rotate-right" title="סיבוב ימינה">↷</button><button id="tilt" title="שינוי זווית">◪</button><button id="zoom" title="קירוב">＋</button></div>
 <div class="plan-status"><span id="status-light"></span><span id="status" role="status"></span><button id="hint" class="text-button">רמז</button></div>
-<div class="bottom"><nav id="tools" aria-label="כלי תכנון"></nav><div class="wave-controls"><button id="run" class="primary">${icon('play')}<span>הפעלת גל</span><kbd>רווח</kbd></button><button id="retry" title="ניסיון חדש עם אותו תכנון">${icon('reset')}<span>ניסיון חדש</span></button><button id="speed" title="מהירות סימולציה">×1</button></div></div>
+<div class="bottom"><nav id="tools" aria-label="כלי תכנון"></nav><div class="wave-controls"><button id="run" class="primary">${icon("play")}<span>הפעלת גל</span><kbd>רווח</kbd></button><button id="retry" title="ניסיון חדש עם אותו תכנון">${icon("reset")}<span>ניסיון חדש</span></button><button id="speed" title="מהירות סימולציה">×1</button></div></div>
 <div id="link-inspector" hidden></div><div class="utility"><button id="help" title="עזרה">?</button><button id="mute" title="צליל">♪</button><button id="motion" title="הפחתת תנועה">≈</button><button id="fullscreen" title="מסך מלא">⛶</button></div>
-<dialog id="welcome"><button class="close" data-close="welcome" aria-label="סגירה">×</button><span class="eyebrow">ברוכים הבאים לאטלס החי</span><h2>בוקר טוב.<br>בואו נחבר אנשים.</h2><p>בנו רשת, הפעילו את שעת השיא, ותראו איפה היא נתקעת. תקנו את הדרך עד שכל קהילה מגיעה בזמן.</p><div class="instructions"><span>${icon('road')} בחרו כלי</span><span>◉ חברו שתי נקודות</span><span>${icon('play')} הפעילו את הגל</span></div><button class="primary" data-close="welcome">מתחילים לתכנן ←</button><small>רווח — הפעלה / השהיה · R — ניסיון חדש · Esc — השהיה<br>אפשר להוסיף ולשדרג גם בזמן הגל.</small></dialog>
+<dialog id="welcome"><button class="close" data-close="welcome" aria-label="סגירה">×</button><span class="eyebrow">ברוכים הבאים לאטלס החי</span><h2>בוקר טוב.<br>בואו נחבר אנשים.</h2><p>בנו רשת, הפעילו את שעת השיא, ותראו איפה היא נתקעת. תקנו את הדרך עד שכל קהילה מגיעה בזמן.</p><div class="instructions"><span>${icon("road")} בחרו כלי</span><span>◉ חברו שתי נקודות</span><span>${icon("play")} הפעילו את הגל</span></div><button class="primary" data-close="welcome">מתחילים לתכנן ←</button><small>רווח — הפעלה / השהיה · R — ניסיון חדש · Esc — השהיה<br>אפשר להוסיף ולשדרג גם בזמן הגל.</small></dialog>
 <dialog id="campaign"><button class="close" data-close="campaign" aria-label="סגירה">×</button><span class="eyebrow">24 בקרים. רשת אחת טובה יותר.</span><h2>הדרך שלכם</h2><div id="level-grid"></div><small>כל השלבים זמינים לחקירה. כוכב מסמן הצלחה שנשמרה במכשיר הזה בלבד.</small></dialog>
 <dialog id="result"><span class="eyebrow" id="result-eyebrow"></span><h2 id="result-title"></h2><p id="result-copy"></p><div id="result-stats"></div><div id="result-groups"></div><div class="result-actions"><button id="next" class="primary">לבוקר הבא ←</button><button id="result-retry">ננסה תוכנית אחרת</button><button id="result-map">חזרה למפה</button></div></dialog>
 <dialog id="help-dialog"><button class="close" data-close="help-dialog">×</button><h2>איך מזיזים את הבוקר?</h2><p>בחרו כביש, אוטובוס או רכבת, ולחצו על שתי נקודות במפה. אפשר גם לגרור ביניהן. המשיכו מנקודה לנקודה ליצירת דרך.</p><p>אוטובוס כולל כביש אם צריך, אבל דורש תחנות בשני קצות כל מקטע. אנשים הולכים לתחנה רק בטווח ההליכה. בשדרוג, לחצו על חיבור כדי להכפיל קיבולת או תדירות. בחלון החיבור אפשר להזיז את מועד היציאה.</p><p>בכל שלב צריך להגיע בזמן עם לפחות 85% מכל קהילה. זמן ההגעה כולל הליכה, המתנה, נסיעה והחלפה. התור מוצג ליד המקום שבו אנשים מחכים.</p><p>רווח — הפעלה/השהיה · R — ניסיון חוזר · Esc — השהיה · F — מסך מלא · 1–8 — בחירת כלי. זמן ותקציב הם יחידות מודל. המפה מקורית וסכמטית.</p></dialog>`;
-const $=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
-let progress:Record<string,{score:number;time:number;hint:boolean}>={};try{progress=JSON.parse(localStorage.getItem('rush-hour-israel-v1')||'{}');}catch{}
-let savedLevel=1;try{savedLevel=Math.max(1,Math.min(24,Number(localStorage.getItem('rush-hour-level')||1)));}catch{}
-let state=createState(levels[savedLevel-1]);let tool:Tool='road',selected:string|null=null,hover:string|null=null,selectedLink:string|null=null,speed=1,muted=true,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,hintUsed=false,resultShown=false,manualClock=false;let audio:AudioContext|null=null,lastArrived=0;
-let suppressedNodeClickUntil=0;
-let atlas:AtlasScene;
-try{atlas=new AtlasScene($<HTMLCanvasElement>('atlas'),$('map-labels'),id=>{if(performance.now()>suppressedNodeClickUntil)chooseNode(id);});}catch(error){app.innerHTML='<div class="webgl-error"><h1>צריך תצוגת תלת־ממד כדי לפתוח את האטלס</h1><p>נסו להפעיל האצת חומרה בדפדפן ולטעון מחדש.</p></div>';throw error;}
-function chime(freq:number){if(muted)return;try{audio??=new AudioContext();if(audio.state==='suspended')void audio.resume();const o=audio.createOscillator(),gain=audio.createGain();o.type='sine';o.frequency.value=freq;gain.gain.setValueAtTime(.035,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.16);o.connect(gain).connect(audio.destination);o.start();o.stop(audio.currentTime+.18);}catch{}}
-function renderTools(){const available=state.level.tools;$('tools').innerHTML=available.map((t,i)=>`<button data-tool="${t}" title="${toolNames[t]} · ${i+1}" class="tool ${tool===t?'active':''}">${icon(t)}<span>${toolNames[t]}</span><kbd>${i+1}</kbd></button>`).join('');$('tools').querySelectorAll<HTMLButtonElement>('[data-tool]').forEach(b=>b.onclick=()=>setTool(b.dataset.tool as Tool));}
-function setTool(t:Tool){tool=t;selected=null;selectedLink=null;$('link-inspector').hidden=true;renderTools();state.message=t==='stop'?'בחרו נקודה לתחנה. תחנה עולה 3; טווח ההליכה מסומן סביב הנקודה.':t==='service'?'בחרו אתר שירות המסומן +. עלות: 22.':t==='interchange'?'בחרו נקודת החלפה. עלות: 6; זמן ההחלפה יתקצר.':t==='upgrade'?'בחרו חיבור ברשימה או לחצו על שני קצותיו לשדרוג.':t==='erase'?'בתכנון: בחרו שני קצוות או חיבור ברשימה למחיקה והחזר.':`בחרו נקודת מוצא ואז נקודה שנייה: ${toolNames[t]}`;updateUI();}
-function chooseNode(id:string){if(['won','lost'].includes(state.mode))return;if(tool==='stop'){placeStop(state,id);selected=id;}else if(tool==='interchange'){placeInterchange(state,id);selected=id;}else if(tool==='service'){placeService(state,id);selected=id;}else if(!selected){selected=id;state.message=`${node(state,id).label} נבחר. בחרו את הנקודה הבאה.`;}else if(selected===id){selected=null;}else{const a=selected,b=id;if(tool==='upgrade'||tool==='erase'){const links=state.links.filter(l=>pair(l.a,l.b)===pair(a,b));const l=links.find(l=>l.mode==='bus')??links.find(l=>l.mode==='rail')??links[0];if(l){if(tool==='erase')removeLink(state,l.id);else upgrade(state,l.a,l.b,l.mode);showLink(l.id);}else state.message='אין חיבור קיים בין הנקודות האלה';}else{const ok=buildLink(state,a,b,tool as Mode);if(ok){chime(330);selectedLink=linkId(a,b,tool as Mode);}selected=ok?id:a;}if(tool==='erase'||tool==='upgrade')selected=null;}updateUI();}
-function showLink(id:string){selectedLink=id;const l=state.links.find(l=>l.id===id);if(!l)return;$('link-inspector').hidden=false;$('link-inspector').innerHTML=`<button class="inspector-close" aria-label="סגירה">×</button><strong>${toolNames[l.mode]} · ${node(state,l.a).label} ↔ ${node(state,l.b).label}</strong><div class="edge-modes">${state.links.filter(e=>pair(e.a,e.b)===pair(l.a,l.b)).map(e=>`<button data-edge-mode="${e.mode}" class="${e.id===id?'current':''}">${toolNames[e.mode]}</button>`).join('')}</div><small>זמן נסיעה ${l.time.toFixed(1)} · שיפוע ${Math.round(l.grade*100)}% · ${l.mode==='road'?'קיבולת קטע '+2*l.level:((l.mode==='bus'?6:14)+' מקומות · כל '+headway(state,l).toFixed(1)+' שנ׳')}</small><small id="edge-next"></small><div><button id="edge-upgrade">${l.level===2?'משודרג ✓':'שדרוג · '+(l.mode==='road'?10:8)}</button>${l.mode!=='road'?'<button id="edge-phase">תזמון יציאה +2</button>':''}<button id="edge-remove">מחיקה</button></div>`;$('link-inspector').querySelector<HTMLButtonElement>('.inspector-close')!.onclick=()=>{$('link-inspector').hidden=true;};$('link-inspector').querySelectorAll<HTMLButtonElement>('[data-edge-mode]').forEach(b=>b.onclick=()=>showLink(linkId(l.a,l.b,b.dataset.edgeMode as Mode)));$('edge-upgrade').onclick=()=>{upgrade(state,l.a,l.b,l.mode);showLink(id);updateUI();};if(l.mode!=='road')$('edge-phase').onclick=()=>{schedule(state,l.a,l.b,l.mode,l.phase+2);showLink(id);updateUI();};$('edge-remove').onclick=()=>{removeLink(state,id);$('link-inspector').hidden=true;updateUI();};}
-function loadLevel(index:number){document.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach(d=>d.close());state=createState(levels[index]);selected=null;hover=null;selectedLink=null;tool=state.level.tools[0];hintUsed=false;resultShown=false;lastArrived=0;$('link-inspector').hidden=true;try{localStorage.setItem('rush-hour-level',String(index+1));}catch{}atlas.loadLevel(state.level);renderTools();updateUI();render();}
-function openCampaign(){$('level-grid').innerHTML=levels.map(l=>`<button data-level="${l.id}" class="${l.id===state.level.id?'current':''}"><b>${String(l.id).padStart(2,'0')}</b><span>${l.title}</span><em>${progress[l.id]?'★':''}</em></button>`).join('');$('level-grid').querySelectorAll<HTMLButtonElement>('[data-level]').forEach(b=>b.onclick=()=>loadLevel(Number(b.dataset.level)-1));pauseForDialog();$<HTMLDialogElement>('campaign').showModal();}
-function pauseForDialog(){if(state.mode==='running')state.mode='paused';updateUI();}
-function replay(){retry(state);resultShown=false;lastArrived=0;selected=null;$<HTMLDialogElement>('result').close();updateUI();}
-function run(){startWave(state);selected=null;chime(440);updateUI();}
-function updateUI(){const l=state.level,m=metrics(state);$('level-number').innerHTML=`שלב <bdi>${l.id} / 24</bdi>`;$('region').textContent=l.region;$('mission-title').textContent=l.title;$('mission-copy').textContent=l.lesson;$('wave-time').textContent=state.mode==='planning'?'תכנון':state.mode==='paused'?'מושהה':`${Math.ceil(state.time)} / ${l.duration}`;$('forecast').textContent=`תחזית ${m.expected} נוסעים`;$('arrived').textContent=String(m.timely);$('total').textContent=`מתוך ${m.expected}`;$('groups').innerHTML=m.groups.map(g=>`<div class="group-row"><span>${g.label}</span><div class="access-track"><i style="width:${g.access*100}%"></i><b style="right:${l.target*100}%"></b></div><bdi>${g.timely}/${g.total}</bdi></div>`).join('');$('budget').textContent=String(state.budget);$('land').textContent=l.noiseLimit!==undefined?`מטרד ${m.noise} / ${l.noiseLimit}`:`שטח ${m.footprint.toFixed(0)}${l.footprintLimit?' / '+l.footprintLimit:''}`;$('scenario-note').textContent=l.induced?`הרחבת כביש ← +${l.induced.count} נוסעים בשנייה ${l.induced.at}${state.inducedTriggered?' · הופעל':''}`:l.corridors.some(c=>c.closeAt!==undefined)?`סגירה ידועה בשנייה ${l.corridors.find(c=>c.closeAt!==undefined)!.closeAt}`:`יעד: 85% מכל קהילה בתוך ${l.deadline} שנ׳ לנסיעה`;$('status').textContent=state.message;$('status-light').className=state.mode;$('run').innerHTML=`${icon(state.mode==='running'?'pause':'play')}<span>${state.mode==='running'?'השהיה':state.mode==='paused'?'ממשיכים':'הפעלת גל'}</span><kbd>רווח</kbd>`;$<HTMLButtonElement>('run').disabled=state.mode==='won'||state.mode==='lost';$('compass').style.transform=`rotate(${atlas?.angle??0}rad)`;
- if(selectedLink&&!$('link-inspector').hidden){const l=state.links.find(l=>l.id===selectedLink);const next=$('edge-next');if(l&&next)next.textContent=l.mode==='road'?'כביש: עד '+2*l.level+' כלי רכב בו־זמנית':`יציאה הבאה בעוד ${Math.max(0,l.nextDepart-state.time).toFixed(1)} שנ׳ · היסט ${l.phase.toFixed(1)}`;}if(m.arrived>lastArrived){chime(580+Math.min(250,m.arrived*4));lastArrived=m.arrived;}if(['won','lost'].includes(state.mode)&&!resultShown)showResult();}
-function showResult(){resultShown=true;const m=metrics(state),won=state.mode==='won';if(won){const old=progress[state.level.id];if(!old||m.score>old.score){progress[state.level.id]={score:m.score,time:m.meanTime,hint:hintUsed};try{localStorage.setItem('rush-hour-israel-v1',JSON.stringify(progress));}catch{}}chime(880);}$('result-eyebrow').textContent=won?'הבוקר זורם · '+(hintUsed?'בעזרת רמז':'תכנון עצמאי'):'עוד שינוי אחד ברשת?';$('result-title').textContent=won?(state.level.id===24?'חיברתם את הארץ.':'כולם בדרך טובה יותר.'):'כאן הרשת צריכה אתכם.';$('result-copy').textContent=state.message;$('result-stats').innerHTML=`<div><b>${m.timely}/${m.expected}</b><span>הגיעו בזמן</span></div><div><b>${Math.round(m.worst*100)}%</b><span>הקהילה הפחות נגישה</span></div><div><b>${m.score}</b><span>ציון רשת · שיא ${progress[state.level.id]?.score??'—'}</span></div>`;$('result-groups').innerHTML=m.groups.map(g=>`<div><span>${g.label}</span><bdi>${g.timely}/${g.total}</bdi><small>זמן ממוצע ${g.meanTime?g.meanTime.toFixed(1):'—'}</small></div>`).join('');$<HTMLButtonElement>('next').hidden=!won;$('next').textContent=state.level.id===24?'לאטלס השלבים ←':'לבוקר הבא ←';$<HTMLDialogElement>('result').showModal();}
-$('campaign-button').onclick=openCampaign;$('run').onclick=run;$('retry').onclick=replay;$('speed').onclick=()=>{speed=speed===1?2:1;$('speed').textContent=`×${speed}`;};$('hint').onclick=()=>{hintUsed=true;if(state.mode==='running')state.mode='paused';state.message=state.level.hint;updateUI();};$('next').onclick=()=>state.level.id===24?openCampaign():loadLevel(state.level.id);$('result-retry').onclick=replay;$('result-map').onclick=()=>{$<HTMLDialogElement>('result').close();};$('help').onclick=()=>{pauseForDialog();$<HTMLDialogElement>('help-dialog').showModal();};$('mute').onclick=()=>{muted=!muted;$('mute').classList.toggle('on',!muted);$('mute').title=muted?'הפעלת צליל':'השתקה';chime(440);};$('motion').onclick=()=>{reduced=!reduced;document.body.classList.toggle('reduced',reduced);$('motion').classList.toggle('on',reduced);};$('fullscreen').onclick=()=>void fullscreen();$('rotate-left').onclick=()=>atlas.rotate(-.16);$('rotate-right').onclick=()=>atlas.rotate(.16);$('view-reset').onclick=()=>atlas.reset();$('tilt').onclick=()=>{atlas.tilt=atlas.tilt>.8?.65:1.1;atlas.cameraUpdate();};$('zoom').onclick=()=>{atlas.zoom=atlas.zoom===1?1.2:1;atlas.cameraUpdate();};
-document.querySelectorAll<HTMLButtonElement>('[data-close]').forEach(b=>b.onclick=()=>{$<HTMLDialogElement>(b.dataset.close!).close();});
-async function fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else await app.requestFullscreen();}catch{state.message='מסך מלא אינו זמין כאן';}}
-window.addEventListener('keydown',event=>{if(event.target instanceof HTMLInputElement)return;if(event.code==='Space'){event.preventDefault();if(document.querySelector('dialog[open]'))return;run();}if(event.code==='KeyR'){event.preventDefault();replay();}if(event.code==='Escape'){if(state.mode==='running')state.mode='paused';selected=null;updateUI();}if(event.code==='KeyF')void fullscreen();if(event.code.startsWith('Digit')){const t=state.level.tools[Number(event.code.slice(5))-1];if(t)setTool(t);}});
-window.addEventListener('blur',()=>{if(state.mode==='running'){state.mode='paused';state.message='מושהה כשעוברים לחלון אחר. לחצו על ממשיכים.';updateUI();}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&state.mode==='running'){state.mode='paused';updateUI();}});
-const canvas=$<HTMLCanvasElement>('atlas');let dragStart:string|null=null,downX=0,downY=0;
-canvas.addEventListener('pointerdown',e=>{dragStart=atlas.pick(e.clientX,e.clientY,state);downX=e.clientX;downY=e.clientY;canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointerup',e=>{const end=atlas.pick(e.clientX,e.clientY,state);if(dragStart&&end&&dragStart!==end&&Math.hypot(e.clientX-downX,e.clientY-downY)>12){selected=dragStart;chooseNode(end);}else if(end)chooseNode(end);else{const match=state.links.map(l=>{const a=atlas.project(node(state,l.a)),b=atlas.project(node(state,l.b)),dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((e.clientX-a.x)*dx+(e.clientY-a.y)*dy)/(dx*dx+dy*dy)));return{l,d:Math.hypot(e.clientX-a.x-t*dx,e.clientY-a.y-t*dy)};}).sort((a,b)=>a.d-b.d)[0];if(match&&match.d<13)showLink(match.l.id);}dragStart=null;});canvas.addEventListener('pointermove',e=>{hover=atlas.pick(e.clientX,e.clientY,state);if(selected&&hover&&selected!==hover&&['road','bus','rail'].includes(tool)){const q=quoteLink(state,selected,hover,tool as Mode);$('status').textContent=q.ok?`${toolNames[tool]} · עלות ${q.cost} · זמן ${q.time.toFixed(1)} · שיפוע ${Math.round(q.grade*100)}%`:q.reason;}});$('map-labels').addEventListener('pointerover',e=>{const el=(e.target as HTMLElement).closest<HTMLElement>('[data-node]');if(!el)return;hover=el.dataset.node!;if(selected&&hover!==selected&&['road','bus','rail'].includes(tool)){const q=quoteLink(state,selected,hover,tool as Mode);$('status').textContent=q.ok?`${toolNames[tool]} · עלות ${q.cost} · זמן ${q.time.toFixed(1)} · שיפוע ${Math.round(q.grade*100)}%`:q.reason;}});
-let labelDrag:string|null=null;
-$('map-labels').addEventListener('pointerdown',e=>{labelDrag=(e.target as HTMLElement).closest<HTMLElement>('[data-node]')?.dataset.node??null;});
-document.addEventListener('pointerup',e=>{if(labelDrag){const end=atlas.pick(e.clientX,e.clientY+22,state);const hovered=(e.target as HTMLElement).closest<HTMLElement>('[data-node]')?.dataset.node;const target=hovered??end;if(target&&target!==labelDrag){selected=labelDrag;chooseNode(target);suppressedNodeClickUntil=performance.now()+200;}labelDrag=null;}});
-canvas.addEventListener('wheel',e=>{e.preventDefault();atlas.zoom=Math.max(.8,Math.min(1.35,atlas.zoom-e.deltaY*.0007));atlas.cameraUpdate();},{passive:false});
-function render(){let preview;if(selected&&hover&&selected!==hover&&['road','bus','rail'].includes(tool)){const q=quoteLink(state,selected,hover,tool as Mode);preview={a:selected,b:hover,ok:q.ok};}atlas.render(state,tool==='stop'?(hover??selected):selected,preview,tool==='stop');}
-let previous=performance.now(),uiTime=0;function frame(now:number){const dt=Math.min(.08,(now-previous)/1000);previous=now;if(!manualClock)tick(state,dt*speed);if(now-uiTime>140){updateUI();uiTime=now;}render();requestAnimationFrame(frame);}requestAnimationFrame(frame);
-Object.assign(window,{advanceTime:(ms:number)=>{manualClock=true;tick(state,ms/1000);updateUI();render();},render_game_to_text:()=>JSON.stringify({mode:state.mode,level:state.level.id,title:state.level.title,coordinates:'x east/right, z south/down; height up; screen pixel positions are for current camera',objective:state.level.lesson,time:state.time,duration:state.level.duration,budget:state.budget,selectedTool:tool,selectedNode:selected,hintUsed,modelLoaded:atlas.busLoaded,fps:Math.round(atlas.fps),metrics:metrics(state),nodes:state.level.nodes.map(n=>({...n,screen:atlas.project(n),stop:state.stops.has(n.id),service:state.services.has(n.id),waiting:state.people.filter(p=>p.node===n.id&&p.status==='waiting').length})),links:state.links.map(l=>({id:l.id,a:l.a,b:l.b,mode:l.mode,level:l.level,travelTime:l.time,grade:l.grade,headway:headway(state,l),nextDeparture:l.nextDepart,closed:l.corridor.closeAt!==undefined&&state.time>=l.corridor.closeAt})),vehicles:state.vehicles.map(v=>({id:v.id,mode:v.mode,a:v.a,b:v.b,people:v.passengers.length,capacity:v.capacity,fraction:(state.time-v.start)/(v.end-v.start)})),message:state.message})});
-renderTools();atlas.loadLevel(state.level);updateUI();render();let seen=false;try{seen=localStorage.getItem('rush-hour-welcome')==='yes';}catch{}if(!seen){$<HTMLDialogElement>('welcome').showModal();try{localStorage.setItem('rush-hour-welcome','yes');}catch{}}
+const $ = <T extends HTMLElement = HTMLElement>(id: string) =>
+  document.getElementById(id) as T;
+let progress: Record<string, { score: number; time: number; hint: boolean }> =
+  {};
+try {
+  progress = JSON.parse(localStorage.getItem("rush-hour-israel-v1") || "{}");
+} catch {}
+let savedLevel = 1;
+try {
+  savedLevel = Math.max(
+    1,
+    Math.min(24, Number(localStorage.getItem("rush-hour-level") || 1)),
+  );
+} catch {}
+let state = createState(levels[savedLevel - 1]);
+let tool: Tool = "road",
+  selected: string | null = null,
+  hover: string | null = null,
+  selectedLink: string | null = null,
+  speed = 1,
+  muted = true,
+  reduced = matchMedia("(prefers-reduced-motion: reduce)").matches,
+  hintUsed = false,
+  resultShown = false,
+  manualClock = false;
+let audio: AudioContext | null = null,
+  lastArrived = 0;
+let suppressedNodeClickUntil = 0;
+let atlas: AtlasScene;
+try {
+  atlas = new AtlasScene(
+    $<HTMLCanvasElement>("atlas"),
+    $("map-labels"),
+    (id) => {
+      if (performance.now() > suppressedNodeClickUntil) chooseNode(id);
+    },
+  );
+} catch (error) {
+  app.innerHTML =
+    '<div class="webgl-error"><h1>צריך תצוגת תלת־ממד כדי לפתוח את האטלס</h1><p>נסו להפעיל האצת חומרה בדפדפן ולטעון מחדש.</p></div>';
+  throw error;
+}
+function chime(freq: number) {
+  if (muted) return;
+  try {
+    audio ??= new AudioContext();
+    if (audio.state === "suspended") void audio.resume();
+    const o = audio.createOscillator(),
+      gain = audio.createGain();
+    o.type = "sine";
+    o.frequency.value = freq;
+    gain.gain.setValueAtTime(0.035, audio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.16);
+    o.connect(gain).connect(audio.destination);
+    o.start();
+    o.stop(audio.currentTime + 0.18);
+  } catch {}
+}
+function renderTools() {
+  const available = state.level.tools;
+  $("tools").innerHTML = available
+    .map(
+      (t, i) =>
+        `<button data-tool="${t}" title="${toolNames[t]} · ${i + 1}" class="tool ${tool === t ? "active" : ""}">${icon(t)}<span>${toolNames[t]}</span><kbd>${i + 1}</kbd></button>`,
+    )
+    .join("");
+  $("tools")
+    .querySelectorAll<HTMLButtonElement>("[data-tool]")
+    .forEach((b) => (b.onclick = () => setTool(b.dataset.tool as Tool)));
+}
+function setTool(t: Tool) {
+  tool = t;
+  selected = null;
+  selectedLink = null;
+  $("link-inspector").hidden = true;
+  renderTools();
+  state.message =
+    t === "stop"
+      ? "בחרו נקודה לתחנה. תחנה עולה 3; טווח ההליכה מסומן סביב הנקודה."
+      : t === "service"
+        ? "בחרו אתר שירות המסומן +. עלות: 22."
+        : t === "interchange"
+          ? "בחרו נקודת החלפה. עלות: 6; זמן ההחלפה יתקצר."
+          : t === "upgrade"
+            ? "בחרו חיבור ברשימה או לחצו על שני קצותיו לשדרוג."
+            : t === "erase"
+              ? "בתכנון: בחרו שני קצוות או חיבור ברשימה למחיקה והחזר."
+              : `בחרו נקודת מוצא ואז נקודה שנייה: ${toolNames[t]}`;
+  updateUI();
+}
+function chooseNode(id: string) {
+  if (["won", "lost"].includes(state.mode)) return;
+  if (tool === "stop") {
+    placeStop(state, id);
+    selected = id;
+  } else if (tool === "interchange") {
+    placeInterchange(state, id);
+    selected = id;
+  } else if (tool === "service") {
+    placeService(state, id);
+    selected = id;
+  } else if (!selected) {
+    selected = id;
+    state.message = `${node(state, id).label} נבחר. בחרו את הנקודה הבאה.`;
+  } else if (selected === id) {
+    selected = null;
+  } else {
+    const a = selected,
+      b = id;
+    if (tool === "upgrade" || tool === "erase") {
+      const links = state.links.filter((l) => pair(l.a, l.b) === pair(a, b));
+      const l =
+        links.find((l) => l.mode === "bus") ??
+        links.find((l) => l.mode === "rail") ??
+        links[0];
+      if (l) {
+        if (tool === "erase") removeLink(state, l.id);
+        else upgrade(state, l.a, l.b, l.mode);
+        showLink(l.id);
+      } else state.message = "אין חיבור קיים בין הנקודות האלה";
+    } else {
+      const ok = buildLink(state, a, b, tool as Mode);
+      if (ok) {
+        chime(330);
+        selectedLink = linkId(a, b, tool as Mode);
+      }
+      selected = ok ? id : a;
+    }
+    if (tool === "erase" || tool === "upgrade") selected = null;
+  }
+  updateUI();
+}
+function showLink(id: string) {
+  selectedLink = id;
+  const l = state.links.find((l) => l.id === id);
+  if (!l) return;
+  $("link-inspector").hidden = false;
+  $("link-inspector").innerHTML =
+    `<button class="inspector-close" aria-label="סגירה">×</button><strong>${toolNames[l.mode]} · ${node(state, l.a).label} ↔ ${node(state, l.b).label}</strong><div class="edge-modes">${state.links
+      .filter((e) => pair(e.a, e.b) === pair(l.a, l.b))
+      .map(
+        (e) =>
+          `<button data-edge-mode="${e.mode}" class="${e.id === id ? "current" : ""}">${toolNames[e.mode]}</button>`,
+      )
+      .join(
+        "",
+      )}</div><small>זמן נסיעה ${l.time.toFixed(1)} · שיפוע ${Math.round(l.grade * 100)}% · ${l.mode === "road" ? "קיבולת קטע " + 2 * l.level : (l.mode === "bus" ? 6 : 14) + " מקומות · כל " + headway(state, l).toFixed(1) + " שנ׳"}</small><small id="edge-next"></small><div><button id="edge-upgrade">${l.level === 2 ? "משודרג ✓" : "שדרוג · " + (l.mode === "road" ? 10 : 8)}</button>${l.mode !== "road" ? '<button id="edge-phase">תזמון יציאה +2</button>' : ""}<button id="edge-remove">מחיקה</button></div>`;
+  $("link-inspector").querySelector<HTMLButtonElement>(
+    ".inspector-close",
+  )!.onclick = () => {
+    $("link-inspector").hidden = true;
+  };
+  $("link-inspector")
+    .querySelectorAll<HTMLButtonElement>("[data-edge-mode]")
+    .forEach(
+      (b) =>
+        (b.onclick = () =>
+          showLink(linkId(l.a, l.b, b.dataset.edgeMode as Mode))),
+    );
+  $("edge-upgrade").onclick = () => {
+    upgrade(state, l.a, l.b, l.mode);
+    showLink(id);
+    updateUI();
+  };
+  if (l.mode !== "road")
+    $("edge-phase").onclick = () => {
+      schedule(state, l.a, l.b, l.mode, l.phase + 2);
+      showLink(id);
+      updateUI();
+    };
+  $("edge-remove").onclick = () => {
+    removeLink(state, id);
+    $("link-inspector").hidden = true;
+    updateUI();
+  };
+}
+function loadLevel(index: number) {
+  document
+    .querySelectorAll<HTMLDialogElement>("dialog[open]")
+    .forEach((d) => d.close());
+  state = createState(levels[index]);
+  selected = null;
+  hover = null;
+  selectedLink = null;
+  tool = state.level.tools[0];
+  hintUsed = false;
+  resultShown = false;
+  lastArrived = 0;
+  $("link-inspector").hidden = true;
+  try {
+    localStorage.setItem("rush-hour-level", String(index + 1));
+  } catch {}
+  atlas.loadLevel(state.level);
+  renderTools();
+  updateUI();
+  render();
+}
+function openCampaign() {
+  $("level-grid").innerHTML = levels
+    .map(
+      (l) =>
+        `<button data-level="${l.id}" class="${l.id === state.level.id ? "current" : ""}"><b>${String(l.id).padStart(2, "0")}</b><span>${l.title}</span><em>${progress[l.id] ? "★" : ""}</em></button>`,
+    )
+    .join("");
+  $("level-grid")
+    .querySelectorAll<HTMLButtonElement>("[data-level]")
+    .forEach((b) => (b.onclick = () => loadLevel(Number(b.dataset.level) - 1)));
+  pauseForDialog();
+  $<HTMLDialogElement>("campaign").showModal();
+}
+function pauseForDialog() {
+  if (state.mode === "running") state.mode = "paused";
+  updateUI();
+}
+function replay() {
+  retry(state);
+  resultShown = false;
+  lastArrived = 0;
+  selected = null;
+  $<HTMLDialogElement>("result").close();
+  updateUI();
+}
+function run() {
+  startWave(state);
+  selected = null;
+  chime(440);
+  updateUI();
+}
+function updateUI() {
+  const l = state.level,
+    m = metrics(state);
+  $("level-number").innerHTML = `שלב <bdi>${l.id} / 24</bdi>`;
+  $("region").textContent = l.region;
+  $("mission-title").textContent = l.title;
+  $("mission-copy").textContent = l.lesson;
+  $("wave-time").textContent =
+    state.mode === "planning"
+      ? "תכנון"
+      : state.mode === "paused"
+        ? "מושהה"
+        : `${Math.ceil(state.time)} / ${l.duration}`;
+  $("forecast").textContent = `תחזית ${m.expected} נוסעים`;
+  $("arrived").textContent = String(m.timely);
+  $("total").textContent = `מתוך ${m.expected}`;
+  $("groups").innerHTML = m.groups
+    .map(
+      (g) =>
+        `<div class="group-row"><span>${g.label}</span><div class="access-track"><i style="width:${g.access * 100}%"></i><b style="right:${l.target * 100}%"></b></div><bdi>${g.timely}/${g.total}</bdi></div>`,
+    )
+    .join("");
+  $("budget").textContent = String(state.budget);
+  $("land").textContent =
+    l.noiseLimit !== undefined
+      ? `מטרד ${m.noise} / ${l.noiseLimit}`
+      : `שטח ${m.footprint.toFixed(0)}${l.footprintLimit ? " / " + l.footprintLimit : ""}`;
+  $("scenario-note").textContent = l.induced
+    ? `הרחבת כביש ← +${l.induced.count} נוסעים בשנייה ${l.induced.at}${state.inducedTriggered ? " · הופעל" : ""}`
+    : l.corridors.some((c) => c.closeAt !== undefined)
+      ? `סגירה ידועה בשנייה ${l.corridors.find((c) => c.closeAt !== undefined)!.closeAt}`
+      : `יעד: 85% מכל קהילה בתוך ${l.deadline} שנ׳ לנסיעה`;
+  $("status").textContent = state.message;
+  $("status-light").className = state.mode;
+  $("run").innerHTML =
+    `${icon(state.mode === "running" ? "pause" : "play")}<span>${state.mode === "running" ? "השהיה" : state.mode === "paused" ? "ממשיכים" : "הפעלת גל"}</span><kbd>רווח</kbd>`;
+  $<HTMLButtonElement>("run").disabled =
+    state.mode === "won" || state.mode === "lost";
+  $("compass").style.transform = `rotate(${atlas?.angle ?? 0}rad)`;
+  if (selectedLink && !$("link-inspector").hidden) {
+    const l = state.links.find((l) => l.id === selectedLink);
+    const next = $("edge-next");
+    if (l && next)
+      next.textContent =
+        l.mode === "road"
+          ? "כביש: עד " + 2 * l.level + " כלי רכב בו־זמנית"
+          : `יציאה הבאה בעוד ${Math.max(0, l.nextDepart - state.time).toFixed(1)} שנ׳ · היסט ${l.phase.toFixed(1)}`;
+  }
+  if (m.arrived > lastArrived) {
+    chime(580 + Math.min(250, m.arrived * 4));
+    lastArrived = m.arrived;
+  }
+  if (["won", "lost"].includes(state.mode) && !resultShown) showResult();
+}
+function showResult() {
+  resultShown = true;
+  const m = metrics(state),
+    won = state.mode === "won";
+  if (won) {
+    const old = progress[state.level.id];
+    if (!old || m.score > old.score) {
+      progress[state.level.id] = {
+        score: m.score,
+        time: m.meanTime,
+        hint: hintUsed,
+      };
+      try {
+        localStorage.setItem("rush-hour-israel-v1", JSON.stringify(progress));
+      } catch {}
+    }
+    chime(880);
+  }
+  $("result-eyebrow").textContent = won
+    ? "הבוקר זורם · " + (hintUsed ? "בעזרת רמז" : "תכנון עצמאי")
+    : "עוד שינוי אחד ברשת?";
+  $("result-title").textContent = won
+    ? state.level.id === 24
+      ? "חיברתם את הארץ."
+      : "כולם בדרך טובה יותר."
+    : "כאן הרשת צריכה אתכם.";
+  $("result-copy").textContent = state.message;
+  $("result-stats").innerHTML =
+    `<div><b>${m.timely}/${m.expected}</b><span>הגיעו בזמן</span></div><div><b>${Math.round(m.worst * 100)}%</b><span>הקהילה הפחות נגישה</span></div><div><b>${m.score}</b><span>ציון רשת · שיא ${progress[state.level.id]?.score ?? "—"}</span></div>`;
+  $("result-groups").innerHTML = m.groups
+    .map(
+      (g) =>
+        `<div><span>${g.label}</span><bdi>${g.timely}/${g.total}</bdi><small>זמן ממוצע ${g.meanTime ? g.meanTime.toFixed(1) : "—"}</small></div>`,
+    )
+    .join("");
+  $<HTMLButtonElement>("next").hidden = !won;
+  $("next").textContent =
+    state.level.id === 24 ? "לאטלס השלבים ←" : "לבוקר הבא ←";
+  $<HTMLDialogElement>("result").showModal();
+}
+$("campaign-button").onclick = openCampaign;
+$("run").onclick = run;
+$("retry").onclick = replay;
+$("speed").onclick = () => {
+  speed = speed === 1 ? 2 : 1;
+  $("speed").textContent = `×${speed}`;
+};
+$("hint").onclick = () => {
+  hintUsed = true;
+  if (state.mode === "running") state.mode = "paused";
+  state.message = state.level.hint;
+  updateUI();
+};
+$("next").onclick = () =>
+  state.level.id === 24 ? openCampaign() : loadLevel(state.level.id);
+$("result-retry").onclick = replay;
+$("result-map").onclick = () => {
+  $<HTMLDialogElement>("result").close();
+};
+$("help").onclick = () => {
+  pauseForDialog();
+  $<HTMLDialogElement>("help-dialog").showModal();
+};
+$("mute").onclick = () => {
+  muted = !muted;
+  $("mute").classList.toggle("on", !muted);
+  $("mute").title = muted ? "הפעלת צליל" : "השתקה";
+  chime(440);
+};
+$("motion").onclick = () => {
+  reduced = !reduced;
+  document.body.classList.toggle("reduced", reduced);
+  $("motion").classList.toggle("on", reduced);
+};
+$("fullscreen").onclick = () => void fullscreen();
+$("rotate-left").onclick = () => atlas.rotate(-0.16);
+$("rotate-right").onclick = () => atlas.rotate(0.16);
+$("view-reset").onclick = () => atlas.reset();
+$("tilt").onclick = () => {
+  atlas.tilt = atlas.tilt > 0.8 ? 0.65 : 1.1;
+  atlas.cameraUpdate();
+};
+$("zoom").onclick = () => {
+  atlas.zoom = atlas.zoom === 1 ? 1.2 : 1;
+  atlas.cameraUpdate();
+};
+document.querySelectorAll<HTMLButtonElement>("[data-close]").forEach(
+  (b) =>
+    (b.onclick = () => {
+      $<HTMLDialogElement>(b.dataset.close!).close();
+    }),
+);
+async function fullscreen() {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await app.requestFullscreen();
+  } catch {
+    state.message = "מסך מלא אינו זמין כאן";
+  }
+}
+window.addEventListener("keydown", (event) => {
+  if (event.target instanceof HTMLInputElement) return;
+  if (event.code === "Space") {
+    event.preventDefault();
+    if (document.querySelector("dialog[open]")) return;
+    run();
+  }
+  if (event.code === "KeyR") {
+    event.preventDefault();
+    replay();
+  }
+  if (event.code === "Escape") {
+    if (state.mode === "running") state.mode = "paused";
+    selected = null;
+    updateUI();
+  }
+  if (event.code === "KeyF") void fullscreen();
+  if (event.code.startsWith("Digit")) {
+    const t = state.level.tools[Number(event.code.slice(5)) - 1];
+    if (t) setTool(t);
+  }
+});
+window.addEventListener("blur", () => {
+  if (state.mode === "running") {
+    state.mode = "paused";
+    state.message = "מושהה כשעוברים לחלון אחר. לחצו על ממשיכים.";
+    updateUI();
+  }
+});
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && state.mode === "running") {
+    state.mode = "paused";
+    updateUI();
+  }
+});
+const canvas = $<HTMLCanvasElement>("atlas");
+let dragStart: string | null = null,
+  downX = 0,
+  downY = 0;
+canvas.addEventListener("pointerdown", (e) => {
+  dragStart = atlas.pick(e.clientX, e.clientY, state);
+  downX = e.clientX;
+  downY = e.clientY;
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener("pointerup", (e) => {
+  const end = atlas.pick(e.clientX, e.clientY, state);
+  if (
+    dragStart &&
+    end &&
+    dragStart !== end &&
+    Math.hypot(e.clientX - downX, e.clientY - downY) > 12
+  ) {
+    selected = dragStart;
+    chooseNode(end);
+  } else if (end) chooseNode(end);
+  else {
+    const match = state.links
+      .map((l) => {
+        const a = atlas.project(node(state, l.a)),
+          b = atlas.project(node(state, l.b)),
+          dx = b.x - a.x,
+          dy = b.y - a.y,
+          t = Math.max(
+            0,
+            Math.min(
+              1,
+              ((e.clientX - a.x) * dx + (e.clientY - a.y) * dy) /
+                (dx * dx + dy * dy),
+            ),
+          );
+        return {
+          l,
+          d: Math.hypot(e.clientX - a.x - t * dx, e.clientY - a.y - t * dy),
+        };
+      })
+      .sort((a, b) => a.d - b.d)[0];
+    if (match && match.d < 13) showLink(match.l.id);
+  }
+  dragStart = null;
+});
+canvas.addEventListener("pointermove", (e) => {
+  hover = atlas.pick(e.clientX, e.clientY, state);
+  if (
+    selected &&
+    hover &&
+    selected !== hover &&
+    ["road", "bus", "rail"].includes(tool)
+  ) {
+    const q = quoteLink(state, selected, hover, tool as Mode);
+    $("status").textContent = q.ok
+      ? `${toolNames[tool]} · עלות ${q.cost} · זמן ${q.time.toFixed(1)} · שיפוע ${Math.round(q.grade * 100)}%`
+      : q.reason;
+  }
+});
+$("map-labels").addEventListener("pointerover", (e) => {
+  const el = (e.target as HTMLElement).closest<HTMLElement>("[data-node]");
+  if (!el) return;
+  hover = el.dataset.node!;
+  if (
+    selected &&
+    hover !== selected &&
+    ["road", "bus", "rail"].includes(tool)
+  ) {
+    const q = quoteLink(state, selected, hover, tool as Mode);
+    $("status").textContent = q.ok
+      ? `${toolNames[tool]} · עלות ${q.cost} · זמן ${q.time.toFixed(1)} · שיפוע ${Math.round(q.grade * 100)}%`
+      : q.reason;
+  }
+});
+let labelDrag: string | null = null;
+$("map-labels").addEventListener("pointerdown", (e) => {
+  labelDrag =
+    (e.target as HTMLElement).closest<HTMLElement>("[data-node]")?.dataset
+      .node ?? null;
+});
+document.addEventListener("pointerup", (e) => {
+  if (labelDrag) {
+    const end = atlas.pick(e.clientX, e.clientY + 22, state);
+    const hovered = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-node]",
+    )?.dataset.node;
+    const target = hovered ?? end;
+    if (target && target !== labelDrag) {
+      selected = labelDrag;
+      chooseNode(target);
+      suppressedNodeClickUntil = performance.now() + 200;
+    }
+    labelDrag = null;
+  }
+});
+canvas.addEventListener(
+  "wheel",
+  (e) => {
+    e.preventDefault();
+    atlas.zoom = Math.max(0.8, Math.min(1.35, atlas.zoom - e.deltaY * 0.0007));
+    atlas.cameraUpdate();
+  },
+  { passive: false },
+);
+function render() {
+  let preview;
+  if (
+    selected &&
+    hover &&
+    selected !== hover &&
+    ["road", "bus", "rail"].includes(tool)
+  ) {
+    const q = quoteLink(state, selected, hover, tool as Mode);
+    preview = { a: selected, b: hover, ok: q.ok };
+  }
+  atlas.render(
+    state,
+    tool === "stop" ? (hover ?? selected) : selected,
+    preview,
+    tool === "stop",
+  );
+}
+let previous = performance.now(),
+  uiTime = 0;
+function frame(now: number) {
+  const dt = Math.min(0.08, (now - previous) / 1000);
+  previous = now;
+  if (!manualClock) tick(state, dt * speed);
+  if (now - uiTime > 140) {
+    updateUI();
+    uiTime = now;
+  }
+  render();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+Object.assign(window, {
+  advanceTime: (ms: number) => {
+    manualClock = true;
+    tick(state, ms / 1000);
+    updateUI();
+    render();
+  },
+  render_game_to_text: () =>
+    JSON.stringify({
+      mode: state.mode,
+      level: state.level.id,
+      title: state.level.title,
+      coordinates:
+        "x east/right, z south/down; height up; screen pixel positions are for current camera",
+      objective: state.level.lesson,
+      time: state.time,
+      duration: state.level.duration,
+      budget: state.budget,
+      selectedTool: tool,
+      selectedNode: selected,
+      hintUsed,
+      modelLoaded: atlas.busLoaded,
+      fps: Math.round(atlas.fps),
+      metrics: metrics(state),
+      nodes: state.level.nodes.map((n) => ({
+        ...n,
+        screen: atlas.project(n),
+        stop: state.stops.has(n.id),
+        service: state.services.has(n.id),
+        waiting: state.people.filter(
+          (p) => p.node === n.id && p.status === "waiting",
+        ).length,
+      })),
+      links: state.links.map((l) => ({
+        id: l.id,
+        a: l.a,
+        b: l.b,
+        mode: l.mode,
+        level: l.level,
+        travelTime: l.time,
+        grade: l.grade,
+        headway: headway(state, l),
+        nextDeparture: l.nextDepart,
+        closed:
+          l.corridor.closeAt !== undefined && state.time >= l.corridor.closeAt,
+      })),
+      vehicles: state.vehicles.map((v) => ({
+        id: v.id,
+        mode: v.mode,
+        a: v.a,
+        b: v.b,
+        people: v.passengers.length,
+        capacity: v.capacity,
+        fraction: (state.time - v.start) / (v.end - v.start),
+      })),
+      message: state.message,
+    }),
+});
+renderTools();
+atlas.loadLevel(state.level);
+updateUI();
+render();
+let seen = false;
+try {
+  seen = localStorage.getItem("rush-hour-welcome") === "yes";
+} catch {}
+if (!seen) {
+  $<HTMLDialogElement>("welcome").showModal();
+  try {
+    localStorage.setItem("rush-hour-welcome", "yes");
+  } catch {}
+}

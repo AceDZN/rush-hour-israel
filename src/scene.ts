@@ -1,82 +1,1008 @@
-import * as THREE from 'three';
-import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
-import type {Corridor,Level,MapNode,Point} from './types';
-import {corridorPoints,geometry,metrics,node,pair,type Link,type State,type Vehicle} from './model';
-const C={ink:0x19354b,sand:0xd9c59c,cream:0xffefcd,green:0x657b4c,sea:0x427c94,ochre:0xd58b36,orange:0xbf6337};
-const mat=(color:number,extra:THREE.MeshStandardMaterialParameters={})=>new THREE.MeshStandardMaterial({color,roughness:.93,...extra});
-const v3=(p:Point,offset=0)=>new THREE.Vector3(p.x,p.h+offset,p.z);
-const stateCoverageKey=(s:State,id:string)=>`${s.level.id}:${id}`;
-const rng=(i:number)=>{const x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);};
+import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import type { Corridor, Level, MapNode, Point } from "./types";
+import {
+  corridorPoints,
+  geometry,
+  metrics,
+  node,
+  pair,
+  type Link,
+  type State,
+  type Vehicle,
+} from "./model";
+const C = {
+  ink: 0x19354b,
+  sand: 0xd9c59c,
+  cream: 0xffefcd,
+  green: 0x657b4c,
+  sea: 0x427c94,
+  ochre: 0xd58b36,
+  orange: 0xbf6337,
+};
+const mat = (color: number, extra: THREE.MeshStandardMaterialParameters = {}) =>
+  new THREE.MeshStandardMaterial({ color, roughness: 0.93, ...extra });
+const v3 = (p: Point, offset = 0) => new THREE.Vector3(p.x, p.h + offset, p.z);
+const stateCoverageKey = (s: State, id: string) => `${s.level.id}:${id}`;
+const rng = (i: number) => {
+  const x = Math.sin(i * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+};
 export class AtlasScene {
- scene=new THREE.Scene();camera:THREE.OrthographicCamera;renderer:THREE.WebGLRenderer;world=new THREE.Group();routes=new THREE.Group();decor=new THREE.Group();dynamic=new THREE.Group();preview=new THREE.Group();markers=new THREE.Group();bus:THREE.Group|null=null;busLoaded=false;vehicleMeshes=new Map<number,THREE.Object3D>();queueMesh:THREE.InstancedMesh;selected:string|null=null;angle=0;tilt=.79;zoom=1;private width=1;private height=1;private current:Level|null=null;private revision=-1;private activeStops='';private materials:Record<string,THREE.MeshStandardMaterial>={};private labels:Map<string,HTMLElement>=new Map();fps=0;private frames=0;private fpsTime=performance.now();private selectionRing:THREE.Mesh;private coverage=new THREE.Group();private coverageKey='';
- constructor(public canvas:HTMLCanvasElement,public labelRoot:HTMLElement,public onNode:(id:string)=>void){
- this.renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=THREE.PCFSoftShadowMap;this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.22;
- this.scene.background=new THREE.Color(0xe8d8b6);this.scene.fog=new THREE.Fog(0xe8d8b6,55,100);this.camera=new THREE.OrthographicCamera(-16,16,10,-10,.1,150);
- this.scene.add(new THREE.HemisphereLight(0xf8f3e1,0xa1a07a,2.35));const sun=new THREE.DirectionalLight(0xffe7bd,3);sun.position.set(-12,24,-10);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-18;sun.shadow.camera.right=18;sun.shadow.camera.top=15;sun.shadow.camera.bottom=-15;sun.shadow.normalBias=.035;this.scene.add(sun);
- this.scene.add(this.world,this.routes,this.dynamic,this.preview,this.markers);this.world.add(this.decor);const ground=new THREE.Mesh(new THREE.PlaneGeometry(200,200),mat(0xe3d1ad));ground.rotation.x=-Math.PI/2;ground.position.y=-1.25;ground.receiveShadow=true;this.scene.add(ground);
- this.materials={ink:mat(C.ink),cream:mat(C.cream),roof:mat(C.orange),green:mat(0x536a42),trunk:mat(0x685739),glass:mat(0x284e60),ochre:mat(C.ochre),rail:mat(0x5a635b),person:mat(0x173b52)};
- const personGeo=new THREE.CapsuleGeometry(.045,.13,2,4);this.queueMesh=new THREE.InstancedMesh(personGeo,this.materials.person,400);this.queueMesh.castShadow=true;this.dynamic.add(this.queueMesh);
- this.selectionRing=new THREE.Mesh(new THREE.TorusGeometry(.5,.035,8,48),mat(C.ochre));this.selectionRing.rotation.x=Math.PI/2;this.markers.add(this.selectionRing);this.scene.add(this.coverage);this.selectionRing.visible=false;
- new GLTFLoader().load(`${import.meta.env.BASE_URL}models/bus.glb`,g=>{this.bus=g.scene;this.bus.traverse(o=>{if(o instanceof THREE.Mesh){o.castShadow=true;o.receiveShadow=true;}});this.busLoaded=true;for(const [id,o] of this.vehicleMeshes)if(o.userData.mode==='bus'){this.dynamic.remove(o);this.vehicleMeshes.delete(id);}},undefined,()=>{console.error('Tripo bus model could not be loaded');});
- window.addEventListener('resize',()=>this.resize());this.resize();
- }
- disposeGroup(group:THREE.Group){for(const child of [...group.children]){group.remove(child);child.traverse(o=>{if(o instanceof THREE.Mesh||o instanceof THREE.Line){o.geometry.dispose();}});}}
- heightAt(x:number,z:number,level=this.current!){
- const ridge=3.2*Math.max(.12,Math.min(1,Math.max(...level.nodes.map(n=>n.h))/3.2));
- let h=.22+ridge*Math.exp(-Math.pow((x-3)/3.5,2))*(.75+.2*Math.cos(z*.55))-.7*Math.exp(-Math.pow((x-9)/1.8,2))+.10*Math.sin(x*1.3+z*.55);
- for(const c of level.corridors.filter(c=>c.bridge)){const points=corridorPoints(level,c),mid=(points[0].x+points.at(-1)!.x)/2;const channel=Math.exp(-Math.pow((x-mid-.15*Math.sin(z*.7))/.55,2));h-=channel*1.6;}
- for(const n of level.nodes){const distance=Math.hypot(x-n.x,z-n.z);if(distance<1.6)h=THREE.MathUtils.lerp(h,n.h,Math.pow(1-distance/1.6,1.2));}
- for(const c of level.corridors){if(c.forbidden||geometry(level,c).grade>.43)continue;const points=corridorPoints(level,c);for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b.x-a.x,dz=b.z-a.z,t=THREE.MathUtils.clamp(((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz),0,1),distance=Math.hypot(x-a.x-t*dx,z-a.z-t*dz);if(distance<.8&&!c.bridge){const w=distance<.23?1:Math.pow(1-(distance-.23)/.57,1.5);h=THREE.MathUtils.lerp(h,a.h+(b.h-a.h)*t-.065,w);}}}
- 
- if(x< -7.7+.16*Math.sin(z*.7))h=-.32;return h;
- }
- loadLevel(level:Level){this.current=level;this.revision=-1;this.activeStops='';this.disposeGroup(this.decor);this.disposeGroup(this.routes);this.disposeGroup(this.preview);this.vehicleMeshes.forEach(o=>this.dynamic.remove(o));this.vehicleMeshes.clear();this.labelRoot.innerHTML='';this.labels.clear();this.angle=0;this.tilt=.79;this.zoom=1;
- const terrainGeo=new THREE.PlaneGeometry(22,16,140,104);terrainGeo.rotateX(-Math.PI/2);const pos=terrainGeo.attributes.position;const colors=new Float32Array(pos.count*3);for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i),h=this.heightAt(x,z,level);pos.setY(i,h);const color=new THREE.Color(h<.0?0xd6c69f:h>1.7?0x839064:0xd8c49b);color.lerp(new THREE.Color(h>1.1?0x839064:0xe4d2aa),rng(i)*.22);color.toArray(colors,i*3);}terrainGeo.setAttribute('color',new THREE.BufferAttribute(colors,3));terrainGeo.computeVertexNormals();const terrain=new THREE.Mesh(terrainGeo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:false}));terrain.receiveShadow=true;this.decor.add(terrain);
- this.buildRim(level);const water=new THREE.Mesh(new THREE.PlaneGeometry(3.6,16.1,1,1),mat(C.sea,{roughness:.4,metalness:.13}));water.rotation.x=-Math.PI/2;water.position.set(-9.35,-.17,0);water.receiveShadow=true;this.decor.add(water);
- const wavePositions:number[]=[];for(let i=0;i<34;i++){let z=-7.8+i*.46;for(let j=0;j<4;j++){let x=-10.7+j*.75;wavePositions.push(x,-.158,z,x+.45,-.158,z+.03);}}const waves=new THREE.BufferGeometry();waves.setAttribute('position',new THREE.Float32BufferAttribute(wavePositions,3));this.decor.add(new THREE.LineSegments(waves,new THREE.LineBasicMaterial({color:0x90b5bb,transparent:true,opacity:.35})));
- this.contours(level);this.candidates(level);this.buildTrees(level);for(const n of level.nodes){this.buildSettlement(n);this.addLabel(n);}this.batchStatic();this.cameraUpdate();
- }
- batchStatic(){this.decor.updateMatrixWorld(true);const batches=new Map<THREE.Material,THREE.Mesh[]>();this.decor.traverse(o=>{if(o instanceof THREE.Mesh&&!Array.isArray(o.material)){const list=batches.get(o.material)||[];list.push(o);batches.set(o.material,list);}});for(const [material,meshes] of batches){if(meshes.length<3)continue;const geometries=meshes.map(m=>(m.geometry.index?m.geometry.toNonIndexed():m.geometry.clone()).applyMatrix4(m.matrixWorld));const merged=mergeGeometries(geometries,false);if(!merged)continue;const mesh=new THREE.Mesh(merged,material);mesh.castShadow=true;mesh.receiveShadow=true;meshes.forEach(m=>{m.removeFromParent();m.geometry.dispose();});geometries.forEach(g=>g.dispose());this.decor.add(mesh);}}
- buildRim(level:Level){const verts:number[]=[];const sides=[[-11,-8,11,-8],[11,-8,11,8],[11,8,-11,8],[-11,8,-11,-8]];for(const [ax,az,bx,bz] of sides){for(let i=0;i<110;i++){const t=i/110,u=(i+1)/110,x=ax+(bx-ax)*t,z=az+(bz-az)*t,x2=ax+(bx-ax)*u,z2=az+(bz-az)*u,h=this.heightAt(x,z,level),h2=this.heightAt(x2,z2,level);verts.push(x,h,z,x,-1.15,z,x2,h2,z2,x2,h2,z2,x,-1.15,z,x2,-1.15,z2);}}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));g.computeVertexNormals();this.decor.add(new THREE.Mesh(g,mat(0xc3ab7c,{side:THREE.DoubleSide})));}
- contours(level:Level){const lines:number[]=[];const step=.38;for(let z=-7.7;z<7.7;z+=step)for(let x=-7.8;x<10.7;x+=step){const coords=[[x,z],[x+step,z],[x+step,z+step],[x,z+step]];const heights=coords.map(([x,z])=>this.heightAt(x,z,level));for(let h=.5;h<4.2;h+=.48){const hits:number[][]=[];for(let j=0;j<4;j++){const k=(j+1)%4;if((heights[j]<h)!==(heights[k]<h)){const t=(h-heights[j])/(heights[k]-heights[j]);hits.push([coords[j][0]+(coords[k][0]-coords[j][0])*t,h+.015,coords[j][1]+(coords[k][1]-coords[j][1])*t]);}}for(let k=1;k<hits.length;k+=2)lines.push(...hits[k-1],...hits[k]);}}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(lines,3));this.decor.add(new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:0xe7dcbb,transparent:true,opacity:.42})));}
- candidates(level:Level){for(const c of level.corridors){const points=corridorPoints(level,c).map(p=>v3(p,.055));const g=new THREE.BufferGeometry().setFromPoints(points);const invalid=c.forbidden||geometry(level,c).grade>.42;const line=new THREE.Line(g,new THREE.LineDashedMaterial({color:invalid?0xaa7448:0x7f8068,dashSize:.13,gapSize:level.id>=21?.52:.22,transparent:true,opacity:invalid?.28:.43}));line.computeLineDistances();this.decor.add(line);}}
- box(parent:THREE.Object3D,x:number,y:number,z:number,w:number,h:number,d:number,material:THREE.Material){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y+h/2,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
- buildSettlement(n:MapNode){const g=new THREE.Group();g.position.set(n.x,n.h,n.z);this.decor.add(g);const M=this.materials;
- if(n.kind==='home'){for(let i=0;i<5;i++){const x=(i%3-1)*.45,z=Math.floor(i/3)*.6-.85,h=.3+rng(n.x*100+i)*.25;this.box(g,x,0,z,.34,h,.42,M.cream);const roof=new THREE.Mesh(new THREE.ConeGeometry(.34,.2,4),M.roof);roof.rotation.y=Math.PI/4;roof.position.set(x,h+.08,z);roof.scale.z=1.15;roof.castShadow=true;g.add(roof);this.box(g,x,.1,z+.216,.08,.12,.01,M.glass);}}
- else if(n.kind==='school'){this.box(g,-.4,0,-.6,1.25,.55,.65,M.cream);this.box(g,.38,0,-.9,.45,.95,.45,M.cream);this.box(g,-.4,.55,-.6,1.3,.06,.7,M.roof);for(let i=0;i<5;i++)this.box(g,-.88+i*.23,.22,-.265,.11,.18,.015,M.glass);this.box(g,.3,0,.1,.8,.025,.65,mat(0xb6ac89));}
- else if(n.kind==='jobs'){for(let i=0;i<3;i++){const h=.8+i*.23;this.box(g,-.6+i*.55,0,-.5,.46,h,.55,M.cream);for(let j=0;j<3;j++)this.box(g,-.6+i*.55,.2+j*.25,-.214,.32,.08,.01,M.glass);}}
- else if(n.kind==='clinic'){this.box(g,-.3,0,-.5,1.1,.5,.75,M.cream);this.box(g,-.3,.5,-.5,1.17,.05,.81,M.ochre);this.box(g,-.3,.18,-.116,.1,.26,.012,M.ink);this.box(g,-.3,.26,-.11,.27,.09,.012,M.ink);}
- else if(n.kind==='station'){this.box(g,0,0,-.55,1.0,.06,.42,M.cream);this.box(g,-.42,.06,-.55,.04,.35,.04,M.ink);this.box(g,.42,.06,-.55,.04,.35,.04,M.ink);this.box(g,0,.4,-.55,1.0,.05,.5,M.ochre);}
- const ring=new THREE.Mesh(new THREE.TorusGeometry(n.kind==='junction'?.17:.25,.025,5,32),M.cream);ring.rotation.x=Math.PI/2;ring.position.y=.07;g.add(ring);
- }
- buildTrees(level:Level){const trunk=this.materials.trunk,leaf=this.materials.green;for(let i=0;i<320;i++){const x=-7.2+rng(i+71)*17.8,z=-7.6+rng(i+91)*15.2,h=this.heightAt(x,z,level);if(h<.1||level.nodes.some(n=>Math.hypot(n.x-x,n.z-z)<1.4)||level.corridors.some(c=>{const pts=corridorPoints(level,c);for(let j=1;j<pts.length;j++){const a=pts[j-1],b=pts[j],dx=b.x-a.x,dz=b.z-a.z,t=THREE.MathUtils.clamp(((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz),0,1);if(Math.hypot(x-a.x-t*dx,z-a.z-t*dz)<.52)return true;}return false;}))continue;if(x< -2&&i%4!==0)continue;const size=.45+rng(i+31)*.7;const t=new THREE.Group();t.position.set(x,h,z);this.box(t,0,0,0,.045,size*.6,.045,trunk);for(let j=0;j<2;j++){const cone=new THREE.Mesh(new THREE.ConeGeometry(size*.19,size*.68,5),leaf);cone.position.y=size*(.55+j*.28);cone.castShadow=true;t.add(cone);}this.decor.add(t);}
- // Orchards on the low southern plain give land use a readable spatial texture.
- for(let i=0;i<36;i++){const x=-6.9+(i%6)*.26,z=5.9+Math.floor(i/6)*.24,h=this.heightAt(x,z,level);if(level.nodes.some(n=>Math.hypot(n.x-x,n.z-z)<1.1))continue;const bush=new THREE.Mesh(new THREE.IcosahedronGeometry(.09,0),this.materials.green);bush.position.set(x,h+.1,z);this.decor.add(bush);}
- }
- addLabel(n:MapNode){const el=document.createElement('button');el.className=`map-label ${n.kind}`;el.dataset.node=n.id;el.setAttribute('aria-label',n.label);const icons={home:'⌂',school:'⚑',jobs:'▥',clinic:'+',junction:'·',station:'▣'};el.innerHTML=`<span class="node-symbol">${icons[n.kind]}</span><span class="node-name">${n.label}</span><span class="queue-count"></span>`;el.addEventListener('click',event=>{event.stopPropagation();this.onNode(n.id);});this.labelRoot.append(el);this.labels.set(n.id,el);}
- lineRibbon(points:THREE.Vector3[],width:number,material:THREE.Material,parent:THREE.Object3D){for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],length=a.distanceTo(b),seg=new THREE.Mesh(new THREE.BoxGeometry(width,.035,length),material);seg.position.copy(a).add(b).multiplyScalar(.5);seg.lookAt(b);seg.castShadow=true;seg.receiveShadow=true;parent.add(seg);}for(const p of points){const join=new THREE.Mesh(new THREE.CylinderGeometry(width/2,width/2,.035,12),material);join.position.copy(p);parent.add(join);}}
- drawRoutes(s:State){this.disposeGroup(this.routes);for(const l of s.links){const points=corridorPoints(s.level,l.corridor).map(p=>v3(p,l.mode==='rail'?.13:l.mode==='bus'?.115:.085));const closed=l.corridor.closeAt!==undefined&&s.time>=l.corridor.closeAt;
- if(l.mode==='road'){this.lineRibbon(points,l.level===2?.4:.29,closed?mat(0xa67859):this.materials.ink,this.routes);for(let j=1;j<points.length;j++){const a=points[j-1],b=points[j],length=a.distanceTo(b);for(let t=.2;t<length;t+=.55){const p=a.clone().lerp(b,t/length);const dash=new THREE.Mesh(new THREE.BoxGeometry(.025,.01,.22),this.materials.cream);dash.position.copy(p);dash.position.y+=.025;dash.lookAt(b.clone().setY(dash.position.y));this.routes.add(dash);}}}
- else if(l.mode==='bus'){const shifted=points.map(p=>new THREE.Vector3(p.x+.09,p.y,p.z));const g=new THREE.BufferGeometry().setFromPoints(shifted);this.routes.add(new THREE.Line(g,new THREE.LineBasicMaterial({color:C.ochre,linewidth:2})));}
- else{for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dir=b.clone().sub(a),len=dir.length(),side=new THREE.Vector3(-dir.z,0,dir.x).normalize().multiplyScalar(.07);for(const sign of [-1,1]){const aa=a.clone().addScaledVector(side,sign),bb=b.clone().addScaledVector(side,sign);this.lineRibbon([aa,bb],.025,this.materials.rail,this.routes);}for(let t=0;t<len;t+=.24){const p=a.clone().lerp(b,t/len);const sleeper=new THREE.Mesh(new THREE.BoxGeometry(.27,.025,.045),this.materials.trunk);sleeper.position.copy(p);sleeper.lookAt(b);this.routes.add(sleeper);}}}
- if(l.corridor.bridge&&l.mode!=='bus'){const a=points[0],b=points.at(-1)!;this.lineRibbon(points,.52,this.materials.cream,this.routes);this.lineRibbon(points.map(p=>p.clone().add(new THREE.Vector3(0,.025,0))),.30,this.materials.ink,this.routes);for(let t=.12;t<.98;t+=.16){const p=a.clone().lerp(b,t);this.box(this.routes,p.x,-.7,p.z,.15,p.y+.7,.32,this.materials.cream);}}
- }
- this.markers.children.filter(o=>o!==this.selectionRing).forEach(o=>this.markers.remove(o));for(const id of s.stops){const n=node(s,id);const pole=new THREE.Group();pole.position.set(n.x+.32,n.h,n.z);this.box(pole,0,0,0,.035,.55,.035,this.materials.ink);this.box(pole,0,.4,0,.22,.22,.045,this.materials.ochre);this.markers.add(pole);}for(const id of s.services){const n=node(s,id);const ring=new THREE.Mesh(new THREE.TorusGeometry(.55,.04,6,40),this.materials.ochre);ring.rotation.x=Math.PI/2;ring.position.set(n.x,n.h+.08,n.z);this.markers.add(ring);}this.revision=s.revision;
- }
- makeVehicle(v:Vehicle){let g:THREE.Object3D;if(v.mode==='bus'&&this.bus){g=this.bus.clone(true);g.scale.setScalar(.82);}else{const group=new THREE.Group();const color=v.mode==='rail'?this.materials.cream:v.mode==='walk'?this.materials.person:this.materials.ochre;if(v.mode==='walk'){const body=new THREE.Mesh(new THREE.CapsuleGeometry(.04,.13,2,4),color);body.position.y=.12;group.add(body);}else{this.box(group,0,.02,0,v.mode==='rail'?.25:.17,v.mode==='rail'?.22:.12,v.mode==='rail'?1.15:.34,color);this.box(group,0,.14,0,.16,.07,.23,this.materials.glass);if(v.mode==='rail'){this.box(group,0,.17,.15,.26,.07,.9,this.materials.glass);this.box(group,0,.03,1.25,.25,.22,1.05,this.materials.cream);}}g=group;}g.userData.mode=v.mode;this.dynamic.add(g);return g;}
- vehiclePoint(s:State,v:Vehicle,t:number){const l=s.links.find(l=>l.id===v.linkId);let points=l?corridorPoints(s.level,l.corridor):[node(s,v.a),node(s,v.b)];if(points[0].x!==node(s,v.a).x||points[0].z!==node(s,v.a).z)points=[...points].reverse();const lengths=points.slice(1).map((p,i)=>Math.hypot(p.x-points[i].x,p.z-points[i].z));let remain=t*lengths.reduce((a,b)=>a+b,0);for(let i=0;i<lengths.length;i++){if(remain<=lengths[i]||i===lengths.length-1){const f=THREE.MathUtils.clamp(remain/lengths[i],0,1),a=points[i],b=points[i+1];return new THREE.Vector3(a.x+(b.x-a.x)*f,a.h+(b.h-a.h)*f+.12,a.z+(b.z-a.z)*f);}remain-=lengths[i];}return new THREE.Vector3();}
- render(s:State,selected:string|null,preview?:{a:string;b:string;ok:boolean},showCoverage=false){if(this.current!==s.level)this.loadLevel(s.level);const closed=s.level.corridors.filter(c=>c.closeAt!==undefined&&s.time>=c.closeAt).length;const stopKey=[...s.stops].join()+closed;if(this.revision!==s.revision||stopKey!==this.activeStops){this.drawRoutes(s);this.activeStops=stopKey;}
- const live=new Set(s.vehicles.map(v=>v.id));for(const [id,mesh] of this.vehicleMeshes)if(!live.has(id)){this.dynamic.remove(mesh);this.vehicleMeshes.delete(id);}for(const v of s.vehicles){let mesh=this.vehicleMeshes.get(v.id);if(!mesh){mesh=this.makeVehicle(v);this.vehicleMeshes.set(v.id,mesh);}const t=(s.time-v.start)/(v.end-v.start),p=this.vehiclePoint(s,v,t),next=this.vehiclePoint(s,v,Math.min(1,t+.015));mesh.position.copy(p);if(v.mode!=='walk')mesh.lookAt(next);}
- const dummy=new THREE.Object3D();let count=0;for(const n of s.level.nodes){const waiting=s.people.filter(p=>p.node===n.id&&p.status==='waiting');waiting.slice(0,40).forEach((p,i)=>{dummy.position.set(n.x-.65-(i%7)*.11,n.h+.12,n.z+.30+Math.floor(i/7)*.15);dummy.updateMatrix();this.queueMesh.setMatrixAt(count++,dummy.matrix);});const el=this.labels.get(n.id)!;el.classList.toggle('selected',selected===n.id);el.classList.toggle('has-stop',s.stops.has(n.id));el.classList.toggle('has-service',s.services.has(n.id));el.querySelector('.queue-count')!.textContent=waiting.length?`${waiting.length} ממתינים`:'';const pos=this.project(n);el.style.transform=`translate(-50%,-100%) translate(${pos.x}px,${pos.y-12}px)`;}
- const coverageKey=showCoverage&&selected?stateCoverageKey(s,selected):'';if(coverageKey!==this.coverageKey){this.disposeGroup(this.coverage);if(coverageKey&&selected){const n=node(s,selected),points=[];for(let i=0;i<=80;i++){const a=i/80*Math.PI*2,x=n.x+Math.cos(a)*(s.level.walkRadius??2.6),z=n.z+Math.sin(a)*(s.level.walkRadius??2.6);points.push(new THREE.Vector3(x,this.heightAt(x,z)+.09,z));}const g=new THREE.BufferGeometry().setFromPoints(points);const line=new THREE.Line(g,new THREE.LineDashedMaterial({color:0x203f56,dashSize:.12,gapSize:.08}));line.computeLineDistances();this.coverage.add(line);}this.coverageKey=coverageKey;}this.queueMesh.count=count;this.queueMesh.instanceMatrix.needsUpdate=true;this.selectionRing.visible=!!selected;if(selected){const n=node(s,selected);this.selectionRing.position.set(n.x,n.h+.07,n.z);}
- this.disposeGroup(this.preview);if(preview){const c=s.level.corridors.find(c=>pair(c.a,c.b)===pair(preview.a,preview.b));if(c){const points=corridorPoints(s.level,c).map(p=>v3(p,.2));const g=new THREE.BufferGeometry().setFromPoints(points);const l=new THREE.Line(g,new THREE.LineDashedMaterial({color:preview.ok?0xf9e8aa:0xc55f39,dashSize:.22,gapSize:.12}));l.computeLineDistances();this.preview.add(l);}}
- this.renderer.render(this.scene,this.camera);this.frames++;const now=performance.now();if(now-this.fpsTime>1000){this.fps=this.frames*1000/(now-this.fpsTime);this.frames=0;this.fpsTime=now;}
- }
- project(n:Point){const p=v3(n,.1).project(this.camera);return{x:(p.x*.5+.5)*this.width,y:(-.5*p.y+.5)*this.height};}
- pick(x:number,y:number,s:State){let closest:string|null=null,dist=45;for(const n of s.level.nodes){const p=this.project(n),d=Math.hypot(p.x-x,p.y-y);if(d<dist){closest=n.id;dist=d;}}return closest;}
- resize(){this.width=this.canvas.clientWidth;this.height=this.canvas.clientHeight;this.renderer.setSize(this.width,this.height,false);this.cameraUpdate();}
- cameraUpdate(){const aspect=this.width/this.height;const size=(aspect<1?12/aspect:8.2)/this.zoom;this.camera.left=-size*aspect;this.camera.right=size*aspect;this.camera.top=size;this.camera.bottom=-size;this.camera.position.set(Math.sin(this.angle)*28,Math.sin(this.tilt)*45,Math.cos(this.angle)*24);this.camera.lookAt(0,.5,0);this.camera.updateProjectionMatrix();}
- rotate(delta:number){this.angle=THREE.MathUtils.clamp(this.angle+delta,-.5,.5);this.cameraUpdate();}
- reset(){this.angle=0;this.tilt=.79;this.zoom=1;this.cameraUpdate();}
+  scene = new THREE.Scene();
+  camera: THREE.OrthographicCamera;
+  renderer: THREE.WebGLRenderer;
+  world = new THREE.Group();
+  routes = new THREE.Group();
+  decor = new THREE.Group();
+  dynamic = new THREE.Group();
+  preview = new THREE.Group();
+  markers = new THREE.Group();
+  bus: THREE.Group | null = null;
+  busLoaded = false;
+  vehicleMeshes = new Map<number, THREE.Object3D>();
+  queueMesh: THREE.InstancedMesh;
+  selected: string | null = null;
+  angle = 0;
+  tilt = 0.79;
+  zoom = 1;
+  private width = 1;
+  private height = 1;
+  private current: Level | null = null;
+  private revision = -1;
+  private activeStops = "";
+  private materials: Record<string, THREE.MeshStandardMaterial> = {};
+  private labels: Map<string, HTMLElement> = new Map();
+  fps = 0;
+  private frames = 0;
+  private fpsTime = performance.now();
+  private selectionRing: THREE.Mesh;
+  private coverage = new THREE.Group();
+  private coverageKey = "";
+  constructor(
+    public canvas: HTMLCanvasElement,
+    public labelRoot: HTMLElement,
+    public onNode: (id: string) => void,
+  ) {
+    this.renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: false,
+      preserveDrawingBuffer: true,
+      powerPreference: "high-performance",
+    });
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
+    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    this.renderer.toneMappingExposure = 1.22;
+    this.scene.background = new THREE.Color(0xe8d8b6);
+    this.scene.fog = new THREE.Fog(0xe8d8b6, 55, 100);
+    this.camera = new THREE.OrthographicCamera(-16, 16, 10, -10, 0.1, 150);
+    this.scene.add(new THREE.HemisphereLight(0xf8f3e1, 0xa1a07a, 2.35));
+    const sun = new THREE.DirectionalLight(0xffe7bd, 3);
+    sun.position.set(-12, 24, -10);
+    sun.castShadow = true;
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.camera.left = -18;
+    sun.shadow.camera.right = 18;
+    sun.shadow.camera.top = 15;
+    sun.shadow.camera.bottom = -15;
+    sun.shadow.normalBias = 0.035;
+    this.scene.add(sun);
+    this.scene.add(
+      this.world,
+      this.routes,
+      this.dynamic,
+      this.preview,
+      this.markers,
+    );
+    this.world.add(this.decor);
+    const ground = new THREE.Mesh(
+      new THREE.PlaneGeometry(200, 200),
+      mat(0xe3d1ad),
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -1.25;
+    ground.receiveShadow = true;
+    this.scene.add(ground);
+    this.materials = {
+      ink: mat(C.ink),
+      cream: mat(C.cream),
+      roof: mat(C.orange),
+      green: mat(0x536a42),
+      trunk: mat(0x685739),
+      glass: mat(0x284e60),
+      ochre: mat(C.ochre),
+      rail: mat(0x5a635b),
+      person: mat(0x173b52),
+    };
+    const personGeo = new THREE.CapsuleGeometry(0.045, 0.13, 2, 4);
+    this.queueMesh = new THREE.InstancedMesh(
+      personGeo,
+      this.materials.person,
+      400,
+    );
+    this.queueMesh.castShadow = true;
+    this.dynamic.add(this.queueMesh);
+    this.selectionRing = new THREE.Mesh(
+      new THREE.TorusGeometry(0.5, 0.035, 8, 48),
+      mat(C.ochre),
+    );
+    this.selectionRing.rotation.x = Math.PI / 2;
+    this.markers.add(this.selectionRing);
+    this.scene.add(this.coverage);
+    this.selectionRing.visible = false;
+    new GLTFLoader().load(
+      `${import.meta.env.BASE_URL}models/bus.glb`,
+      (g) => {
+        this.bus = g.scene;
+        this.bus.traverse((o) => {
+          if (o instanceof THREE.Mesh) {
+            o.castShadow = true;
+            o.receiveShadow = true;
+          }
+        });
+        this.busLoaded = true;
+        for (const [id, o] of this.vehicleMeshes)
+          if (o.userData.mode === "bus") {
+            this.dynamic.remove(o);
+            this.vehicleMeshes.delete(id);
+          }
+      },
+      undefined,
+      () => {
+        console.error("Tripo bus model could not be loaded");
+      },
+    );
+    window.addEventListener("resize", () => this.resize());
+    this.resize();
+  }
+  disposeGroup(group: THREE.Group) {
+    for (const child of [...group.children]) {
+      group.remove(child);
+      child.traverse((o) => {
+        if (o instanceof THREE.Mesh || o instanceof THREE.Line) {
+          o.geometry.dispose();
+        }
+      });
+    }
+  }
+  heightAt(x: number, z: number, level = this.current!) {
+    const ridge =
+      3.2 *
+      Math.max(
+        0.12,
+        Math.min(1, Math.max(...level.nodes.map((n) => n.h)) / 3.2),
+      );
+    let h =
+      0.22 +
+      ridge *
+        Math.exp(-Math.pow((x - 3) / 3.5, 2)) *
+        (0.75 + 0.2 * Math.cos(z * 0.55)) -
+      0.7 * Math.exp(-Math.pow((x - 9) / 1.8, 2)) +
+      0.1 * Math.sin(x * 1.3 + z * 0.55);
+    for (const c of level.corridors.filter((c) => c.bridge)) {
+      const points = corridorPoints(level, c),
+        mid = (points[0].x + points.at(-1)!.x) / 2;
+      const channel = Math.exp(
+        -Math.pow((x - mid - 0.15 * Math.sin(z * 0.7)) / 0.55, 2),
+      );
+      h -= channel * 1.6;
+    }
+    for (const n of level.nodes) {
+      const distance = Math.hypot(x - n.x, z - n.z);
+      if (distance < 1.6)
+        h = THREE.MathUtils.lerp(h, n.h, Math.pow(1 - distance / 1.6, 1.2));
+    }
+    for (const c of level.corridors) {
+      if (c.forbidden || geometry(level, c).grade > 0.43) continue;
+      const points = corridorPoints(level, c);
+      for (let i = 1; i < points.length; i++) {
+        const a = points[i - 1],
+          b = points[i],
+          dx = b.x - a.x,
+          dz = b.z - a.z,
+          t = THREE.MathUtils.clamp(
+            ((x - a.x) * dx + (z - a.z) * dz) / (dx * dx + dz * dz),
+            0,
+            1,
+          ),
+          distance = Math.hypot(x - a.x - t * dx, z - a.z - t * dz);
+        if (distance < 1.8 && !c.bridge) {
+          const w =
+            distance < 0.65 ? 1 : Math.pow(1 - (distance - 0.65) / 1.15, 1.5);
+          h = THREE.MathUtils.lerp(h, a.h + (b.h - a.h) * t - 0.065, w);
+        }
+      }
+    }
+
+    if (x < -7.7 + 0.16 * Math.sin(z * 0.7)) h = -0.32;
+    return h;
+  }
+  loadLevel(level: Level) {
+    this.current = level;
+    this.revision = -1;
+    this.activeStops = "";
+    this.disposeGroup(this.decor);
+    this.disposeGroup(this.routes);
+    this.disposeGroup(this.preview);
+    this.vehicleMeshes.forEach((o) => this.dynamic.remove(o));
+    this.vehicleMeshes.clear();
+    this.labelRoot.innerHTML = "";
+    this.labels.clear();
+    this.angle = 0;
+    this.tilt = 0.79;
+    this.zoom = 1;
+    const terrainGeo = new THREE.PlaneGeometry(22, 16, 140, 104);
+    terrainGeo.rotateX(-Math.PI / 2);
+    const pos = terrainGeo.attributes.position;
+    const colors = new Float32Array(pos.count * 3);
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i),
+        z = pos.getZ(i),
+        h = this.heightAt(x, z, level);
+      pos.setY(i, h);
+      const color = new THREE.Color(
+        h < 0.0 ? 0xd6c69f : h > 1.7 ? 0x839064 : 0xd8c49b,
+      );
+      color.lerp(new THREE.Color(h > 1.1 ? 0x839064 : 0xe4d2aa), rng(i) * 0.22);
+      color.toArray(colors, i * 3);
+    }
+    terrainGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    terrainGeo.computeVertexNormals();
+    const terrain = new THREE.Mesh(
+      terrainGeo,
+      new THREE.MeshStandardMaterial({
+        vertexColors: true,
+        roughness: 1,
+        flatShading: false,
+      }),
+    );
+    terrain.receiveShadow = true;
+    this.decor.add(terrain);
+    this.buildRim(level);
+    const water = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.6, 16.1, 1, 1),
+      mat(C.sea, { roughness: 0.4, metalness: 0.13 }),
+    );
+    water.rotation.x = -Math.PI / 2;
+    water.position.set(-9.35, -0.17, 0);
+    water.receiveShadow = true;
+    this.decor.add(water);
+    const wavePositions: number[] = [];
+    for (let i = 0; i < 34; i++) {
+      let z = -7.8 + i * 0.46;
+      for (let j = 0; j < 4; j++) {
+        let x = -10.7 + j * 0.75;
+        wavePositions.push(x, -0.158, z, x + 0.45, -0.158, z + 0.03);
+      }
+    }
+    const waves = new THREE.BufferGeometry();
+    waves.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(wavePositions, 3),
+    );
+    this.decor.add(
+      new THREE.LineSegments(
+        waves,
+        new THREE.LineBasicMaterial({
+          color: 0x90b5bb,
+          transparent: true,
+          opacity: 0.35,
+        }),
+      ),
+    );
+    this.contours(level);
+    this.candidates(level);
+    this.buildTrees(level);
+    for (const n of level.nodes) {
+      this.buildSettlement(n);
+      this.addLabel(n);
+    }
+    this.batchStatic();
+    this.cameraUpdate();
+  }
+  batchStatic() {
+    this.decor.updateMatrixWorld(true);
+    const batches = new Map<THREE.Material, THREE.Mesh[]>();
+    this.decor.traverse((o) => {
+      if (o instanceof THREE.Mesh && !Array.isArray(o.material)) {
+        const list = batches.get(o.material) || [];
+        list.push(o);
+        batches.set(o.material, list);
+      }
+    });
+    for (const [material, meshes] of batches) {
+      if (meshes.length < 3) continue;
+      const geometries = meshes.map((m) =>
+        (m.geometry.index
+          ? m.geometry.toNonIndexed()
+          : m.geometry.clone()
+        ).applyMatrix4(m.matrixWorld),
+      );
+      const merged = mergeGeometries(geometries, false);
+      if (!merged) continue;
+      const mesh = new THREE.Mesh(merged, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      meshes.forEach((m) => {
+        m.removeFromParent();
+        m.geometry.dispose();
+      });
+      geometries.forEach((g) => g.dispose());
+      this.decor.add(mesh);
+    }
+  }
+  buildRim(level: Level) {
+    const verts: number[] = [];
+    const sides = [
+      [-11, -8, 11, -8],
+      [11, -8, 11, 8],
+      [11, 8, -11, 8],
+      [-11, 8, -11, -8],
+    ];
+    for (const [ax, az, bx, bz] of sides) {
+      for (let i = 0; i < 110; i++) {
+        const t = i / 110,
+          u = (i + 1) / 110,
+          x = ax + (bx - ax) * t,
+          z = az + (bz - az) * t,
+          x2 = ax + (bx - ax) * u,
+          z2 = az + (bz - az) * u,
+          h = this.heightAt(x, z, level),
+          h2 = this.heightAt(x2, z2, level);
+        verts.push(
+          x,
+          h,
+          z,
+          x,
+          -1.15,
+          z,
+          x2,
+          h2,
+          z2,
+          x2,
+          h2,
+          z2,
+          x,
+          -1.15,
+          z,
+          x2,
+          -1.15,
+          z2,
+        );
+      }
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(verts, 3));
+    g.computeVertexNormals();
+    this.decor.add(
+      new THREE.Mesh(g, mat(0xc3ab7c, { side: THREE.DoubleSide })),
+    );
+  }
+  contours(level: Level) {
+    const lines: number[] = [];
+    const step = 0.38;
+    for (let z = -7.7; z < 7.7; z += step)
+      for (let x = -7.8; x < 10.7; x += step) {
+        const coords = [
+          [x, z],
+          [x + step, z],
+          [x + step, z + step],
+          [x, z + step],
+        ];
+        const heights = coords.map(([x, z]) => this.heightAt(x, z, level));
+        for (let h = 0.5; h < 4.2; h += 0.48) {
+          const hits: number[][] = [];
+          for (let j = 0; j < 4; j++) {
+            const k = (j + 1) % 4;
+            if (heights[j] < h !== heights[k] < h) {
+              const t = (h - heights[j]) / (heights[k] - heights[j]);
+              hits.push([
+                coords[j][0] + (coords[k][0] - coords[j][0]) * t,
+                h + 0.015,
+                coords[j][1] + (coords[k][1] - coords[j][1]) * t,
+              ]);
+            }
+          }
+          for (let k = 1; k < hits.length; k += 2)
+            lines.push(...hits[k - 1], ...hits[k]);
+        }
+      }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(lines, 3));
+    this.decor.add(
+      new THREE.LineSegments(
+        g,
+        new THREE.LineBasicMaterial({
+          color: 0xe7dcbb,
+          transparent: true,
+          opacity: 0.42,
+        }),
+      ),
+    );
+  }
+  candidates(level: Level) {
+    for (const c of level.corridors) {
+      const points = corridorPoints(level, c).map((p) => v3(p, 0.055));
+      const g = new THREE.BufferGeometry().setFromPoints(points);
+      const invalid = c.forbidden || geometry(level, c).grade > 0.42;
+      const line = new THREE.Line(
+        g,
+        new THREE.LineDashedMaterial({
+          color: invalid ? 0xaa7448 : 0x7f8068,
+          dashSize: 0.13,
+          gapSize: level.id >= 21 ? 0.52 : 0.22,
+          transparent: true,
+          opacity: invalid ? 0.28 : 0.43,
+        }),
+      );
+      line.computeLineDistances();
+      this.decor.add(line);
+    }
+  }
+  box(
+    parent: THREE.Object3D,
+    x: number,
+    y: number,
+    z: number,
+    w: number,
+    h: number,
+    d: number,
+    material: THREE.Material,
+  ) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+    mesh.position.set(x, y + h / 2, z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    parent.add(mesh);
+    return mesh;
+  }
+  buildSettlement(n: MapNode) {
+    const g = new THREE.Group();
+    g.position.set(n.x, n.h, n.z);
+    this.decor.add(g);
+    const M = this.materials;
+    if (n.kind === "home") {
+      for (let i = 0; i < 5; i++) {
+        const x = ((i % 3) - 1) * 0.45,
+          z = Math.floor(i / 3) * 0.6 - 0.85,
+          h = 0.3 + rng(n.x * 100 + i) * 0.25;
+        this.box(g, x, 0, z, 0.34, h, 0.42, M.cream);
+        const roof = new THREE.Mesh(
+          new THREE.ConeGeometry(0.34, 0.2, 4),
+          M.roof,
+        );
+        roof.rotation.y = Math.PI / 4;
+        roof.position.set(x, h + 0.08, z);
+        roof.scale.z = 1.15;
+        roof.castShadow = true;
+        g.add(roof);
+        this.box(g, x, 0.1, z + 0.216, 0.08, 0.12, 0.01, M.glass);
+      }
+    } else if (n.kind === "school") {
+      this.box(g, -0.4, 0, -0.6, 1.25, 0.55, 0.65, M.cream);
+      this.box(g, 0.38, 0, -0.9, 0.45, 0.95, 0.45, M.cream);
+      this.box(g, -0.4, 0.55, -0.6, 1.3, 0.06, 0.7, M.roof);
+      for (let i = 0; i < 5; i++)
+        this.box(g, -0.88 + i * 0.23, 0.22, -0.265, 0.11, 0.18, 0.015, M.glass);
+      this.box(g, 0.3, 0, 0.1, 0.8, 0.025, 0.65, mat(0xb6ac89));
+    } else if (n.kind === "jobs") {
+      for (let i = 0; i < 3; i++) {
+        const h = 0.8 + i * 0.23;
+        this.box(g, -0.6 + i * 0.55, 0, -0.5, 0.46, h, 0.55, M.cream);
+        for (let j = 0; j < 3; j++)
+          this.box(
+            g,
+            -0.6 + i * 0.55,
+            0.2 + j * 0.25,
+            -0.214,
+            0.32,
+            0.08,
+            0.01,
+            M.glass,
+          );
+      }
+    } else if (n.kind === "clinic") {
+      this.box(g, -0.3, 0, -0.5, 1.1, 0.5, 0.75, M.cream);
+      this.box(g, -0.3, 0.5, -0.5, 1.17, 0.05, 0.81, M.ochre);
+      this.box(g, -0.3, 0.18, -0.116, 0.1, 0.26, 0.012, M.ink);
+      this.box(g, -0.3, 0.26, -0.11, 0.27, 0.09, 0.012, M.ink);
+    } else if (n.kind === "station") {
+      this.box(g, 0, 0, -0.55, 1.0, 0.06, 0.42, M.cream);
+      this.box(g, -0.42, 0.06, -0.55, 0.04, 0.35, 0.04, M.ink);
+      this.box(g, 0.42, 0.06, -0.55, 0.04, 0.35, 0.04, M.ink);
+      this.box(g, 0, 0.4, -0.55, 1.0, 0.05, 0.5, M.ochre);
+    }
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(
+        n.kind === "junction" ? 0.17 : 0.25,
+        0.025,
+        5,
+        32,
+      ),
+      M.cream,
+    );
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = 0.07;
+    g.add(ring);
+  }
+  buildTrees(level: Level) {
+    const trunk = this.materials.trunk,
+      leaf = this.materials.green;
+    for (let i = 0; i < 320; i++) {
+      const x = -7.2 + rng(i + 71) * 17.8,
+        z = -7.6 + rng(i + 91) * 15.2,
+        h = this.heightAt(x, z, level);
+      if (
+        h < 0.1 ||
+        level.nodes.some((n) => Math.hypot(n.x - x, n.z - z) < 1.4) ||
+        level.corridors.some((c) => {
+          const pts = corridorPoints(level, c);
+          for (let j = 1; j < pts.length; j++) {
+            const a = pts[j - 1],
+              b = pts[j],
+              dx = b.x - a.x,
+              dz = b.z - a.z,
+              t = THREE.MathUtils.clamp(
+                ((x - a.x) * dx + (z - a.z) * dz) / (dx * dx + dz * dz),
+                0,
+                1,
+              );
+            if (Math.hypot(x - a.x - t * dx, z - a.z - t * dz) < 0.52)
+              return true;
+          }
+          return false;
+        })
+      )
+        continue;
+      if (x < -2 && i % 4 !== 0) continue;
+      const size = 0.45 + rng(i + 31) * 0.7;
+      const t = new THREE.Group();
+      t.position.set(x, h, z);
+      this.box(t, 0, 0, 0, 0.045, size * 0.6, 0.045, trunk);
+      for (let j = 0; j < 2; j++) {
+        const cone = new THREE.Mesh(
+          new THREE.ConeGeometry(size * 0.19, size * 0.68, 5),
+          leaf,
+        );
+        cone.position.y = size * (0.55 + j * 0.28);
+        cone.castShadow = true;
+        t.add(cone);
+      }
+      this.decor.add(t);
+    }
+    // Orchards on the low southern plain give land use a readable spatial texture.
+    for (let i = 0; i < 36; i++) {
+      const x = -6.9 + (i % 6) * 0.26,
+        z = 5.9 + Math.floor(i / 6) * 0.24,
+        h = this.heightAt(x, z, level);
+      if (level.nodes.some((n) => Math.hypot(n.x - x, n.z - z) < 1.1)) continue;
+      const bush = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(0.09, 0),
+        this.materials.green,
+      );
+      bush.position.set(x, h + 0.1, z);
+      this.decor.add(bush);
+    }
+  }
+  addLabel(n: MapNode) {
+    const el = document.createElement("button");
+    el.className = `map-label ${n.kind}`;
+    el.dataset.node = n.id;
+    el.setAttribute("aria-label", n.label);
+    const icons = {
+      home: "⌂",
+      school: "⚑",
+      jobs: "▥",
+      clinic: "+",
+      junction: "·",
+      station: "▣",
+    };
+    el.innerHTML = `<span class="node-symbol">${icons[n.kind]}</span><span class="node-name">${n.label}</span><span class="queue-count"></span>`;
+    el.addEventListener("click", (event) => {
+      event.stopPropagation();
+      this.onNode(n.id);
+    });
+    this.labelRoot.append(el);
+    this.labels.set(n.id, el);
+  }
+  lineRibbon(
+    points: THREE.Vector3[],
+    width: number,
+    material: THREE.Material,
+    parent: THREE.Object3D,
+  ) {
+    for (let i = 1; i < points.length; i++) {
+      const a = points[i - 1],
+        b = points[i],
+        length = a.distanceTo(b),
+        seg = new THREE.Mesh(
+          new THREE.BoxGeometry(width, 0.035, length),
+          material,
+        );
+      seg.position.copy(a).add(b).multiplyScalar(0.5);
+      seg.lookAt(b);
+      seg.castShadow = true;
+      seg.receiveShadow = true;
+      parent.add(seg);
+    }
+    for (const p of points) {
+      const join = new THREE.Mesh(
+        new THREE.CylinderGeometry(width / 2, width / 2, 0.035, 12),
+        material,
+      );
+      join.position.copy(p);
+      parent.add(join);
+    }
+  }
+  drawRoutes(s: State) {
+    this.disposeGroup(this.routes);
+    for (const l of s.links) {
+      const points = corridorPoints(s.level, l.corridor).map((p) =>
+        v3(p, l.mode === "rail" ? 0.13 : l.mode === "bus" ? 0.115 : 0.085),
+      );
+      const closed =
+        l.corridor.closeAt !== undefined && s.time >= l.corridor.closeAt;
+      if (l.mode === "road") {
+        this.lineRibbon(
+          points,
+          l.level === 2 ? 0.4 : 0.29,
+          closed ? mat(0xa67859) : this.materials.ink,
+          this.routes,
+        );
+        for (let j = 1; j < points.length; j++) {
+          const a = points[j - 1],
+            b = points[j],
+            length = a.distanceTo(b);
+          for (let t = 0.2; t < length; t += 0.55) {
+            const p = a.clone().lerp(b, t / length);
+            const dash = new THREE.Mesh(
+              new THREE.BoxGeometry(0.025, 0.01, 0.22),
+              this.materials.cream,
+            );
+            dash.position.copy(p);
+            dash.position.y += 0.025;
+            dash.lookAt(b.clone().setY(dash.position.y));
+            this.routes.add(dash);
+          }
+        }
+      } else if (l.mode === "bus") {
+        const shifted = points.map(
+          (p) => new THREE.Vector3(p.x + 0.09, p.y, p.z),
+        );
+        const g = new THREE.BufferGeometry().setFromPoints(shifted);
+        this.routes.add(
+          new THREE.Line(
+            g,
+            new THREE.LineBasicMaterial({ color: C.ochre, linewidth: 2 }),
+          ),
+        );
+      } else {
+        for (let i = 1; i < points.length; i++) {
+          const a = points[i - 1],
+            b = points[i],
+            dir = b.clone().sub(a),
+            len = dir.length(),
+            side = new THREE.Vector3(-dir.z, 0, dir.x)
+              .normalize()
+              .multiplyScalar(0.07);
+          for (const sign of [-1, 1]) {
+            const aa = a.clone().addScaledVector(side, sign),
+              bb = b.clone().addScaledVector(side, sign);
+            this.lineRibbon([aa, bb], 0.025, this.materials.rail, this.routes);
+          }
+          for (let t = 0; t < len; t += 0.24) {
+            const p = a.clone().lerp(b, t / len);
+            const sleeper = new THREE.Mesh(
+              new THREE.BoxGeometry(0.27, 0.025, 0.045),
+              this.materials.trunk,
+            );
+            sleeper.position.copy(p);
+            sleeper.lookAt(b);
+            this.routes.add(sleeper);
+          }
+        }
+      }
+      if (l.corridor.bridge && l.mode !== "bus") {
+        const a = points[0],
+          b = points.at(-1)!;
+        this.lineRibbon(points, 0.52, this.materials.cream, this.routes);
+        this.lineRibbon(
+          points.map((p) => p.clone().add(new THREE.Vector3(0, 0.025, 0))),
+          0.3,
+          this.materials.ink,
+          this.routes,
+        );
+        for (let t = 0.12; t < 0.98; t += 0.16) {
+          const p = a.clone().lerp(b, t);
+          this.box(
+            this.routes,
+            p.x,
+            -0.7,
+            p.z,
+            0.15,
+            p.y + 0.7,
+            0.32,
+            this.materials.cream,
+          );
+        }
+      }
+    }
+    this.markers.children
+      .filter((o) => o !== this.selectionRing)
+      .forEach((o) => this.markers.remove(o));
+    for (const id of s.stops) {
+      const n = node(s, id);
+      const pole = new THREE.Group();
+      pole.position.set(n.x + 0.32, n.h, n.z);
+      this.box(pole, 0, 0, 0, 0.035, 0.55, 0.035, this.materials.ink);
+      this.box(pole, 0, 0.4, 0, 0.22, 0.22, 0.045, this.materials.ochre);
+      this.markers.add(pole);
+    }
+    for (const id of s.services) {
+      const n = node(s, id);
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(0.55, 0.04, 6, 40),
+        this.materials.ochre,
+      );
+      ring.rotation.x = Math.PI / 2;
+      ring.position.set(n.x, n.h + 0.08, n.z);
+      this.markers.add(ring);
+    }
+    this.revision = s.revision;
+  }
+  makeVehicle(v: Vehicle) {
+    let g: THREE.Object3D;
+    if (v.mode === "bus" && this.bus) {
+      g = this.bus.clone(true);
+      g.scale.setScalar(0.82);
+    } else {
+      const group = new THREE.Group();
+      const color =
+        v.mode === "rail"
+          ? this.materials.cream
+          : v.mode === "walk"
+            ? this.materials.person
+            : this.materials.ochre;
+      if (v.mode === "walk") {
+        const body = new THREE.Mesh(
+          new THREE.CapsuleGeometry(0.04, 0.13, 2, 4),
+          color,
+        );
+        body.position.y = 0.12;
+        group.add(body);
+      } else {
+        this.box(
+          group,
+          0,
+          0.02,
+          0,
+          v.mode === "rail" ? 0.25 : 0.17,
+          v.mode === "rail" ? 0.22 : 0.12,
+          v.mode === "rail" ? 1.15 : 0.34,
+          color,
+        );
+        this.box(group, 0, 0.14, 0, 0.16, 0.07, 0.23, this.materials.glass);
+        if (v.mode === "rail") {
+          this.box(group, 0, 0.17, 0.15, 0.26, 0.07, 0.9, this.materials.glass);
+          this.box(
+            group,
+            0,
+            0.03,
+            1.25,
+            0.25,
+            0.22,
+            1.05,
+            this.materials.cream,
+          );
+        }
+      }
+      g = group;
+    }
+    g.userData.mode = v.mode;
+    this.dynamic.add(g);
+    return g;
+  }
+  vehiclePoint(s: State, v: Vehicle, t: number) {
+    const l = s.links.find((l) => l.id === v.linkId);
+    let points = l
+      ? corridorPoints(s.level, l.corridor)
+      : [node(s, v.a), node(s, v.b)];
+    if (points[0].x !== node(s, v.a).x || points[0].z !== node(s, v.a).z)
+      points = [...points].reverse();
+    const lengths = points
+      .slice(1)
+      .map((p, i) => Math.hypot(p.x - points[i].x, p.z - points[i].z));
+    let remain = t * lengths.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < lengths.length; i++) {
+      if (remain <= lengths[i] || i === lengths.length - 1) {
+        const f = THREE.MathUtils.clamp(remain / lengths[i], 0, 1),
+          a = points[i],
+          b = points[i + 1];
+        return new THREE.Vector3(
+          a.x + (b.x - a.x) * f,
+          a.h + (b.h - a.h) * f + 0.12,
+          a.z + (b.z - a.z) * f,
+        );
+      }
+      remain -= lengths[i];
+    }
+    return new THREE.Vector3();
+  }
+  render(
+    s: State,
+    selected: string | null,
+    preview?: { a: string; b: string; ok: boolean },
+    showCoverage = false,
+  ) {
+    if (this.current !== s.level) this.loadLevel(s.level);
+    const closed = s.level.corridors.filter(
+      (c) => c.closeAt !== undefined && s.time >= c.closeAt,
+    ).length;
+    const stopKey = [...s.stops].join() + closed;
+    if (this.revision !== s.revision || stopKey !== this.activeStops) {
+      this.drawRoutes(s);
+      this.activeStops = stopKey;
+    }
+    const live = new Set(s.vehicles.map((v) => v.id));
+    for (const [id, mesh] of this.vehicleMeshes)
+      if (!live.has(id)) {
+        this.dynamic.remove(mesh);
+        this.vehicleMeshes.delete(id);
+      }
+    for (const v of s.vehicles) {
+      let mesh = this.vehicleMeshes.get(v.id);
+      if (!mesh) {
+        mesh = this.makeVehicle(v);
+        this.vehicleMeshes.set(v.id, mesh);
+      }
+      const t = (s.time - v.start) / (v.end - v.start),
+        p = this.vehiclePoint(s, v, t),
+        next = this.vehiclePoint(s, v, Math.min(1, t + 0.015));
+      mesh.position.copy(p);
+      if (v.mode !== "walk") mesh.lookAt(next);
+    }
+    const dummy = new THREE.Object3D();
+    let count = 0;
+    for (const n of s.level.nodes) {
+      const waiting = s.people.filter(
+        (p) => p.node === n.id && p.status === "waiting",
+      );
+      waiting.slice(0, 40).forEach((p, i) => {
+        dummy.position.set(
+          n.x - 0.65 - (i % 7) * 0.11,
+          n.h + 0.12,
+          n.z + 0.3 + Math.floor(i / 7) * 0.15,
+        );
+        dummy.updateMatrix();
+        this.queueMesh.setMatrixAt(count++, dummy.matrix);
+      });
+      const el = this.labels.get(n.id)!;
+      el.classList.toggle("selected", selected === n.id);
+      el.classList.toggle("has-stop", s.stops.has(n.id));
+      el.classList.toggle("has-service", s.services.has(n.id));
+      el.querySelector(".queue-count")!.textContent = waiting.length
+        ? `${waiting.length} ממתינים`
+        : "";
+      const pos = this.project(n);
+      el.style.transform = `translate(-50%,-100%) translate(${pos.x}px,${pos.y - 12}px)`;
+    }
+    const coverageKey =
+      showCoverage && selected ? stateCoverageKey(s, selected) : "";
+    if (coverageKey !== this.coverageKey) {
+      this.disposeGroup(this.coverage);
+      if (coverageKey && selected) {
+        const n = node(s, selected),
+          points = [];
+        for (let i = 0; i <= 80; i++) {
+          const a = (i / 80) * Math.PI * 2,
+            x = n.x + Math.cos(a) * (s.level.walkRadius ?? 2.6),
+            z = n.z + Math.sin(a) * (s.level.walkRadius ?? 2.6);
+          points.push(new THREE.Vector3(x, this.heightAt(x, z) + 0.09, z));
+        }
+        const g = new THREE.BufferGeometry().setFromPoints(points);
+        const line = new THREE.Line(
+          g,
+          new THREE.LineDashedMaterial({
+            color: 0x203f56,
+            dashSize: 0.12,
+            gapSize: 0.08,
+          }),
+        );
+        line.computeLineDistances();
+        this.coverage.add(line);
+      }
+      this.coverageKey = coverageKey;
+    }
+    this.queueMesh.count = count;
+    this.queueMesh.instanceMatrix.needsUpdate = true;
+    this.selectionRing.visible = !!selected;
+    if (selected) {
+      const n = node(s, selected);
+      this.selectionRing.position.set(n.x, n.h + 0.07, n.z);
+    }
+    this.disposeGroup(this.preview);
+    if (preview) {
+      const c = s.level.corridors.find(
+        (c) => pair(c.a, c.b) === pair(preview.a, preview.b),
+      );
+      if (c) {
+        const points = corridorPoints(s.level, c).map((p) => v3(p, 0.2));
+        const g = new THREE.BufferGeometry().setFromPoints(points);
+        const l = new THREE.Line(
+          g,
+          new THREE.LineDashedMaterial({
+            color: preview.ok ? 0xf9e8aa : 0xc55f39,
+            dashSize: 0.22,
+            gapSize: 0.12,
+          }),
+        );
+        l.computeLineDistances();
+        this.preview.add(l);
+      }
+    }
+    this.renderer.render(this.scene, this.camera);
+    this.frames++;
+    const now = performance.now();
+    if (now - this.fpsTime > 1000) {
+      this.fps = (this.frames * 1000) / (now - this.fpsTime);
+      this.frames = 0;
+      this.fpsTime = now;
+    }
+  }
+  project(n: Point) {
+    const p = v3(n, 0.1).project(this.camera);
+    return {
+      x: (p.x * 0.5 + 0.5) * this.width,
+      y: (-0.5 * p.y + 0.5) * this.height,
+    };
+  }
+  pick(x: number, y: number, s: State) {
+    let closest: string | null = null,
+      dist = 45;
+    for (const n of s.level.nodes) {
+      const p = this.project(n),
+        d = Math.hypot(p.x - x, p.y - y);
+      if (d < dist) {
+        closest = n.id;
+        dist = d;
+      }
+    }
+    return closest;
+  }
+  resize() {
+    this.width = this.canvas.clientWidth;
+    this.height = this.canvas.clientHeight;
+    this.renderer.setSize(this.width, this.height, false);
+    this.cameraUpdate();
+  }
+  cameraUpdate() {
+    const aspect = this.width / this.height;
+    const size = (aspect < 1 ? 12 / aspect : 8.2) / this.zoom;
+    this.camera.left = -size * aspect;
+    this.camera.right = size * aspect;
+    this.camera.top = size;
+    this.camera.bottom = -size;
+    this.camera.position.set(
+      Math.sin(this.angle) * 28,
+      Math.sin(this.tilt) * 45,
+      Math.cos(this.angle) * 24,
+    );
+    this.camera.lookAt(0, 0.5, 0);
+    this.camera.updateProjectionMatrix();
+  }
+  rotate(delta: number) {
+    this.angle = THREE.MathUtils.clamp(this.angle + delta, -0.5, 0.5);
+    this.cameraUpdate();
+  }
+  reset() {
+    this.angle = 0;
+    this.tilt = 0.79;
+    this.zoom = 1;
+    this.cameraUpdate();
+  }
 }
