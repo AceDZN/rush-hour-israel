@@ -119,6 +119,7 @@ function board(
         : []),
     ]);
   return {
+    roadCells: [...ports.keys()],
     id,
     title,
     instruction,
@@ -180,6 +181,36 @@ function finish(m: Mission, actions: Action[], lesson: string) {
     0,
   );
   m.lesson = lesson;
+  // A missing road is still reserved road space. Buildings receive explicit
+  // lots before rendering, so a larger facade can never cover a puzzle socket.
+  const occupied = new Set([
+    ...(m.roadCells ?? []),
+    ...m.tiles.flatMap((t) => (t.cell ? [t.cell] : [])),
+    ...actions.flatMap((a) => (a.type === "place" ? [a.cell] : [])),
+    ...m.cells.filter((c) => c.landmark || c.servicePlot).map((c) => c.id),
+  ]);
+  for (const at of m.cells.filter((c) => c.landmark)) {
+    const candidates = [
+      [0, -1],
+      [1, 0],
+      [0, 1],
+      [-1, 0],
+    ].map(([dx, dz]) =>
+      m.cells.find((c) => c.x === at.x + dx && c.z === at.z + dz),
+    );
+    const lot = candidates.find(
+      (c) =>
+        c &&
+        c.terrain === "land" &&
+        c.height === at.height &&
+        !occupied.has(c.id),
+    );
+    if (lot) {
+      at.landmark!.lot = lot.id;
+      lot.terrain = "built";
+      occupied.add(lot.id);
+    }
+  }
   return m;
 }
 function kind(m: Mission, cell: string, kind: TileKind, rotation?: number) {

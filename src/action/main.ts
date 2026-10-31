@@ -68,6 +68,13 @@ app.innerHTML = [
   '<section id="paused" hidden><div><span class="pause-mark">Ⅱ</span><h2>עוצרים לנשום</h2><button id="resume">ממשיכים <span>▶</span></button></div></section>',
   '<dialog id="settings"><form method="dialog"><button class="close-dialog" aria-label="סגירה">×</button><h2>הדרך בידיים שלכם</h2><p>גררו חלק כדי להזיז אותו. הקישו על כביש חופשי כדי לסובב. אפשר גם לבחור חלק מהמגש ולהקיש במקום פנוי.</p><p class="keyboard">Q / E סיבוב · Z ביטול · רווח השהיה · R התחלה מחדש · F מסך מלא</p><label><input id="sound" type="checkbox"> צלילים</label><label><input id="motion" type="checkbox"> תנועה מצומצמת</label><div class="menu-actions"><button id="restart" type="button">התחלה מחדש</button><button id="fullscreen" type="button">מסך מלא</button></div><h3>24 בקרים, דרכים חדשות</h3><div id="mission-list"></div></form></dialog>',
 ].join("");
+// Preload the small local symbol faces used by later HUD states as well as
+// the opening text, so a victory does not request an uncached font offline.
+void Promise.all(
+  [400, 600, 800].map((weight) =>
+    document.fonts.load(weight + " 16px Heebo", "↶Ⅱ▶☰↻↓?←×★☆"),
+  ),
+).catch(() => {});
 const STORAGE = "rush-hour-road-puzzle-v3";
 let saved: {
   unlocked: number;

@@ -709,3 +709,11 @@ test("closure blocks new entry but a vehicle already entering finishes without p
   assert.equal(s.mode, "won");
   assert.equal(stats(s).arrived, 4);
 });
+
+test('built land rejects new infrastructure atomically with a building reason',()=>{
+ for(const kind of ['straight','clinic'] as const){
+  const s=createState(mission({cells:mission().cells.map(c=>c.id==='2,0'?{...c,terrain:'built',servicePlot:kind==='clinic'}:c),tiles:mission().tiles.map(t=>t.id==='loose'?{...t,kind}:t)}));
+  const before=core(s),history=s.undo.length;
+  assert.equal(place(s,'loose','2,0'),false);assert.match(s.message,/מבנה/);assert.deepEqual(core(s),before);assert.equal(s.undo.length,history);conserved(s);
+ }
+});

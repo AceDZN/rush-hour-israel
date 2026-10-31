@@ -17,10 +17,10 @@ export interface Cell {
   x: number;
   z: number;
   height: number;
-  terrain: "land" | "water" | "rock" | "quiet";
+  terrain: "land" | "water" | "rock" | "quiet" | "built";
   bridgeAxis?: 0 | 1;
   servicePlot?: boolean;
-  landmark?: { kind: LandmarkKind; label: string };
+  landmark?: { kind: LandmarkKind; label: string; lot?: string };
 }
 export interface Tile {
   id: string;
@@ -50,6 +50,7 @@ export type Action =
   | { type: "place"; tile: string; cell: string }
   | { type: "rotate"; tile: string; turns?: number };
 export interface Mission {
+  roadCells?: string[];
   id: number;
   title: string;
   instruction: string;

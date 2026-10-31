@@ -31,3 +31,7 @@ Heebo Hebrew font subsets are bundled from `@fontsource/heebo@5.2.8` (400/600/80
 ## Living-town rebuild reuse
 
 The redesign under `src/rebuild/` reuses the exact original Tripo bus above, unchanged (516,128 bytes, same hash). No new Tripo generation, processing or credits were used. Houses, recognizable school/courtyard/gate, clinic construction and open states, station, street intersections, grouped broadleaf trees and backpack passenger figures are original procedural Three.js geometry. Passenger figures move rigidly; no deforming character or facial rig is claimed. New original Web Audio composition/cues are implemented locally in `src/rebuild/sound.ts`, with no external music service or asset.
+
+## Confirmed tactile action-puzzle version
+
+The road-piece version in `src/action/` reuses the same permitted original Tripo bus GLB and its recorded ownership/hash/516,128-byte runtime file. No new Tripo generation, rigging, external model acquisition or credits were used. New bevelled road pieces, bridge/ramp/rail geometry, physical tray, authored building lots and rigid passenger figures are original procedural Three.js geometry. Rigid vehicle/figure transforms are not claimed as deforming character rigs. Built-in imagegen mockups under `docs/action-puzzle/mockups/` are design references, not runtime textures or working-game captures. The existing local MorningSound audio is reused by the new interaction.

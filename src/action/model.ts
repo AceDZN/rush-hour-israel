@@ -193,6 +193,7 @@ function busy(s: GameState, cell: string | null) {
   );
 }
 function placementReason(s: GameState, t: Tile, c: Cell): string | null {
+  if (c.terrain === "built") return "כאן יש מבנה. השאירו מקום לבתים ולשירותים.";
   if (c.terrain === "rock") return "הסלע חוסם את הכביש. נסו מסביב.";
   if (c.terrain === "quiet") return "כאן גינה שקטה. השאירו את הכביש מחוץ לה.";
   if (t.kind === "clinic")

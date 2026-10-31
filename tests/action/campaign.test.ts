@@ -230,3 +230,17 @@ test("24: the connected majority cannot win without opening the actual local cli
     ids,
   );
 });
+
+test('all24: explicit building lots preserve every authored road, puzzle socket and service plot',()=>{
+ for(const m of MISSIONS){
+  assert.ok(m.roadCells&&m.roadCells.length>0,`mission ${m.id} retains missing-road reservations`);
+  const reserved=new Set([...(m.roadCells??[]),...m.tiles.flatMap(t=>t.cell?[t.cell]:[]),...m.solution.flatMap(a=>a.type==='place'?[a.cell]:[]),...m.cells.filter(c=>c.landmark||c.servicePlot).map(c=>c.id)]);
+  const assigned=new Set<string>();
+  for(const pickup of m.cells.filter(c=>c.landmark?.lot)){
+   const lot=m.cells.find(c=>c.id===pickup.landmark!.lot)!;
+   assert.ok(lot,`mission ${m.id} lot exists`);assert.equal(reserved.has(lot.id),false,`mission ${m.id}: building at ${lot.id} overlaps required infrastructure`);assert.equal(assigned.has(lot.id),false);assigned.add(lot.id);assert.equal(lot.terrain,'built');assert.equal(lot.height,pickup.height);assert.equal(Math.abs(lot.x-pickup.x)+Math.abs(lot.z-pickup.z),1);
+  }
+  for(const built of m.cells.filter(c=>c.terrain==='built'))assert.ok(assigned.has(built.id));
+ }
+ const eight=getMission(8);assert.ok(eight.roadCells!.includes('0,1'));assert.equal(eight.cells.find(c=>c.id==='0,1')!.terrain,'land','the physical mission8 corner socket stays clear');
+});
