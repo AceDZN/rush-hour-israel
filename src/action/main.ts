@@ -9,7 +9,8 @@ import {
   cancelHold,
   createState,
   place,
-  path,
+  networkReady,
+  useHint,
   returnToTray,
   retry,
   roadPorts,
@@ -57,15 +58,15 @@ const app = $("app");
 app.innerHTML = [
   '<canvas id="game" aria-label="לוח דרכים תלת ממדי"></canvas>',
   '<div id="world-targets" aria-label="חלקים ומקומות בלוח"></div>',
-  '<header class="hud"><div class="identity"><span class="wordmark">שעת שיא<span class="brand-dot">.</span></span><span id="chapter"></span><button id="challenge-sample">אתגר לדוגמה ↗</button></div><div class="task"><span id="mission-name"></span><h1 id="instruction"></h1></div><div class="people-count"><span class="count-icon" aria-hidden="true"><svg width="26" height="28" viewBox="0 0 26 28" fill="currentColor"><circle cx="13" cy="7" r="4"/><path d="M6 25v-7a7 7 0 0 1 14 0v7z"/><circle cx="3" cy="10" r="2.5"/><circle cx="23" cy="10" r="2.5"/><path d="M0 23v-6a4 4 0 0 1 4-4h1v10zm21 0V13h1a4 4 0 0 1 4 4v6z"/></svg></span><b id="arrived">0</b><span class="count-slash">/</span><b id="total">6</b><small>הגיעו ליעד</small></div></header>',
-  '<div id="rescue-progress"><span id="rescue-stars" role="img"></span><span id="placement-progress"></span></div>',
+  '<header class="hud"><div class="identity"><span class="wordmark">שעת שיא<span class="brand-dot">.</span></span><span id="chapter"></span><button id="challenge-sample">אתגר לדוגמה ↗</button></div><div class="task"><span id="mission-name"></span><h1 id="instruction"></h1><div id="bonus-goals"><span id="goal-arrivals"></span><span id="goal-compact"></span><span id="goal-unaided"></span></div></div><div class="people-count"><span class="count-icon" aria-hidden="true"><svg width="26" height="28" viewBox="0 0 26 28" fill="currentColor"><circle cx="13" cy="7" r="4"/><path d="M6 25v-7a7 7 0 0 1 14 0v7z"/><circle cx="3" cy="10" r="2.5"/><circle cx="23" cy="10" r="2.5"/><path d="M0 23v-6a4 4 0 0 1 4-4h1v10zm21 0V13h1a4 4 0 0 1 4 4v6z"/></svg></span><b id="arrived">0</b><span class="count-slash">/</span><b id="total">6</b><small>הגיעו ליעד</small></div></header>',
   '<div id="north" class="north" hidden><span id="north-arrow">↑</span><small>צפון · מפה סכמטית</small></div>',
   '<div id="feedback" role="status" aria-live="polite"></div>',
   '<div id="selected-actions" hidden><span id="selected-name"></span><button id="rotate" aria-label="סובבו את החלק רבע סיבוב לימין"><span>↻</span>סיבוב</button><button id="rotate-back" aria-label="סובבו את החלק רבע סיבוב לשמאל">↺</button><button id="to-tray" aria-label="החזירו את החלק למגש">↓ למגש</button><button id="deselect" aria-label="סיימו בחירה">×</button></div>',
   '<div id="tray-caption">גררו חלק אל הלוח</div>',
   '<nav class="controls" aria-label="פקדי משחק"><button id="undo" title="צעד אחורה — Z" aria-label="צעד אחורה">↶</button><button id="pause" title="השהיה — רווח" aria-label="השהיה">Ⅱ</button><button id="menu" title="תפריט" aria-label="תפריט">☰</button></nav>',
-  '<button id="hint" class="hint-button" aria-label="רמז קטן" title="רמז קטן">?</button>',
-  '<section id="win" hidden aria-live="polite"><div><span id="stars" role="img"></span><h2>כולם הגיעו!</h2><p id="rating-text"></p><button id="replay" hidden>לנסות בפחות הזזות ↶</button><p id="win-text"></p></div><button id="next">לבוקר הבא <span>←</span></button></section>',
+  '<button id="hint" class="hint-button" aria-label="רמז — מוותר על בונוס ללא רמזים" title="רמז — מוותר על בונוס ללא רמזים">?</button><span id="hint-note">רמז מוותר על ★</span>',
+  '<section id="win" hidden aria-live="polite"><div><span id="stars" role="img"></span><h2>כולם הגיעו!</h2><p id="rating-text"></p><button id="tidy" hidden>לסדר את הבנייה</button><button id="replay" hidden>לנסות בלי רמזים ↶</button><p id="win-text"></p></div><button id="next">לבוקר הבא <span>←</span></button></section>',
+  '<section id="tidy-bar" hidden><span>סדרו את החלקים. החיבורים צריכים להישאר שלמים.</span><button id="done-tidying">סיימתי</button><button id="tidy-next" aria-label="לבוקר הבא">הבא ←</button></section>',
   '<section id="paused" hidden><div><span class="pause-mark">Ⅱ</span><h2>עוצרים לנשום</h2><button id="resume">ממשיכים <span>▶</span></button></div></section>',
   '<dialog id="settings"><form method="dialog"><button class="close-dialog" aria-label="סגירה">×</button><h2>הדרך בידיים שלכם</h2><p>גררו חלק כדי להזיז אותו. הקישו על כביש חופשי כדי לסובב. אפשר גם לבחור חלק מהמגש ולהקיש במקום פנוי.</p><p id="star-rules"></p><p class="keyboard">Q / E סיבוב · Z ביטול · רווח השהיה · R התחלה מחדש · F מסך מלא</p><label><input id="sound" type="checkbox"> צלילים</label><label><input id="motion" type="checkbox"> תנועה מצומצמת</label><div class="menu-actions"><button id="restart" type="button">התחלה מחדש</button><button id="fullscreen" type="button">מסך מלא</button></div><h3>24 בקרים, דרכים חדשות</h3><div id="mission-list"></div></form></dialog>',
 ].join("");
@@ -76,13 +77,13 @@ void Promise.all(
     document.fonts.load(weight + " 16px Heebo", "↶Ⅱ▶☰↻↓?←×★☆"),
   ),
 ).catch(() => {});
-const STORAGE = "rush-hour-road-puzzle-v5";
+const STORAGE = "rush-hour-road-puzzle-v6";
 let saved: {
   unlocked: number;
   stars: Record<number, number>;
   muted: boolean;
   reduced: boolean;
-  scoring?: "placements";
+  scoring?: "compact-unaided";
 } = {
   unlocked: 1,
   stars: {},
@@ -99,7 +100,8 @@ try {
     };
   else {
     const previous = JSON.parse(
-      localStorage.getItem("rush-hour-road-puzzle-v4") ??
+      localStorage.getItem("rush-hour-road-puzzle-v5") ??
+        localStorage.getItem("rush-hour-road-puzzle-v4") ??
         localStorage.getItem("rush-hour-road-puzzle-v3") ?? "null",
     );
     if (previous)
@@ -113,7 +115,7 @@ try {
   }
 } catch {}
 // Access/settings migrate; older score records remain intact under their old rules.
-saved.scoring = "placements";
+saved.scoring = "compact-unaided";
 const save = () => {
   try {
     localStorage.setItem(STORAGE, JSON.stringify(saved));
@@ -154,8 +156,7 @@ let pressed: {
 let toastUntil = 0,
   lastEvent = 0,
   savedWin = false,
-  previousMode = "playing",
-  hints = 0;
+  previousMode = "playing";
 let resumeAfterDialog = true;
 const settings = $<HTMLDialogElement>("settings");
 function tell(message: string, seconds = 2.5) {
@@ -178,7 +179,7 @@ function start(id: number) {
   ui.hint = null;
   savedWin = false;
   lastEvent = 0;
-  hints = 0;
+  state.reviewing = false;
   toastUntil = 0;
   if (settings.open) settings.close();
   scene.setMission(state.mission);
@@ -282,15 +283,18 @@ function update() {
     (m.id <= 2 ? "היכרות קצרה · " : "אתגר · ") + "<bdi>" + m.id + " / 24</bdi>";
   $("challenge-sample").hidden = m.id > 2;
   $("mission-name").textContent = m.title;
-  $("instruction").textContent = m.instruction;
+  $("instruction").textContent = state.reviewing
+    ? "החזירו עודפים למגש. השאירו את החיבורים שלמים."
+    : m.instruction;
   $("arrived").textContent = String(st.arrived);
   $("total").textContent = String(st.total);
-  $("rescue-stars").textContent = "★".repeat(st.stars) + "☆".repeat(3 - st.stars);
-  $("rescue-stars").setAttribute("aria-label", "דירוג צפוי בסיום: " + st.stars + " מתוך 3");
-  $("placement-progress").textContent = st.placements + " הזזות · יעד " + st.placementTarget;
-  $("rescue-progress").hidden = state.mode === "won";
-  $("rescue-progress").title = "דירוג צפוי, נשמר רק כשכולם מגיעים. 3 כוכבים עד " + st.placementTarget + " הזזות. סיבובים חופשיים.";
-  $("star-rules").textContent = "מסיימים כשכולם מגיעים. באתגר הזה: 3 כוכבים עד " + st.placementTarget + " הזזות, 2 כוכבים עד " + (st.placementTarget + 2) + ". מעבר לכך: כוכב אחד. כל הנחה במקום אחר בלוח היא הזזה אחת, גם בהחלפה. סיבובים, החזרה למגש, רמזים וזמן חופשיים. ביטול מחזיר גם את הספירה. זהו יעד שאפשר להשיג, לא בהכרח המספר המינימלי.";
+  $("goal-arrivals").textContent = (st.completed ? "★" : "☆") + " כולם ליעד";
+  $("goal-compact").innerHTML = (st.compact ? "★" : "☆") + ' בנייה קומפקטית: <bdi dir="ltr">' + st.buildPieces + " / " + st.buildTarget + "</bdi>";
+  $("goal-unaided").textContent = (st.unaided ? "★ בלי רמזים" : "☆ נעזרתם ברמז");
+  $("bonus-goals").hidden = state.mode === "won";
+  $("tidy-bar").hidden = !state.reviewing || state.mode === "paused" || ui.selected !== null;
+  $("hint-note").hidden = state.mode !== "playing" || state.reviewing;
+  $("star-rules").textContent = "שלושה כוכבים, שלוש מטרות: ★ כולם מגיעים ליעד; ★ בנייה קומפקטית עם עד " + st.buildTarget + " חלקים ניידים בלוח וחיבורים שלמים; ★ פתרון ללא רמזים. סופרים רק חלקים שאפשר להזיז, כולל חלקים שהתחילו בלוח. חלקים במגש לא נספרים. רק הסידור הסופי קובע — ניסיונות, סיבובים וזמן חופשיים. אחרי ההגעה אפשר לסדר עודפים. שימוש ברמז מוותר על הכוכב ללא רמזים עד ניסיון חדש; ביטול לא מחזיר אותו.";
   $("undo").toggleAttribute("disabled", state.undo.length === 0 && !state.held);
   $("pause").textContent =
     state.mode === "paused" ? icon("play") : icon("pause");
@@ -307,7 +311,7 @@ function update() {
     $("rotate-back").hidden = selected.kind === "clinic";
     $("to-tray").hidden = selected.cell === null && !state.held;
   }
-  $("tray-caption").hidden = state.mode === "won" || Boolean(selected);
+  $("tray-caption").hidden = state.mode === "won" || state.reviewing || Boolean(selected);
   $("tray-caption").textContent =
     m.id === 1
       ? "גררו את החלק אל הפער"
@@ -315,7 +319,7 @@ function update() {
         ? "הקשה על חלק = רבע סיבוב"
         : "גררו להזזה · הקישו לסיבוב";
   $("win").hidden = state.mode !== "won";
-  $("hint").hidden = state.mode === "won";
+  $("hint").hidden = state.mode !== "playing" || state.reviewing;
   $("north").hidden = m.id < 8;
   $("north-arrow").style.transform =
     "rotate(" + (scene.northAngle ?? 0) + "rad)";
@@ -339,8 +343,11 @@ function update() {
     ui.selected = null;
     $("stars").textContent = "★".repeat(st.stars) + "☆".repeat(3 - st.stars);
     $("stars").setAttribute("aria-label", st.stars + " מתוך 3 כוכבים");
-    $("rating-text").textContent = st.placements + " הזזות · 3 כוכבים עד " + st.placementTarget + " · סיבובים חופשיים";
-    $("replay").hidden = st.stars === 3;
+    $("rating-text").innerHTML =
+      "★ כולם הגיעו · " + (st.compact ? "★" : "☆") + ' <bdi dir="ltr">' + st.buildPieces + " / " + st.buildTarget + "</bdi> חלקים" +
+      (!st.networkReady ? " — החיבור אינו שלם" : "") + " · " + (st.unaided ? "★ בלי רמזים" : "☆ נעזרתם ברמז");
+    $("tidy").hidden = st.compact;
+    $("replay").hidden = st.unaided;
     $("win-text").textContent =
       m.id === 24
         ? "כל 24 הבקרים פתוחים. אפשר לחזור ולנסות דרך אחרת."
@@ -409,8 +416,27 @@ $("to-tray").onclick = () => {
   } else tell(state.message);
   update();
 };
-$("next").onclick = () =>
-  state.mission.id === 24 ? openSettings() : start(state.mission.id + 1);
+function nextMission() {
+  if (state.mission.id === 24) openSettings();
+  else start(state.mission.id + 1);
+}
+$("next").onclick = nextMission;
+$("tidy").onclick = () => {
+  clearGesture();
+  state.reviewing = true;
+  state.mode = "playing";
+  state.undo = [];
+  update();
+};
+function finishTidying() {
+  clearGesture();
+  state.reviewing = false;
+  state.mode = "won";
+  savedWin = false;
+  update();
+}
+$("done-tidying").onclick = finishTidying;
+$("tidy-next").onclick = () => { finishTidying(); nextMission(); };
 $("replay").onclick = () => start(state.mission.id);
 $("restart").onclick = () => {
   const id = state.mission.id;
@@ -438,25 +464,8 @@ $<HTMLInputElement>("motion").onchange = (e) => {
   save();
 };
 $("hint").onclick = () => {
-  const connected = state.mission.groups.every((g) => {
-    if (g.local)
-      return state.tiles.some(
-        (t) => t.cell === g.destination && t.kind === "clinic",
-      );
-    const stop = g.via ?? g.walkFrom ?? g.destination;
-    if (
-      !path(state, g.origin, stop, "bus") ||
-      !path(state, stop, g.origin, "bus")
-    )
-      return false;
-    return (
-      !g.via ||
-      Boolean(
-        path(state, g.via, g.walkFrom ?? g.destination, "rail") &&
-        path(state, g.walkFrom ?? g.destination, g.via, "rail"),
-      )
-    );
-  });
+  if (state.mode !== "playing" || state.reviewing) return;
+  const connected = networkReady(state);
   if (connected) {
     tell("החיבורים מוכנים. תנו לאוטובוס להגיע.", 2);
     return;
@@ -483,7 +492,7 @@ $("hint").onclick = () => {
   if (candidate) {
     ui.selected = candidate.id;
     ui.hint = candidate.id;
-    hints++;
+    useHint(state);
     const now = state.tiles.find((t) => t.id === candidate.id)!;
     tell(
       now.cell === candidate.cell
@@ -596,6 +605,7 @@ window.addEventListener("keydown", (e) => {
   } else if (e.code === "KeyR") {
     clearGesture();
     retry(state);
+    state.reviewing = false;
     ui.selected = null;
     ui.hint = null;
     savedWin = false;
@@ -641,7 +651,8 @@ function textState() {
     selected: ui.selected,
     held: ui.dragging,
     hover: ui.hover,
-    hints,
+    hints: state.hints,
+    tidying: state.reviewing,
     message: state.message,
     modelLoaded:
       scene.assetStatus.busLoaded &&
@@ -659,7 +670,7 @@ function textState() {
 }
 window.render_game_to_text = textState;
 window.advanceTime = (ms) => {
-  if (assetsReady()) tick(state, Math.max(0, ms) / 1000);
+  if (assetsReady() && !state.reviewing) tick(state, Math.max(0, ms) / 1000);
   scene.render(state, ui, 0);
   update();
 };
@@ -671,7 +682,7 @@ function assetsReady() {
 function frame(now: number) {
   const dt = Math.min(0.05, (now - previous) / 1000);
   previous = now;
-  if (assetsReady()) tick(state, dt);
+  if (assetsReady() && !state.reviewing) tick(state, dt);
   scene.render(state, ui, dt);
   audio.update(state.mode === "playing" && assetsReady());
   update();

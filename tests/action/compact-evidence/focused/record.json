@@ -1,0 +1,170 @@
+{
+  "method": "Actual pointer/keyboard/touch controls; read-only hook and elapsed time only. Final24 uses witness actions through UI, never injected state.",
+  "cases": [
+    {
+      "case": "Trial placements, nine rotations and long wait do not penalize identical compact unassisted final build",
+      "goal": {
+        "total": 6,
+        "arrived": 6,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 17,
+        "time": 65.82496666666432,
+        "placements": 4,
+        "buildPieces": 1,
+        "buildTarget": 1,
+        "networkReady": true,
+        "compact": true,
+        "unaided": true,
+        "completed": true,
+        "stars": 3,
+        "groups": [
+          {
+            "id": "kids",
+            "label": "הבתים",
+            "total": 6,
+            "arrived": 6
+          }
+        ]
+      }
+    },
+    {
+      "case": "Actual help forfeits only unaided bonus, survives Undo; explicit replay resets help and earns gold",
+      "goal": {
+        "total": 6,
+        "arrived": 6,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 1,
+        "time": 4.582499999999984,
+        "placements": 1,
+        "buildPieces": 1,
+        "buildTarget": 1,
+        "networkReady": true,
+        "compact": true,
+        "unaided": false,
+        "completed": true,
+        "stars": 2,
+        "groups": [
+          {
+            "id": "kids",
+            "label": "הבתים",
+            "total": 6,
+            "arrived": 6
+          }
+        ]
+      }
+    },
+    {
+      "case": "Rescue plus hinted bloated build earns1; frozen cleanup earns2; dismantling disqualifies compactness; repaired valid footprint restores2 and persists",
+      "before": {
+        "total": 22,
+        "arrived": 22,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 17,
+        "time": 32.62489999999946,
+        "placements": 8,
+        "buildPieces": 10,
+        "buildTarget": 8,
+        "networkReady": true,
+        "compact": false,
+        "unaided": false,
+        "completed": true,
+        "stars": 1,
+        "groups": [
+          {
+            "id": "coast",
+            "label": "קהילת החוף",
+            "total": 12,
+            "arrived": 12
+          },
+          {
+            "id": "hill",
+            "label": "השכונה במזרח",
+            "total": 6,
+            "arrived": 6
+          },
+          {
+            "id": "local",
+            "label": "הקבוצה למרפאה",
+            "total": 4,
+            "arrived": 4
+          }
+        ]
+      },
+      "after": {
+        "total": 22,
+        "arrived": 22,
+        "waiting": 0,
+        "riding": 0,
+        "walking": 0,
+        "moves": 21,
+        "time": 32.62489999999946,
+        "placements": 9,
+        "buildPieces": 8,
+        "buildTarget": 8,
+        "networkReady": true,
+        "compact": true,
+        "unaided": false,
+        "completed": true,
+        "stars": 2,
+        "groups": [
+          {
+            "id": "coast",
+            "label": "קהילת החוף",
+            "total": 12,
+            "arrived": 12
+          },
+          {
+            "id": "hill",
+            "label": "השכונה במזרח",
+            "total": 6,
+            "arrived": 6
+          },
+          {
+            "id": "local",
+            "label": "הקבוצה למרפאה",
+            "total": 4,
+            "arrived": 4
+          }
+        ]
+      }
+    },
+    {
+      "case": "Genuine touch freely rotates and finishes compact without help; goal strip and reward visible",
+      "banner": {
+        "x": 14,
+        "y": 599,
+        "width": 362,
+        "height": 123
+      }
+    },
+    {
+      "case": "V6 bonus scores are fresh; v5 scores untouched and access/settings preserved",
+      "saved": {
+        "current": {
+          "unlocked": 9,
+          "stars": {},
+          "muted": true,
+          "reduced": true,
+          "scoring": "compact-unaided"
+        },
+        "old": {
+          "unlocked": 9,
+          "stars": {
+            "1": 1,
+            "2": 2,
+            "8": 3
+          },
+          "muted": true,
+          "reduced": true
+        }
+      }
+    }
+  ],
+  "errors": []
+}

@@ -110,6 +110,9 @@ export interface Snapshot {
 }
 export interface GameState extends Snapshot {
   mission: Mission;
+  // Help use belongs to the attempt; an undo/cancel snapshot cannot erase it.
+  hints: number;
+  reviewing: boolean;
   revision: number;
   message: string;
   undo: Snapshot[];

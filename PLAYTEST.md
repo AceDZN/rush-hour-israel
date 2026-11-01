@@ -1,5 +1,5 @@
 # Current playtest record
 
-The current architectural/challenge pass is documented in [docs/polish/PLAYTEST.md](docs/polish/PLAYTEST.md) and [challenge review](docs/polish/CHALLENGE_REVIEW.md), with independent fixtures and normal-control checks in `tests/action/`. Its opening replay imports no authored solution or time hook.
+The human-selected compact-final-build and unaided-solution bonuses are documented in [docs/compact-stars/README.md](docs/compact-stars/README.md). Current model/control evidence is under `tests/action/compact-evidence/`; the broader architectural/challenge review is in [docs/polish/CHALLENGE_REVIEW.md](docs/polish/CHALLENGE_REVIEW.md).
 
-The earlier easier road-piece record in `docs/action-puzzle/PLAYTEST.md`, route-drawing record in `docs/redesign/`, and V1/V2 reports are historical. Their passing counts do not certify this refinement or establish fun. Human acceptance and student learning remain separate.
+The prior placement-target record in `docs/polish/PLAYTEST.md`, easier road-piece/route/atlas records and their score policies are historical. Geometry/asset/target-coverage records remain relevant where explicitly identified. Automated checks do not establish student enjoyment or learning.

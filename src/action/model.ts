@@ -170,6 +170,8 @@ export function createState(m: Mission): GameState {
   });
   return {
     mission: m,
+    hints: 0,
+    reviewing: false,
     tiles: clone(m.tiles),
     people,
     vehicles,
@@ -272,6 +274,7 @@ export function place(s: GameState, id: string, cellId: string): boolean {
   s.held = undefined;
   if (
     t.kind === "wide" &&
+    !s.reviewing &&
     s.mission.induced &&
     s.inducedAt === null &&
     !s.inducedDone
@@ -606,6 +609,7 @@ function advanceVehicle(s: GameState, v: Vehicle, dt: number) {
   }
 }
 export function tick(s: GameState, seconds: number) {
+  if (s.reviewing) return;
   if (s.mode !== "playing") return;
   let remaining = Math.max(0, Math.min(seconds, 600));
   while (remaining > 1e-7 && s.mode === "playing") {
@@ -676,11 +680,46 @@ export function tick(s: GameState, seconds: number) {
     }
   }
 }
+/** Actual solution help costs only the optional unaided bonus for this attempt. */
+export function useHint(s: GameState) {
+  if (s.mode !== "playing" || s.reviewing) return false;
+  s.hints++;
+  return true;
+}
+
+/** A compact result must retain usable journeys, not just an empty board. */
+export function networkReady(s: GameState) {
+  return s.mission.groups.every((g) => {
+    if (g.local)
+      return s.tiles.some((t) => t.kind === "clinic" && t.cell === g.destination);
+    const demand = s.people.filter((p) => p.group === g.id).length +
+      (s.inducedAt !== null && !s.inducedDone && s.mission.induced?.group === g.id
+        ? s.mission.induced.count : 0);
+    const legReady = (from: string, to: string, mode: Mode, leg: number) => {
+      const capacity = s.vehicles.filter((v) => v.group === g.id && v.leg === leg)
+        .reduce((n, v) => n + v.capacity, 0);
+      return capacity > 0 && Boolean(path(s, from, to, mode)) &&
+        (demand <= capacity || Boolean(path(s, to, from, mode)));
+    };
+    const stop = g.via ?? g.walkFrom ?? g.destination;
+    return legReady(g.origin, stop, "bus", 0) &&
+      (!g.via || legReady(g.via, g.walkFrom ?? g.destination, "rail", 1));
+  });
+}
+
 export function stats(s: GameState) {
   const arrived = s.people.filter((p) => p.arrived).length;
-  // A verified replay target, not a claimed optimum. Rotations and rejected,
-  // cancelled, same-origin or tray-return gestures never consume this budget.
-  const placementTarget = s.mission.solution.filter((a) => a.type === "place").length;
+  // Final footprint, independent of action history and interchangeable piece IDs.
+  const buildPieces = s.tiles.filter((t) => !t.locked &&
+    (t.cell !== null || (s.held?.tile === t.id && s.held.origin !== null))).length;
+  const buildTarget = s.mission.solution.length
+    ? new Set(s.mission.solution.map((a) => a.tile)).size
+    : s.mission.tiles.filter((t) => !t.locked).length;
+  const ready = networkReady(s);
+  const compact = !s.held && buildPieces <= buildTarget && ready;
+  const unaided = s.hints === 0;
+  const completed = s.people.length > 0 && arrived === s.people.length &&
+    (s.inducedAt === null || s.inducedDone);
   return {
     total: s.people.length,
     arrived,
@@ -691,8 +730,13 @@ export function stats(s: GameState) {
     moves: s.moves,
     time: s.time,
     placements: s.placements,
-    placementTarget,
-    stars: s.placements <= placementTarget ? 3 : s.placements <= placementTarget + 2 ? 2 : 1,
+    buildPieces,
+    buildTarget,
+    networkReady: ready,
+    compact,
+    unaided,
+    completed,
+    stars: completed ? 1 + Number(compact) + Number(unaided) : 0,
     groups: s.mission.groups.map((g) => ({
       id: g.id,
       label: g.label,

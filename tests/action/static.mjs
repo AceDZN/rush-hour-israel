@@ -1,7 +1,7 @@
 import { chromium } from "playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
-const out = "docs/polish/actual/production";
+const out = process.env.STATIC_EVIDENCE_DIR || "docs/compact-stars/actual/production";
 mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({
   headless: true,
@@ -54,6 +54,9 @@ const final = JSON.parse(
 assert.equal(final.mode, "won");
 assert.equal(final.goal.arrived, 6);
 assert.equal(final.goal.stars, 3);
+assert.equal(final.goal.completed, true);
+assert.equal(final.goal.compact, true);
+assert.equal(final.goal.unaided, true);
 assert.deepEqual(errors, []);
 await page.screenshot({ path: out + "/static-offline-win.png" });
 writeFileSync(

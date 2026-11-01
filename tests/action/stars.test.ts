@@ -19,146 +19,323 @@ import {
   stats,
   tick,
   undo,
+  useHint,
 } from "../../src/action/model";
-import type { GameState, Mission } from "../../src/action/types";
+import type { Cell, GameState, Mission, Tile } from "../../src/action/types";
 
+const cell = (x: number, z = 0, patch: Partial<Cell> = {}): Cell => ({
+  id: `${x},${z}`,
+  x,
+  z,
+  height: 0,
+  terrain: "land",
+  ...patch,
+});
+const tile = (
+  id: string,
+  at: string | null,
+  kind: Tile["kind"] = "straight",
+  rotation = 0,
+  locked = false,
+): Tile => ({ id, cell: at, kind, rotation, locked });
+function fixture(patch: Partial<Mission> = {}): Mission {
+  return {
+    id: 990,
+    title: "Final build QA",
+    instruction: "Repair then review",
+    lesson: "QA",
+    source: "independent fixture",
+    cols: 3,
+    rows: 2,
+    cells: [0, 1].flatMap((z) => [0, 1, 2].map((x) => cell(x, z))),
+    tiles: [
+      tile("home", "0,0", "straight", 0, true),
+      tile("road", null),
+      tile("goal", "2,0", "straight", 0, true),
+    ],
+    groups: [
+      { id: "g", origin: "0,0", destination: "2,0", count: 2, label: "homes" },
+    ],
+    fleet: [{ id: "bus", group: "g", leg: 0, mode: "bus", capacity: 6 }],
+    par: 1,
+    solution: [{ type: "place", tile: "road", cell: "1,0" }],
+    ...patch,
+  };
+}
 function finish(s: GameState) {
   tick(s, 300);
   assert.equal(s.mode, "won");
   assert.equal(stats(s).arrived, stats(s).total);
+  assert.equal(stats(s).completed, true);
   return stats(s);
 }
-function arrange(s: GameState, id: string, cell: string, orientation: number) {
+function arrange(s: GameState, id: string, at: string, orientation: number) {
   const t = s.tiles.find((t) => t.id === id)!;
   const turns = (orientation - t.rotation + 4) % 4;
   if (turns) assert.equal(rotate(s, id, turns), true);
-  if (t.cell !== cell) assert.equal(place(s, id, cell), true);
+  if (t.cell !== at) assert.equal(place(s, id, at), true);
 }
-function park(id = 1) {
-  const m = getMission(id);
-  return m.cells
-    .filter(
-      (c) =>
-        c.terrain === "land" &&
-        !c.landmark &&
-        !c.servicePlot &&
-        !m.tiles.some((t) => t.cell === c.id),
-    )
-    .map((c) => c.id);
+function cleanReferenceSpares(s: GameState, actions = s.mission.solution) {
+  const useful = new Set(actions.map((a) => a.tile));
+  for (const t of s.tiles)
+    if (!t.locked && t.cell && !useful.has(t.id))
+      assert.equal(returnToTray(s, t.id), true, t.id);
 }
 
-test("intro: many rotations and long planning time do not reduce the same one-placement rescue", () => {
-  const direct = createState(getMission(1));
-  assert.equal(place(direct, "first-road", "2,1"), true);
+test("identical final networks score equally after trial placements, rotations, cancellation and long waits", () => {
+  const direct = createState(fixture()),
+    explored = createState(fixture());
+  place(direct, "road", "1,0");
   const clean = finish(direct);
-  const explored = createState(getMission(1));
-  for (let n = 0; n < 40; n++)
-    assert.equal(rotate(explored, "first-road"), true);
+  for (let n = 0; n < 40; n++) rotate(explored, "road");
+  for (const at of ["0,1", "1,1", "2,1", "0,1"])
+    assert.equal(place(explored, "road", at), true);
+  assert.equal(beginHold(explored, "road"), true);
+  rotate(explored, "road");
+  cancelHold(explored);
+  assert.equal(returnToTray(explored, "road"), true);
   tick(explored, 65);
-  assert.equal(stats(explored).arrived, 0);
-  assert.equal(stats(explored).placements, 0);
-  assert.equal(place(explored, "first-road", "2,1"), true);
+  assert.equal(
+    stats(explored).stars,
+    0,
+    "no awarded or forecast stars before rescue",
+  );
+  place(explored, "road", "1,0");
   const result = finish(explored);
-  assert.equal(result.placementTarget, 1);
-  assert.equal(result.placements, 1);
+  assert.deepEqual(explored.tiles, direct.tiles);
+  assert.equal(result.buildPieces, 1);
+  assert.equal(result.buildTarget, 1);
   assert.equal(result.stars, 3);
   assert.equal(clean.stars, 3);
   assert.ok(result.time > clean.time + 60);
 });
 
-test("exact preview and win boundaries count extra committed placements, with the same final road", () => {
-  const [a, b] = park();
-  assert.ok(a && b);
-  const outcomes = [];
-  for (const extras of [0, 1, 2, 3]) {
-    const s = createState(getMission(1));
-    for (let n = 0; n < extras; n++)
-      assert.equal(place(s, "first-road", n % 2 === 0 ? a : b), true);
-    assert.equal(place(s, "first-road", "2,1"), true);
-    const expected = extras === 0 ? 3 : extras <= 2 ? 2 : 1;
-    assert.equal(stats(s).placements, extras + 1);
-    assert.equal(stats(s).placementTarget, 1);
-    assert.equal(stats(s).stars, expected);
-    const end = finish(s);
-    assert.equal(end.stars, expected);
-    outcomes.push(s.tiles);
-  }
-  for (const network of outcomes.slice(1))
-    assert.deepEqual(network, outcomes[0]);
+test("compact build and unaided solution are independent optional stars, with real 1/2/3 outcomes", () => {
+  for (const hinted of [false, true])
+    for (const clutter of [false, true]) {
+      const m = fixture();
+      m.tiles.push(tile("spare", clutter ? "1,1" : null));
+      const s = createState(m);
+      if (hinted) useHint(s);
+      place(s, "road", "1,0");
+      const st = finish(s);
+      assert.equal(st.buildPieces, clutter ? 2 : 1);
+      assert.equal(st.networkReady, true);
+      assert.equal(st.compact, !clutter);
+      assert.equal(st.unaided, !hinted);
+      assert.equal(st.stars, 1 + Number(!clutter) + Number(!hinted));
+    }
 });
 
-test("rejected, cancelled, rotated-in-place, same-origin and tray actions are free", () => {
-  const s = createState(getMission(1)),
-    [a] = park();
-  const built = s.mission.cells.find((c) => c.terrain === "built")!;
-  assert.equal(place(s, "first-road", built.id), false);
-  assert.equal(stats(s).placements, 0);
-  assert.equal(beginHold(s, "first-road"), true);
-  rotate(s, "first-road");
+test("post-arrival spare cleanup improves compactness without changing any rescued person", () => {
+  const m = fixture();
+  m.tiles.push(tile("spare", "1,1"));
+  const s = createState(m);
+  place(s, "road", "1,0");
+  assert.equal(finish(s).stars, 2);
+  const arrived = structuredClone(s.people);
+  assert.equal(returnToTray(s, "spare"), true);
+  assert.deepEqual(s.people, arrived);
+  assert.equal(stats(s).compact, true);
+  assert.equal(stats(s).stars, 3);
+  assert.equal(returnToTray(s, "road"), true);
+  assert.deepEqual(s.people, arrived);
+  assert.equal(stats(s).completed, true);
+  assert.equal(
+    stats(s).networkReady,
+    false,
+    "clearing essential roads cannot cheat the compact bonus",
+  );
+  assert.equal(stats(s).stars, 2);
+});
+
+test("held board inventory stays counted, tray inventory is excluded, and a held gesture cannot earn compact", () => {
+  const s = createState(fixture());
+  assert.equal(beginHold(s, "road"), true);
+  assert.equal(stats(s).buildPieces, 0);
+  assert.equal(stats(s).compact, false);
   cancelHold(s);
-  assert.equal(stats(s).placements, 0);
-  assert.equal(place(s, "first-road", a), true);
-  assert.equal(stats(s).placements, 1);
-  assert.equal(beginHold(s, "first-road"), true);
-  assert.equal(rotate(s, "first-road"), true);
-  assert.equal(place(s, "first-road", a), true);
+  place(s, "road", "1,0");
+  assert.equal(stats(s).buildPieces, 1);
+  assert.equal(beginHold(s, "road"), true);
   assert.equal(
-    stats(s).placements,
+    stats(s).buildPieces,
     1,
-    "returning to the original cell is a rotation, not a placement",
+    "lifting from the board is not cleanup",
   );
-  assert.equal(returnToTray(s, "first-road"), true);
-  assert.equal(stats(s).placements, 1);
-  rotate(s, "first-road", 3);
-  assert.equal(stats(s).placements, 1);
-  assert.equal(beginHold(s, "first-road"), true);
-  assert.equal(returnToTray(s, "first-road"), true);
-  assert.equal(stats(s).placements, 1);
+  assert.equal(stats(s).compact, false);
+  cancelHold(s);
+  assert.equal(stats(s).buildPieces, 1);
+  assert.equal(stats(s).networkReady, true);
+  assert.equal(returnToTray(s, "road"), true);
+  assert.equal(stats(s).buildPieces, 0);
 });
 
-test("a direct or held board swap commits one placement for two affected pieces", () => {
-  for (const held of [false, true]) {
-    const s = createState(getMission(24)),
-      a = s.tiles.find((t) => t.id === "road-1,3")!,
-      b = s.tiles.find((t) => t.id === "road-3,3")!,
-      origin = a.cell!,
-      destination = b.cell!;
-    if (held) assert.equal(beginHold(s, a.id), true);
-    assert.equal(place(s, a.id, destination), true);
-    assert.equal(stats(s).placements, 1);
-    assert.equal(a.cell, destination);
-    assert.equal(b.cell, origin);
-    assert.equal(undo(s), true);
-    assert.equal(stats(s).placements, 0);
+test("solution help survives Undo and held cancellation; retry alone starts a new unaided attempt", () => {
+  const s = createState(fixture());
+  place(s, "road", "0,1");
+  useHint(s);
+  assert.equal(stats(s).unaided, false);
+  assert.equal(undo(s), true);
+  assert.equal(stats(s).unaided, false);
+  beginHold(s, "road");
+  useHint(s);
+  cancelHold(s);
+  assert.equal(stats(s).unaided, false);
+  place(s, "road", "1,0");
+  assert.equal(finish(s).stars, 2);
+  retry(s);
+  assert.equal(stats(s).unaided, true);
+  assert.equal(stats(s).completed, false);
+  assert.equal(stats(s).stars, 0);
+  place(s, "road", "1,0");
+  assert.equal(finish(s).stars, 3);
+});
+
+test("build target counts unique useful pieces rather than gesture history; fallback counts unlocked inventory", () => {
+  const m = fixture();
+  m.solution.push(
+    { type: "rotate", tile: "road", turns: 4 },
+    { type: "place", tile: "road", cell: "1,0" },
+  );
+  const s = createState(m);
+  assert.equal(stats(s).buildTarget, 1);
+  const fallback = fixture({ solution: [] });
+  fallback.tiles.push(tile("spare", null));
+  assert.equal(stats(createState(fallback)).buildTarget, 2);
+});
+
+test("return connectivity is required exactly when group demand exceeds aggregate capacity for that leg", () => {
+  for (const [count, buses, ready] of [
+    [6, 1, true],
+    [7, 1, false],
+    [12, 2, true],
+    [13, 2, false],
+  ] as const) {
+    const m = fixture({
+      groups: [
+        {
+          id: "g",
+          origin: "0,0",
+          destination: "2,0",
+          count,
+          label: "one-way homes",
+        },
+      ],
+      fleet: Array.from({ length: buses }, (_, n) => ({
+        id: `bus${n}`,
+        group: "g",
+        leg: 0,
+        mode: "bus",
+        capacity: 6,
+      })),
+    });
+    m.tiles[0].kind = "oneway";
+    m.tiles[2].kind = "oneway";
+    const s = createState(m);
+    place(s, "road", "1,0");
+    assert.equal(
+      stats(s).networkReady,
+      ready,
+      `${count} people / ${buses} buses`,
+    );
   }
 });
 
-test("undo restores construction count and retry starts a fresh preview without history penalties", () => {
-  const s = createState(getMission(1)),
-    [a, b] = park();
-  place(s, "first-road", a);
-  place(s, "first-road", b);
-  assert.equal(stats(s).placements, 2);
-  assert.equal(undo(s), true);
-  assert.equal(stats(s).placements, 1);
-  assert.equal(undo(s), true);
-  assert.equal(stats(s).placements, 0);
-  assert.equal(s.tiles.find((t) => t.id === "first-road")!.cell, null);
-  place(s, "first-road", "2,1");
+test("rail transfer readiness requires both physical legs and the correct mode", () => {
+  const m = fixture({
+    cols: 4,
+    rows: 1,
+    cells: [0, 1, 2, 3].map((x) =>
+      cell(
+        x,
+        0,
+        x === 1 || x === 3
+          ? { landmark: { kind: "station", label: "station" } }
+          : {},
+      ),
+    ),
+    tiles: [
+      tile("home", "0,0", "straight", 0, true),
+      tile("station", "1,0", "straight", 0, true),
+      tile("track", null, "rail"),
+      tile("road", null),
+      tile("terminal", "3,0", "straight", 0, true),
+    ],
+    groups: [
+      {
+        id: "g",
+        origin: "0,0",
+        via: "1,0",
+        destination: "3,0",
+        count: 2,
+        label: "transfer",
+      },
+    ],
+    fleet: [
+      { id: "bus", group: "g", leg: 0, mode: "bus", capacity: 6 },
+      { id: "train", group: "g", leg: 1, mode: "rail", capacity: 14 },
+    ],
+    solution: [{ type: "place", tile: "track", cell: "2,0" }],
+  });
+  const s = createState(m);
+  place(s, "road", "2,0");
+  assert.equal(stats(s).networkReady, false);
+  returnToTray(s, "road");
+  place(s, "track", "2,0");
+  assert.equal(stats(s).networkReady, true);
   assert.equal(finish(s).stars, 3);
-  retry(s);
-  assert.equal(stats(s).placements, 0);
-  assert.equal(stats(s).placementTarget, 1);
-  assert.equal(
-    stats(s).stars,
-    3,
-    "stars are an explicitly labelled preview before rescue",
-  );
-  assert.equal(s.mode, "playing");
-  assert.equal(stats(s).arrived, 0);
+  assert.ok(s.people.every((p) => p.boardings === 2));
+  returnToTray(s, "track");
+  assert.equal(stats(s).networkReady, false);
 });
 
-test("the discovered four-piece return in13 earns gold below its verified six-placement target", () => {
+test("local clinic must remain on its designated plot after rescue", () => {
+  const m = fixture({
+    cells: [cell(0), cell(1, 0, { servicePlot: true }), cell(2)],
+    tiles: [tile("clinic", null, "clinic")],
+    groups: [
+      {
+        id: "g",
+        origin: "0,0",
+        destination: "1,0",
+        count: 2,
+        label: "local",
+        local: true,
+      },
+    ],
+    fleet: [],
+    solution: [{ type: "place", tile: "clinic", cell: "1,0" }],
+  });
+  const s = createState(m);
+  assert.equal(stats(s).networkReady, false);
+  place(s, "clinic", "1,0");
+  assert.equal(finish(s).stars, 3);
+  returnToTray(s, "clinic");
+  assert.equal(stats(s).completed, true);
+  assert.equal(stats(s).networkReady, false);
+  assert.equal(stats(s).compact, false);
+});
+
+test("a triggered scheduled group prevents completion and later remains in replay capacity demand", () => {
+  const m = fixture({ induced: { after: 20, count: 6, group: "g" } });
+  m.tiles[1].kind = "wide";
+  const s = createState(m);
+  place(s, "road", "1,0");
+  tick(s, 5);
+  assert.equal(stats(s).arrived, 2);
+  assert.equal(stats(s).completed, false);
+  assert.equal(stats(s).stars, 0);
+  assert.equal(stats(s).networkReady, true);
+  assert.equal(finish(s).total, 8);
+  assert.equal(stats(s).stars, 3);
+  assert.equal(s.inducedDone, true);
+  assert.equal(returnToTray(s, "road"), true);
+  assert.equal(stats(s).networkReady, false);
+  assert.equal(stats(s).completed, true);
+});
+
+test("the independent four-piece return in13 stays compact below the six-piece reference target", () => {
   const s = createState(getMission(13));
   tick(s, 10);
   assert.equal(stats(s).arrived, 6);
@@ -166,17 +343,19 @@ test("the discovered four-piece return in13 earns gold below its verified six-pl
   arrange(s, "return-corner", "3,1", 2);
   arrange(s, "road-2,0", "2,1", 2);
   arrange(s, "road-1,0", "1,1", 0);
-  const result = finish(s);
-  assert.equal(result.placements, 4);
-  assert.equal(result.placementTarget, 6);
-  assert.equal(result.stars, 3);
+  finish(s);
+  assert.equal(returnToTray(s, "road-0,1"), true);
+  assert.equal(stats(s).buildPieces, 4);
+  assert.equal(stats(s).buildTarget, 6);
+  assert.equal(stats(s).networkReady, true);
+  assert.equal(stats(s).stars, 3);
 });
 
-test("late reference builds and known alternatives keep gold despite free exploration and waiting", () => {
+test("every reference and known alternative remains three-star eligible after explicit spare cleanup", () => {
   const cases = [
-    ...Array.from({ length: 12 }, (_, n) => ({
-      id: n + 13,
-      actions: getMission(n + 13).solution,
+    ...Array.from({ length: 24 }, (_, n) => ({
+      id: n + 1,
+      actions: getMission(n + 1).solution,
     })),
     { id: 4, actions: ALTERNATE_4 },
     { id: 8, actions: ALTERNATE_8 },
@@ -184,58 +363,81 @@ test("late reference builds and known alternatives keep gold despite free explor
     { id: 23, actions: ALTERNATE_23 },
   ];
   for (const item of cases) {
-    const s = createState(getMission(item.id)),
-      free = s.tiles.find(
-        (t) => !t.locked && !["clinic", "bridge"].includes(t.kind),
-      )!;
-    for (let n = 0; n < 12; n++) assert.equal(rotate(s, free.id), true);
-    tick(s, 65);
+    const s = createState(getMission(item.id));
     for (const a of item.actions)
       assert.equal(applyAction(s, a), true, `mission ${item.id}: ${s.message}`);
-    const result = finish(s);
-    assert.ok(result.placements <= result.placementTarget);
-    assert.equal(result.stars, 3, `mission ${item.id}`);
+    finish(s);
+    cleanReferenceSpares(s, item.actions);
+    const st = stats(s);
+    assert.equal(st.networkReady, true, `mission ${item.id}`);
+    assert.ok(
+      st.buildPieces <= st.buildTarget,
+      `mission ${item.id}: ${st.buildPieces}/${st.buildTarget}`,
+    );
+    assert.equal(st.stars, 3, `mission ${item.id}`);
+    if (item.id === 22) {
+      assert.ok(s.closed.length > 0);
+      assert.equal(
+        st.networkReady,
+        true,
+        "the closure-safe final route remains available",
+      );
+    }
   }
 });
 
-test("a three-star construction preview cannot skip passengers scheduled after widening", () => {
-  const m: Mission = {
-    id: 999,
-    title: "Scheduled rescue",
-    instruction: "QA",
-    lesson: "QA",
-    source: "independent fixture",
-    cols: 3,
-    rows: 1,
-    cells: [0, 1, 2].map((x) => ({
-      id: `${x},0`,
-      x,
-      z: 0,
-      height: 0,
-      terrain: "land",
-    })),
-    tiles: [
-      { id: "home", kind: "straight", rotation: 0, cell: "0,0", locked: true },
-      { id: "wide", kind: "wide", rotation: 0, cell: null },
-      { id: "goal", kind: "straight", rotation: 0, cell: "2,0", locked: true },
-    ],
-    groups: [
-      { id: "g", origin: "0,0", destination: "2,0", count: 2, label: "homes" },
-    ],
-    fleet: [{ id: "bus", group: "g", leg: 0, mode: "bus", capacity: 6 }],
-    par: 1,
-    solution: [{ type: "place", tile: "wide", cell: "1,0" }],
-    induced: { after: 20, count: 6, group: "g" },
-  };
+test("review freezes passengers and clocks, suppresses new wide demand, and preserves a previously scheduled wave", () => {
+  const m = fixture({ induced: { after: 20, count: 6, group: "g" } });
+  m.tiles.push(tile("wide", null, "wide"));
   const s = createState(m);
-  place(s, "wide", "1,0");
-  tick(s, 5);
-  assert.equal(stats(s).arrived, 2);
-  assert.equal(s.people.length, 2);
-  assert.equal(stats(s).stars, 3);
-  assert.equal(s.mode, "playing", "preview is not an awarded rescue");
-  assert.equal(s.inducedDone, false);
-  assert.equal(finish(s).total, 8);
-  assert.equal(stats(s).stars, 3);
-  assert.equal(s.inducedDone, true);
+  useHint(s);
+  place(s, "road", "1,0");
+  finish(s);
+  s.reviewing = true;
+  s.mode = "playing";
+  s.undo = [];
+  const before = structuredClone({
+    people: s.people,
+    vehicles: s.vehicles,
+    time: s.time,
+    hints: s.hints,
+  });
+  tick(s, 60);
+  assert.deepEqual(
+    { people: s.people, vehicles: s.vehicles, time: s.time, hints: s.hints },
+    before,
+  );
+  assert.equal(place(s, "wide", "1,1"), true);
+  assert.equal(
+    s.inducedAt,
+    null,
+    "cleanup does not create a new rescue scenario",
+  );
+  assert.equal(useHint(s), false);
+  assert.equal(s.hints, before.hints);
+  assert.equal(undo(s), true);
+  assert.equal(
+    s.reviewing,
+    true,
+    "undo does not leave the frozen review phase",
+  );
+  assert.deepEqual(s.people, before.people);
+  assert.equal(stats(s).completed, true);
+  const pendingMission = fixture({
+    induced: { after: 20, count: 6, group: "g" },
+  });
+  pendingMission.tiles[1].kind = "wide";
+  const pending = createState(pendingMission);
+  place(pending, "road", "1,0");
+  tick(pending, 5);
+  const deadline = pending.inducedAt;
+  assert.ok(deadline !== null);
+  pending.reviewing = true;
+  tick(pending, 60);
+  assert.equal(pending.inducedAt, deadline);
+  assert.equal(pending.inducedDone, false);
+  assert.equal(pending.people.length, 2);
+  assert.equal(stats(pending).completed, false);
+  pending.reviewing = false;
+  assert.equal(finish(pending).total, 8);
 });

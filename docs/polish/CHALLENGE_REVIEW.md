@@ -1,6 +1,6 @@
-# Challenge, visual and placement-star review
+# Challenge, visual and final-build star review
 
-Status: independent model/content, informed pilot, target coverage, earned campaign, migration, hint/recovery and phone controls are complete. Runtime content remains version 4; the final placement-score namespace is version 5. Earlier scoring and browser records remain historical. Lead opening, production and focused scoring checks are recorded below.
+Status: independent model/content checks pass **86/86** and the earned final-build campaign passes **24/24** with 15 additional control/profile cases. Runtime content remains version 4; the final score namespace is version 6. The human explicitly selected compact final build plus solving without hints, superseding the placement fallback. The later cleanup-footer correction passes five bounded desktop/touch cases, recorded separately below.
 
 The human found the tactile game much better and requested stronger challenge and graphics. This pass preserves grab/rotate/snap, safe visible bus waits, untimed goals and quick recovery. The first two mornings are explicitly short introductions; the sample challenge opens 4 in practice without awarding progress.
 
@@ -20,7 +20,7 @@ The necessary pieces now have changed initial positions/orientations, rather tha
 
 ## Independent checks
 
-Run `node --import tsx --test tests/action/*.test.ts` from the repository root. The current **81/81** comprises twenty-two standalone rule fixtures, twenty-four primary witnesses, ten campaign counterexample/layout/service checks, seventeen challenge checks and eight placement-star checks. Standalone conservation, persistent identity, occupied/held transactions, height/mode, finite bridge, station transfer and service rules remain strict.
+Run `node --import tsx --test tests/action/*.test.ts` from the repository root. The current **86/86** comprises twenty-two standalone rule fixtures, twenty-four primary witnesses, ten campaign counterexample/layout/service checks, seventeen challenge checks and thirteen final-build/unaided star checks. Standalone conservation, persistent identity, occupied/held transactions, height/mode, finite bridge, station transfer and service rules remain strict.
 
 The secondary school footprint is explicit in `landmark.lots[]`. Every primary/extra lot stays at compatible height, avoids the union of roads/alternatives/initial parking/solution placement/service cells, and is unique. Extra lots are confined to schools and adjacent to the primary lot. Actual road placements on both primary and extra lots reject atomically with a building reason.
 
@@ -60,46 +60,58 @@ Initial visual assessment: the actual world has more developed asphalt/stone sur
 
 ## Full control and profile checks
 
-`tests/action/browser.ts` is updated for hook version 4, the final v5 score namespace, negative quarter-turns using Q and the visible counterclockwise phone button. The full sweep still uses actual drags/focus/keys and the read-only text hook; it does not inject a path, model action or victory. Its witness-assisted campaign replay is functional evidence, distinct from the pilot method above.
+`tests/action/browser.ts` uses hook version 4 and the final v6 score namespace, negative quarter-turns using Q and the visible counterclockwise phone button. The full sweep uses actual drags/focus/keys and the read-only text hook; it does not inject a path, model action or victory. Its witness-assisted campaign replay is functional evidence, distinct from the pilot method above.
 
-Isolated profile fixtures verify the final migration: version 5 imports access/settings from version 4 first, otherwise version 3, leaves both old records untouched, and starts new placement scores empty. An on-screen preview does not create a score, and the practice sample awards nothing by itself. Existing legitimate v5 silver/bronze ratings remain unchanged on reload; there is no automatic completion-to-gold promotion. These fixtures are separate from the fresh earned-campaign profile.
+Isolated profiles verify that version 6 imports access/settings from version 5 first, otherwise 4, otherwise 3; every old record remains untouched and new compact/unaided scores start empty. Criteria shown before rescue create no saved score, and the practice sample awards nothing by itself. Existing legitimate v6 silver/bronze ratings remain unchanged on reload. These fixtures are separate from the fresh earned-campaign profile.
 
-The additional partial-hint check in 12 leaves the east corner unfinished while the correctly counterclockwise-oriented ramp is already in place. The hint should identify the unfinished corner and preserve people; it must not mistake `-1` for a different orientation from `3`.
+The partial-hint check in 12 leaves the east corner unfinished while the correctly counterclockwise-oriented ramp is already in place. The hint identifies the unfinished corner and preserves people; it must not mistake `-1` for a different orientation from `3`. A hinted completion now correctly earns two stars even after a compact solution.
 
-The final earned-control run completed **24/24 sequential wins**, with every required person served, all 24 reference builds earning three stars within their placement targets, and unlock 24 persisted. `tests/action/polish-evidence/browser-results.json` records **zero blockers, zero errors, no Vite updates/reloads and `hmr.interrupted=false`**. It took about 134 seconds with later travel acceleration; that is an expert functional sweep, not a student challenge-time measurement. All three asset-ready flags were required before input.
+The earned-control run completed **24/24 sequential wins**, with every required person served, all 24 reference builds earning three stars after any necessary final-layout cleanup, and unlock 24 persisted. `tests/action/compact-evidence/browser-results.json` records **zero blockers, zero errors, no Vite updates/reloads and `hmr.interrupted=false`**. It ran from 07:50:16.911Z to 07:53:07.981Z on 2026-11-01 (171.07 seconds) with travel acceleration. This is an expert functional sweep, not a student challenge-time measurement. All three asset-ready flags were required before input. This complete run precedes the later cleanup-footer placement/text-selection correction; the bounded check below covers that correction without repeating all 24.
 
-All fourteen additional cases passed:
+All fifteen additional cases passed:
 
-- Mistakes and repair: the wrong corner and nonmodal hint in 2, rejected ordinary road on water in 11, return-network repair after the first six arrivals in 13, and recovery after closure in 22.
-- Transfer and guidance: a station wait and two actual boardings in 14, and a partial hint in 12 that preserves the already correct counterclockwise ramp and all people.
+- Mistakes and repair: wrong corner plus nonmodal hint in 2, rejected ordinary road on water in 11, return-network repair after the first six arrivals in 13, and recovery after closure in 22.
+- Transfer and guidance: station wait and two actual boardings in 14, and partial hint in 12 that preserves the already correct counterclockwise ramp and people.
 - Editing: real held-road removal/cancel in 3; selection ×, Escape and backdrop exit without charging or pausing.
-- Utilities: undo, pause, menu, settings, mute, reduced motion, fullscreen, resize, retry and the blur handler, followed by successful play.
-- Profiles: v4-first and v3-fallback migration into v5, untouched old records, fresh placement scores, no award from the practice preview, and preservation of existing v5 silver/bronze ratings.
-- Phone: actual clockwise/counterclockwise/close controls and complete touch play of 24, including inventory cleanup and a held bridge.
+- Utilities: undo, pause, menu, settings, mute, reduced motion, fullscreen, resize, retry and blur handler, followed by successful play.
+- Profiles: v5-first, v4-fallback and v3-fallback migration into v6; untouched old records, empty new score records, no award from practice preview, and preservation of existing v6 ratings.
+- Phone: actual clockwise/counterclockwise/close controls and complete touch play of 24, including a held bridge and genuine post-arrival cleanup through Done.
 
-At 390×844, genuine touch returned both legal spares to the tray, held the bridge during a live drag, then placed the bridge/ramp/corners/clinic and served 22/22. Inventory was conserved. The enlarged selected-actions bar fit; the reward bounds were (14, 582.5) with size 362×139.5. The final phone run used eight placements against a target of eight and earned three stars, despite nineteen legacy diagnostic input moves; rotations and returning spares were free. Held, moving and win captures were actually opened. This is emulated touch behaviour, not a physical-phone comfort/performance study.
+At 390×844, genuine touch placed the bridge/ramp/corners/clinic and served 22/22 while both parked spares remained. The actual review controls then returned them to the tray, preserving inventory and every passenger, and reduced the footprint from 10 to 8 against target 8. Time remained frozen during review. Done saved three stars. The selected-actions bar fit and reward bounds were (14,582.5), size 362×139.5. These are emulated touch checks, not a physical-phone comfort/performance study.
 
 The renderer readiness hook includes bus, school and all authored texture loads. A fallback cannot silently count as upgraded-art evidence.
 
+## Bounded final cleanup-footer check
+
+After the full campaign had closed, the cleanup controls moved to the bottom-right, now hide during selection, and use 44px buttons. Review instructions moved into the task heading; native game text selection is disabled. The general model and mission topology did not change.
+
+`EVIDENCE_DIR=tests/action/compact-evidence/tidy-final REVIEW_ONLY=TIDY npm run test:browser` runs normal desktop 24 controls and genuine CDP-touch 24 controls. The final record is separate from the completed full sweep: `tests/action/compact-evidence/tidy-final/review-TIDY-results.json`.
+
+All five bounded cases pass with no errors or hot reloads. Both profiles serve 22/22, remove both parked spares only after arrival, and retain 8/8 plus every required journey. Actual returned tray-target rectangles are 48×48 and do not overlap the visible footer. The desktop footer is at (1294.31,829), size 117.69×44; phone footer at (254.31,773), size 117.69×44. All controls fit their viewport. Selection hides the bar; × and Escape restore it. A real tray grab/drag and return remain accessible without native text selection, with time and rescued people unchanged. Desktop Next and phone Done both save the improved three-star result.
+
+The desktop/portrait review and phone win captures were opened. The toolbar no longer crosses tray targets, and the phone reward banner remains unobstructed. These bounded cases cover the later UI correction; the complete 24-mission sweep was not repeated afterward.
+
 ## Final optional star policy
 
-Stars measure a visible construction challenge, not time, rotation count or assistance:
+The human selected **compact final build + solving without hints**. Placement history no longer determines the rating. Three separate earned criteria are visible upfront:
 
-- A successful commit into a different board cell counts as one placement; swapping two pieces counts once.
-- Rotations, rejected drops, cancelled drags, returning to the original cell, returning to the tray, time and hints are free.
-- Undo restores the placement count. Retry starts a fresh attempt.
-- Three stars require placements at or below the shown reference target; two require at most target+2; one is awarded for any other completed rescue. Rescue itself has no hard placement limit.
-- The current count, target and projected stars appear before completion. A score is saved only after all required passengers arrive. The reference target is verified achievable, not claimed optimal.
+- One star for rescuing every required passenger, including triggered scheduled demand.
+- One optional star for leaving at most the shown useful-piece target on the board, with a functional network. Every unlocked board piece counts, including unused parked spares; tray pieces do not. A lifted board piece remains counted, and a held gesture cannot earn compactness.
+- One optional star for solving without solution hints. Hint use is latched for the attempt outside Undo snapshots. Retry starts a new attempt; ordinary instructions/settings are not solution hints.
 
-The eight independent cases in `tests/action/stars.test.ts` cover identical final first-level networks at target/target+1/target+2/target+3, forty free rotations and sixty-five seconds, rejected/cancel/same-origin/tray actions, direct/held swaps, undo/retry, compact 13 at four placements against six, all late reference/known alternate builds, and a gold preview that cannot bypass scheduled widening passengers. `model-results.txt` is the canonical 81-test output.
+The compact network must preserve each group's bus/rail outbound legs, necessary return routes when demand exceeds aggregate fleet capacity, designated local clinic, height/mode matching and current closures. Removing all roads after arrival cannot earn this bonus. The target counts unique useful reference-piece IDs, with unlocked-inventory fallback for unauthored fixtures; it is achievable, not claimed minimal. The independently discovered mission 13 return remains accepted at four pieces against a six-piece reference.
 
-After the complete browser sweep closed, the lead fixed one additional UI guard: successful Undo now clears `savedWin` for both the button and Z, so an improved run updates its displayed and stored rating. The later six-case actual-control scoring check passed, including fresh bronze 1 → Undo with both controls → gold 3 without retry. Its inspected captures also cover identical final intro networks earning 3/2/1 at 1/2/4 placements, free exploration, hints/time/tray, replay reset and profile migration. This focused check is later than the full sweep; the entire campaign was not rerun after that small guard correction.
+All trial placements, rotations, waiting and Undo are free of history penalties. The same final layout with the same hint status receives the same rating. Hinted+cluttered, hinted+compact, unaided+cluttered and unaided+compact builds yield 1/2/2/3 respectively. No total star award is forecast before rescue.
+
+After arrival the player can enter untimed cleanup, return spares to the tray and choose Done. An authoritative review flag freezes people/vehicles/time, prevents new wide-road demand or hint use, and survives Undo. Entering review clears pre-rescue Undo snapshots. Existing induced demand is preserved; already rescued people stay immutable. The compact flag can be improved by cleanup or lost by dismantling an essential route.
+
+The thirteen independent cases in `tests/action/stars.test.ts` cover identical-layout history invariance, all four optional-criterion combinations, cleanup versus dismantling, held inventory, persistent hints/Undo/retry, unique targets, aggregate capacity and returns, rail transfer, designated clinic, pending induced demand, compact13, all 24 references/four known alternatives after explicit spare cleanup, and frozen-review guards. The canonical 86-test output is `tests/action/compact-evidence/model-results.txt`.
 
 ## Final opening and production records
 
-The lead's isolated opening replay used no authored solution import, hint, progress injection or time hook. It recorded desktop first win 4.264 seconds, two desktop mornings including undo/retry 15.274 seconds, and two portrait mornings 9.440 seconds. Errors were empty and hot reload was false. These are expert interaction timings, not naive-student discovery or challenge measurements. Evidence: `tests/action/polish-evidence/opening/record.json`.
+The lead's current compact-policy opening replay used no authored solution import, hint, progress injection or time hook. It recorded desktop first win 11.123seconds, two desktop mornings including undo/retry 23.965 seconds, and two portrait mornings 10.804 seconds. Errors were empty and hot reload was false. These are expert interaction timings on this host, not naive-student discovery or challenge measurements. Evidence: `tests/action/compact-evidence/opening/record.json`. The opening predates the bounded cleanup-footer correction, which does not change the introductory flow.
 
-After the Undo guard fix, the lead's final build/static/stock checks passed. The production build served 6/6 offline after assets/fonts loaded, with a real pointer drag and later elapsed-time acceleration, no errors and **4,340,889 bytes** of decoded resource bodies (about 4.34 MB). This is offline after load, not an uncached offline first visit or compressed transfer-size claim. Evidence: `docs/polish/actual/production/static-check.json`; stock and focused scoring captures were inspected by the lead.
+The lead owns the final production/offline/stock/focused score checks and their current records under `docs/compact-stars/`. Earlier placement-policy timing and resource measurements remain historical under `polish-evidence/` and must not be presented as the current score policy.
 
 ## Projected editing targets and cutaway correction
 

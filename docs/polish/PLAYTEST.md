@@ -1,4 +1,6 @@
-# Architectural/challenge verification
+# Architectural/challenge verification — historical scoring checkpoint
+
+The placement-target scoring below records commit `1b6119b`. The later explicit human preference supersedes it; see [current final-build/unaided rules and checks](../compact-stars/README.md). Architectural input/geometry evidence remains relevant.
 
 Current runtime: version 4, `src/action/`, 24 authored grab/rotate/snap boards. The first two are short introductions; later boards require finite-piece planning, including supported bridges, height-matched ramps, return routes, transfers and local access. Reference plans are witnesses, not optimality claims. See `CHALLENGE_REVIEW.md` for alternatives, counterexamples and the informed pilot method.
 

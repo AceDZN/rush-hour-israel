@@ -1,0 +1,90 @@
+{
+  "url": "http://localhost:5303/action.html",
+  "started": "2026-11-01T08:00:38.967Z",
+  "campaign": [],
+  "blockers": [],
+  "cases": [
+    {
+      "case": "desktop post-arrival footer clears48px tray targets; selection/close/Escape restore; actual tray drag and return; no native text selection",
+      "footer": {
+        "x": 1294.3125,
+        "y": 829,
+        "width": 117.6875,
+        "height": 44
+      },
+      "tray": [
+        {
+          "id": "spare-24-0",
+          "box": {
+            "x": 688.5625,
+            "y": 727.515625,
+            "width": 48,
+            "height": 48
+          }
+        },
+        {
+          "id": "spare-24-1",
+          "box": {
+            "x": 836.015625,
+            "y": 710.515625,
+            "width": 48,
+            "height": 48
+          }
+        }
+      ]
+    },
+    {
+      "case": "desktop24 post-arrival cleanup then Next saves gold",
+      "arrived": 22
+    },
+    {
+      "case": "portrait visible counterclockwise and clockwise buttons rotate exactly one quarter-turn each; selection close fits viewport"
+    },
+    {
+      "case": "portrait post-arrival footer clears48px tray targets; selection/close/Escape restore; actual tray drag and return; no native text selection",
+      "footer": {
+        "x": 254.3125,
+        "y": 773,
+        "width": 117.6875,
+        "height": 44
+      },
+      "tray": [
+        {
+          "id": "spare-24-0",
+          "box": {
+            "x": 189.671875,
+            "y": 606.1875,
+            "width": 48,
+            "height": 48
+          }
+        },
+        {
+          "id": "spare-24-1",
+          "box": {
+            "x": 120.625,
+            "y": 602.171875,
+            "width": 48,
+            "height": 48
+          }
+        }
+      ]
+    },
+    {
+      "case": "24 portrait390×844 genuine touch bridge/ramp/corner/clinic, post-arrival spare cleanup and Done",
+      "arrived": 22,
+      "banner": {
+        "x": 14,
+        "y": 582.5,
+        "width": 362,
+        "height": 139.5
+      }
+    }
+  ],
+  "errors": [],
+  "hmr": {
+    "pageReloads": 0,
+    "messages": [],
+    "interrupted": false
+  },
+  "completed": "2026-11-01T08:01:00.600Z"
+}
