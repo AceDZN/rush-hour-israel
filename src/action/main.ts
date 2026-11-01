@@ -20,6 +20,7 @@ import {
   undo,
 } from "./model";
 import { RoadScene } from "./scene";
+import { initHost, parseLevelParam, postToHost } from "./host";
 import { MorningSound } from "../rebuild/sound";
 import type { GameState, SceneUI, TileKind } from "./types";
 
@@ -54,6 +55,7 @@ const names: Record<TileKind, string> = {
   wide: "כביש רחב",
   oneway: "כביש חד־סטרי",
 };
+initHost("rush-hour-israel");
 const app = $("app");
 app.innerHTML = [
   '<canvas id="game" aria-label="לוח דרכים תלת ממדי"></canvas>',
@@ -122,9 +124,9 @@ const save = () => {
   } catch {}
 };
 save();
-let requested = Number(new URLSearchParams(location.search).get("level"));
-if (!Number.isInteger(requested) || requested < 1 || requested > 24)
-  requested = saved.unlocked;
+// ?level=N opens that authored board even when the local save has it locked.
+const deepLink = parseLevelParam(location.search, MISSIONS.length);
+const requested = deepLink === null ? saved.unlocked : deepLink + 1;
 let state = createState(getMission(requested));
 const ui: SceneUI = {
   selected: null,
@@ -158,6 +160,17 @@ let toastUntil = 0,
   savedWin = false,
   previousMode = "playing";
 let resumeAfterDialog = true;
+// Workbook host: `ready` once the models have rendered, then `level-start`
+// for every opened attempt; `level-complete` once per attempt, again only if
+// post-rescue tidying raises the stars.
+let hostReady = false,
+  levelStartedAt = performance.now(),
+  postedStars = 0;
+function levelStarted() {
+  levelStartedAt = performance.now();
+  postedStars = 0;
+  if (hostReady) postToHost({ type: "level-start", level: state.mission.id });
+}
 const settings = $<HTMLDialogElement>("settings");
 function tell(message: string, seconds = 2.5) {
   $("feedback").textContent = message;
@@ -184,6 +197,7 @@ function start(id: number) {
   if (settings.open) settings.close();
   scene.setMission(state.mission);
   previousMode = "playing";
+  levelStarted();
   update();
 }
 function setPause(paused: boolean) {
@@ -340,6 +354,15 @@ function update() {
     if (m.id === saved.unlocked && m.id < 24) saved.unlocked++;
     save();
     audio.play("win");
+    if (st.stars > postedStars) {
+      postedStars = st.stars;
+      postToHost({
+        type: "level-complete",
+        level: m.id,
+        stars: st.stars,
+        durationMs: Math.round(performance.now() - levelStartedAt),
+      });
+    }
     ui.selected = null;
     $("stars").textContent = "★".repeat(st.stars) + "☆".repeat(3 - st.stars);
     $("stars").setAttribute("aria-label", st.stars + " מתוך 3 כוכבים");
@@ -610,6 +633,7 @@ window.addEventListener("keydown", (e) => {
     ui.hint = null;
     savedWin = false;
     scene.setMission(state.mission);
+    levelStarted();
     update();
   } else if (e.code === "KeyE" || e.code === "ArrowRight") {
     e.preventDefault();
@@ -684,6 +708,11 @@ function frame(now: number) {
   previous = now;
   if (assetsReady() && !state.reviewing) tick(state, dt);
   scene.render(state, ui, dt);
+  if (!hostReady && assetsReady()) {
+    hostReady = true;
+    postToHost({ type: "ready" });
+    levelStarted();
+  }
   audio.update(state.mode === "playing" && assetsReady());
   update();
   requestAnimationFrame(frame);

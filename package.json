@@ -11,7 +11,8 @@
     "test:legacy": "node --import tsx --test tests/*.test.ts",
     "test:first-minute": "node --import tsx tests/action/first-minute.ts",
     "test:routes": "node --import tsx --test tests/rebuild/*.test.ts",
-    "test:browser": "node --import tsx tests/action/browser.ts"
+    "test:browser": "node --import tsx tests/action/browser.ts",
+    "test:host": "node --import tsx tests/host-embed.mjs"
   },
   "dependencies": {
     "@fontsource/heebo": "5.2.8",
